@@ -5,6 +5,7 @@ import base64
 import json
 import shutil
 import re
+import runpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--linked', action='store_true', help='Reference assets/ instead of embedding images')
@@ -12,6 +13,7 @@ parser.add_argument('--output', type=Path, help='Output HTML path (default: inde
 args = parser.parse_args()
 
 root = Path(__file__).resolve().parent
+runpy.run_path(str(root / 'scripts/build-library.py'))
 themes = json.loads((root / 'src/themes.json').read_text())
 families = {'light': ('light', 'neutral'), 'burnt': ('light', 'warm'),
             'dark': ('dark', 'neutral'), 'dark-burnt': ('dark', 'warm')}
@@ -46,34 +48,40 @@ def font_url(match):
 fonts_css = re.sub(r"url\(['\"]?([^)'\"]+)['\"]?\)", font_url, fonts_css)
 shell = shell.replace('__FONTS_CSS__', fonts_css)
 
-cache = {}
 backgrounds = json.loads((root / 'src/backgrounds.json').read_text())
 if len({item['id'] for item in backgrounds}) != len(backgrounds):
     raise ValueError('Background IDs must be unique')
 for item in backgrounds:
-    source = item.get('image')
-    if source:
-        if not (root / source).is_file():
-            raise ValueError('Missing background: ' + source)
-        if not args.linked:
-            item['image'] = 'data:image/webp;base64,' + base64.b64encode((root / source).read_bytes()).decode()
-for theme in themes:
-    for key in ['atlas']:
-        source = theme[key]
-        if not args.linked:
-            if source not in cache:
-                cache[source] = 'data:image/webp;base64,' + base64.b64encode((root / source).read_bytes()).decode()
-            theme[key] = cache[source]
-markup = template.replace('__SCROLL_THEMES__', json.dumps(themes, ensure_ascii=False).replace('<', r'\u003c'))
-markup = markup.replace('__SURFACE_JS__', (root / 'src/surface.js').read_text())
-markup = markup.replace('__PAPERS_JS__', (root / 'src/papers.js').read_text())
-markup = markup.replace('__ENDINGS_JS__', (root / 'src/endings.js').read_text())
-markup = markup.replace('__SHADOW_JS__', (root / 'src/shadow.js').read_text())
-markup = markup.replace('__BACKGROUND_DATA__', json.dumps(backgrounds, ensure_ascii=False).replace('<', r'\u003c'))
-markup = markup.replace('__BACKGROUNDS_JS__', (root / 'src/backgrounds.js').read_text())
+    if item.get('image') and not (root / item['image']).is_file():
+        raise ValueError('Missing background: ' + item['image'])
+bundle = runpy.run_path(str(root / 'scripts/browser-bundle.py'))['bundle']()
+styles = (root / 'lib/styles.css').read_text().replace('@import "./assets.css";', (root / 'lib/assets.css').read_text())
+def texture_url(match):
+    source = root / match.group(1)
+    if args.linked:
+        url = source.relative_to(root).as_posix()
+    else:
+        url = 'data:image/webp;base64,' + base64.b64encode(source.read_bytes()).decode()
+    return 'url("' + url + '")'
+styles = re.sub(r'url\("\.\./([^"\)]+)"\)', texture_url, styles)
+markup = '<style>\n' + styles + '\n</style>\n' + template
+markup = markup.replace('__LIBRARY_JS__', bundle)
+markup = markup.replace('__DEMO_JS__', (root / 'src/demo.js').read_text())
+if not args.linked:
+    def illustration_url(match):
+        source = root / match.group(1)
+        return 'src="data:image/webp;base64,' + base64.b64encode(source.read_bytes()).decode() + '"'
+    markup = re.sub(r'src="(demo-assets/illustrations/[^"\s]+\.webp)"', illustration_url, markup)
 target = args.output.resolve() if args.output else root / 'index.html'
 target.parent.mkdir(parents=True, exist_ok=True)
 if args.linked and target.parent != root:
     shutil.copytree(root / 'assets', target.parent / 'assets', dirs_exist_ok=True)
+    shutil.copytree(root / 'demo-assets', target.parent / 'demo-assets', dirs_exist_ok=True)
 target.write_text(shell.replace('<!--__SCROLL_PAGE__-->', markup))
 print('Saved:', target)
+if args.linked and target.parent != root:
+    shutil.copytree(root / 'lib', target.parent / 'lib', dirs_exist_ok=True)
+    shutil.copytree(root / 'examples/vanilla', target.parent / 'examples/vanilla', dirs_exist_ok=True)
+    runpy.run_path(str(root / 'scripts/build-browser.py'))
+    if (root / 'dist/elder-scrolls-browser.zip').resolve() != (target.parent / 'elder-scrolls-browser.zip').resolve():
+        shutil.copy2(root / 'dist/elder-scrolls-browser.zip', target.parent / 'elder-scrolls-browser.zip')

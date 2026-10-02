@@ -1,0 +1,34 @@
+[
+  {
+    "name": "flying-pig",
+    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/flying-pig.webp",
+    "description": "A pink pig facing right has large gold feathered wings, a curled tail, and dangling legs.",
+    "width": 256,
+    "height": 256,
+    "bytes": 45056
+  },
+  {
+    "name": "snail",
+    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/snail.webp",
+    "description": "An orange-brown snail faces right with long feelers and a large brown spiral shell.",
+    "width": 256,
+    "height": 128,
+    "bytes": 30716
+  },
+  {
+    "name": "rabbit-reading-book",
+    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/rabbit-reading-book.webp",
+    "description": "A brown rabbit with tall ears and a wide white eye leans left over an open pale book, with a paw resting on the marked pages.",
+    "width": 256,
+    "height": 179,
+    "bytes": 38766
+  },
+  {
+    "name": "weird-dog",
+    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/weird-dog.webp",
+    "description": "A seated shaggy dog-like creature with a human-like bearded face.",
+    "width": 256,
+    "height": 210,
+    "bytes": 48370
+  }
+]

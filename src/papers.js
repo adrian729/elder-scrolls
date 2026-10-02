@@ -1,16 +1,14 @@
-/* Paper selection is independent of roll ornamentation. Load before surface.js.
-   create() also works in an app with its own mount/rendering lifecycle. */
-((global) => {
-  const families = Object.freeze([
+// Catalog resolver source; also used to generate lib/catalog.js.
+export const families = Object.freeze([
     Object.freeze({ id: 'light', label: 'Light paper', mode: 'light', tone: 'neutral' }),
     Object.freeze({ id: 'burnt', label: 'Warm / burnt paper', mode: 'light', tone: 'warm' }),
     Object.freeze({ id: 'dark', label: 'Dark neutral paper', mode: 'dark', tone: 'neutral' }),
     Object.freeze({ id: 'dark-burnt', label: 'Dark warm / burnt paper', mode: 'dark', tone: 'warm' })
   ]);
 
-  function create(themes) {
+export function createCatalog(themes) {
     const entries = themes.map(theme => Object.freeze({
-      ...theme, palette: Object.freeze({ ...theme.palette })
+      ...theme, bodyCrop: Object.freeze([...theme.bodyCrop]), rollCrop: Object.freeze([...theme.rollCrop]), palette: Object.freeze({ ...theme.palette })
     }));
     const byId = new Map(entries.map(theme => [theme.id, theme]));
     function get(id) {
@@ -37,5 +35,3 @@
     }
     return Object.freeze({ families, get, list, resolve });
   }
-  global.ParchmentPapers = Object.freeze({ families, create });
-})(globalThis);

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elder Scrolls — plain JavaScript example</title>
+<link rel="stylesheet" href="../../lib/styles.css">
+<style>
+  body { margin:0; padding:24px 8px; font:18px/1.6 Georgia,serif; }
+  nav { margin:0 auto 20px; max-width:900px; color:#fff; display:flex; flex-wrap:wrap; gap:12px; }
+  .es-parchment { margin-bottom:30px; }
+  .es-parchment h1 { font-size:2rem; }
+  .es-parchment a { color:var(--mr-link); }
+</style>
+<body>
+<nav><button id="add">Add content</button><button id="tone">Change paper</button><button id="endings">Change ends</button><button id="shadow">Toggle shadow</button><span id="status" role="status"></span></nav>
+<article id="page"><h1>Plain JavaScript, real HTML</h1><p>This content existed before mounting. The library preserves its DOM nodes, links, form values, and event listeners.</p><label>Your notes <input id="notes" value="A persistent note"></label><div id="sections"><p>The page grows as you add content. The browser scrolls the whole document.</p></div></article>
+<article id="second"><h1>A second parchment</h1><p>This sheet has its own SVG definitions, paper, endings, and shadow setting.</p></article>
+<script type="module">
+  import { createParchment, createTableSurface } from '../../lib/index.js';
+  const status = document.getElementById('status');
+  const table = createTableSurface(document.body, { surface:'walnut' });
+  const page = createParchment(document.getElementById('page'));
+  const second = createParchment(document.getElementById('second'), {paper:'rag-dark',top:'paper',bottom:'paper',shadow:false});
+  async function report(promise) { try { await promise; status.textContent='Ready'; } catch(error) { status.textContent=error.message; } }
+  report(Promise.all([page.ready, second.ready, table.ready]));
+  let dark=false, paper=false, shadow=true;
+  document.getElementById('add').onclick=()=>{ const p=document.createElement('p');p.textContent='More ordinary HTML content. '.repeat(25);document.getElementById('sections').append(p); };
+  document.getElementById('tone').onclick=()=>report(page.update({paper:(dark=!dark)?'ivory-dark':'ivory'}));
+  document.getElementById('endings').onclick=()=>report(page.update({top:(paper=!paper)?'paper':'roll',bottom:paper?'paper':'roll'}));
+  document.getElementById('shadow').onclick=()=>report(page.update({shadow:shadow=!shadow}));
+  // On route teardown: page.destroy(); second.destroy(); table.destroy();
+</script>
+</body>
+</html>

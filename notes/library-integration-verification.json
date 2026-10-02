@@ -1,0 +1,241 @@
+{
+  "package": "@ranx729/elder-scrolls",
+  "version": "0.1.0",
+  "initialSelectedImages": 3,
+  "vanillaMatrix": 32,
+  "responsive": [
+    {
+      "kind": "vanilla",
+      "width": 320,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 289,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 289,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 289,
+          "topHeight": 56,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "kind": "vanilla",
+      "width": 375,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 344,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 344,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 344,
+          "topHeight": 56,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "kind": "vanilla",
+      "width": 768,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 737,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 737,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 737,
+          "topHeight": 56,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "kind": "vanilla",
+      "width": 1920,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 900,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 900,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 1889,
+          "topHeight": 56,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "kind": "react-production",
+      "width": 320,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 289,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 289,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "kind": "react-production",
+      "width": 375,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 344,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 344,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "kind": "react-production",
+      "width": 997,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 900,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 900,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    },
+    {
+      "kind": "react-production",
+      "width": 1920,
+      "overflow": false,
+      "unique": true,
+      "sheets": [
+        {
+          "width": 900,
+          "topHeight": 100,
+          "bottomHeight": 100,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        },
+        {
+          "width": 900,
+          "topHeight": 56,
+          "bottomHeight": 56,
+          "aligned": true,
+          "filled": true,
+          "internal": false
+        }
+      ]
+    }
+  ],
+  "contentHeight": 50000,
+  "inputIdentity": true,
+  "latestRequestWins": true,
+  "cleanup": true,
+  "recovery": true,
+  "reactProduction": true,
+  "reactDevelopmentStrictMode": true,
+  "hydration": true,
+  "errors": []
+}

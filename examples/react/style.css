@@ -1,0 +1,5 @@
+body { margin:0; font:18px/1.6 Georgia,serif; }
+.es-table { min-height:100vh; padding:24px 8px; }
+nav { margin:0 auto 20px; max-width:900px; color:#fff; display:flex; flex-wrap:wrap; gap:12px; }
+.es-parchment { margin-bottom:30px; }
+.es-parchment h1 { font-size:2rem; }

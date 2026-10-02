@@ -2,9 +2,9 @@
 
 Try the [live demo](https://adrian729.github.io/elder-scrolls/), or build `index.html` locally for the offline demo. It starts with Ivory vellum, Medium content (five sections), original rolls at both ends, and a responsive 900px maximum page width. Choose top and bottom independently from **Original roll** and **Paper**, for any of the eight papers. It opens on dark walnut; **Surface beneath paper** offers aged oak, dark walnut, honed marble, or a plain background independently of the paper. Content uses normal HTML and browser document scrolling.
 
-This is the main guide for the implementation. Start with [using the demo](#using-the-demo), then [building](#build-and-extend) or [integrating real content](#integrating-real-content-into-an-application). The historical [plan](../notes/responsive-texture-plan.md), [generation prompts](../notes/tiled-art-prompts.json), [functional checks](../notes/tiled-verification.json), and [long-page check](../notes/tiled-stress.json) provide supporting detail.
+This is the main guide for the implementation. Start with [using the demo](#using-the-demo), then [building](#build-and-extend) or the [application integration guide](INTEGRATION.md). The historical [plan](../notes/responsive-texture-plan.md), [generation prompts](../notes/tiled-art-prompts.json), [functional checks](../notes/tiled-verification.json), and [long-page check](../notes/tiled-stress.json) provide supporting detail.
 
-All eight photographic atlases remain unchanged. Original rolls retain their complete matching artwork. The new `src/endings.js` module replaces a whole cap with a shaped continuation of the selected paper. It does not split or recombine wooden parts. See [paper-ending checks](../notes/paper-endings-verification.json) for this revision; older restoration notes describe the preserved baseline.
+All eight photographic atlases remain unchanged. Original rolls retain their complete matching artwork. The new `lib/endings.js` module replaces a whole cap with a shaped continuation of the selected paper. It does not split or recombine wooden parts. See [paper-ending checks](../notes/paper-endings-verification.json) for this revision; older restoration notes describe the preserved baseline.
 
 ## Using the demo
 
@@ -53,51 +53,15 @@ The families describe **paper color**, independently of the end-design metadata:
 
 `src/themes.json` is the catalog. Each entry carries `mode`, `tone`, `family`, `pair`, `counterpart`, and `ends`. For example, `rag` and `rag-dark` share `pair: "rag"` and `ends: "walnut-round"`. `palette` supplies suggested `surface`, `ink`, `muted`, and `link` colors. The renderer applies these as `--mr-surface`, `--mr-ink`, `--mr-muted`, and `--mr-link`; it sets `--mr-scheme` and the root's `data-mode`, `data-tone`, and `data-family` attributes too. The demo uses the Polyhymnia font roles described below; applications can replace those typography rules independently. The colors are starting points for the preview, not a contrast certification for every textured pixel or for your final UI.
 
-For application selection, load `src/papers.js` as a classic script before the initializer. The build embeds it automatically. It defines a small catalog factory; it does not load images or render content:
+The library exports the catalog directly:
 
 ```js
-const catalog = ParchmentPapers.create(
-  JSON.parse(document.getElementById('mr-theme-data').textContent)
-);
-
-catalog.list({ family: 'dark-burnt' }); // Both warm dark options.
-catalog.list({ mode: 'dark', tone: 'neutral' }); // Both neutral dark options.
-catalog.get('rag-dark'); // A specific paper, including palette and geometry.
-catalog.resolve({ mode: 'dark', tone: 'warm' }); // Default: original-dark.
-catalog.resolve({ paper: 'rag', mode: 'dark' }); // Keeps the material: rag-dark.
-catalog.resolve({ paper: 'rag-dark', mode: 'light' }); // Returns rag.
+import { papers } from '@ranx729/elder-scrolls';
+papers.list({ family: 'dark-burnt' });
+papers.resolve({ paper: 'rag', mode: 'dark' }); // rag-dark
 ```
 
-`resolve()` accepts only `light`/`dark` modes and `neutral`/`warm` tones. Omitted mode/tone come from the preferred paper, or default to light/neutral. It retains the preferred material's `pair` when available in the requested family; otherwise it uses that family's first entry. Unknown paper IDs or invalid mode/tone values throw an error. `list()` returns all matching entries, or an empty array. Neither method changes the page.
-
-To apply a resolved paper in the demo, or in the application adaptation below:
-
-```js
-const chosen = catalog.resolve({ paper: 'rag', mode: 'dark' });
-document.getElementById('manuscript-realistic').dispatchEvent(
-  new CustomEvent('parchment-theme', { detail: chosen.id })
-);
-```
-
-For a system-controlled application, turn the media preference into an explicit resolver mode. Install this after the application initializer and remove the media listener when the component unmounts:
-
-```js
-const preference = matchMedia('(prefers-color-scheme: dark)');
-const scrollRoot = document.getElementById('manuscript-realistic');
-function applyPreferredMode() {
-  const chosen = catalog.resolve({
-    paper: scrollRoot.dataset.theme || 'rag',
-    mode: preference.matches ? 'dark' : 'light',
-    tone: 'warm'
-  });
-  scrollRoot.dispatchEvent(new CustomEvent('parchment-theme', { detail: chosen.id }));
-}
-preference.addEventListener('change', applyPreferredMode);
-applyPreferredMode();
-// On unmount: preference.removeEventListener('change', applyPreferredMode);
-```
-
-This application example intentionally keeps following the system; your application decides whether a manual choice should disable it. The demo's `mode=auto` behavior does disable following after a manual choice. For a user-controlled mode or a contextual surface, pass that mode and tone directly to `resolve()` instead.
+`resolve()` preserves the material pair when possible; otherwise it chooses the first matching entry. It does not load artwork or change the page. Use `page.update({paper: chosen.id})` in vanilla JavaScript, or pass the ID as the React component's `paper` prop. See [choosing paper tones](INTEGRATION.md#choosing-paper-tones) for the complete API. System-mode following is demo behavior; applications should use their existing theme state.
 
 ## Demo typography
 
@@ -115,7 +79,9 @@ The example uses the same font roles, Junicode alternates, and raised illuminate
 
 The title's frame is `aria-hidden` and excluded from selection; its letter is real text. Use the initial layers only for uppercase A–Z, the range carried by the app's subset; leave other leading characters in Texturina. Junicode alternates are reset for headings, small caps, initials, and mono. The initial colors follow the selected paper's light/dark mode. Text fills the available width inside the responsive paper margins and reflows as the parchment grows or shrinks. There is no fixed-width centered text column; choosing a page-width maximum also limits the text width. Font sizes remain legible rather than scaling with the sheet.
 
-Typography is optional application styling. To reuse it, include `src/fonts.css` (or the built declarations), retain its font assets, and keep the typography rules from the template. The CSS file's font URLs resolve relative to that CSS file; built inline URLs resolve relative to the HTML. To replace it, change the `--mr-font-*` tokens and remove the decorative initial markup/rules as desired; the paper renderer has no font-family dependency. Keep the body ResizeObserver so late font loading can update the endings and shadow.
+Typography is optional application styling. Import `@ranx729/elder-scrolls/typography.css` and add `es-typography` to the parchment root to opt into the supplied font roles. The CSS file's font URLs resolve relative to that CSS file; built inline URLs resolve relative to the HTML. To replace it, change the `--mr-font-*` tokens and remove the decorative initial markup/rules as desired; the paper renderer has no font-family dependency. Keep the body ResizeObserver so late font loading can update the endings and shadow.
+
+Demo prose uses justified alignment with automatic hyphenation and a start-aligned final line. Decorative cutouts from [medieval-cutouts](https://github.com/adrian729/medieval-cutouts) appear in the introduction, notes, and closing ornament; the weird dog remains in the footer for every content length. Illustrations use small lossless WebP files, transparent backgrounds, explicit dimensions, and responsive positioning. They are demo content, excluded from the npm library. See [illustration sources](../demo-assets/illustrations/README.md).
 
 All font software retains **SIL Open Font License 1.1**, separately from this project's MIT code/artwork license. [Font credits](../assets/fonts/README.md) link to each bundled license text.
 
@@ -140,7 +106,7 @@ The table describes the original roll rendering. Grain, roll thickness, and wood
 
 ## Renderer and matching artwork
 
-`src/surface.js` creates a small fixed SVG structure around live HTML. Each material has one shared `<image>` definition and native SVG crop/`use`/`pattern` references. No raster slicing or bitmap retouching is performed by the build. The same decoded artwork supplies the paper, side edges, original rolls, and the interiors of the new paper endings. This avoids embedding the full image separately for each piece.
+`lib/renderer.js` creates a small fixed SVG structure around live HTML. Each material has one shared `<image>` definition and native SVG crop/`use`/`pattern` references. No raster slicing or bitmap retouching is performed by the build. The same decoded artwork supplies the paper, side edges, original rolls, and the interiors of the new paper endings. This avoids embedding the full image separately for each piece.
 
 The paper sample is mirrored in both axes. The edge samples mirror vertically; the roll center mirrors horizontally. Mirrored neighbors meet at the same sampled boundary. This is a deliberate repeating-material construction, not a claim that generated art is inherently seamless. The quiet center reduces obvious repeating stains, but repeated motifs and mirror symmetry can still be noticed on close inspection.
 
@@ -190,45 +156,7 @@ The surfaces were generated with the built-in image generation tool and converte
 
 The three compressed surfaces total **1,390,404 bytes**. A selected texture represents 6,290,064 bytes of raw RGBA pixel data if decoded to four channels; that is arithmetic, not a measurement of full browser graphics memory. Browsers may cache previously selected images and paint surfaces. The linked build initially requests one paper atlas and one background; unselected textures are not prefetched by the script. The embedded build includes all three textures in its HTML regardless of selection. Prefer linked, cacheable assets in a real application.
 
-To integrate the background without the demo toolbar, load `src/backgrounds.js` as a classic script and supply the catalog from `src/backgrounds.json`. The demo adapter skips initialization when the matching selector is absent. Apply this CSS to the document root (the shell already includes it):
-
-```css
-:root {
-  background-color: var(--workspace-color, #282925);
-  background-image: var(--workspace-image, none);
-  background-size: var(--workspace-size, auto);
-  background-repeat: repeat;
-  background-attachment: scroll;
-}
-```
-
-With the built template’s `mr-background-data` JSON script retained:
-
-```js
-const catalog = JSON.parse(
-  document.getElementById('mr-background-data').textContent
-);
-const backgrounds = ParchmentBackgrounds.create(document.documentElement, catalog);
-await backgrounds.set('oak');
-await backgrounds.set('marble'); // Paper and end choices stay as selected.
-await backgrounds.set('plain'); // Removes the texture; uses its fallback color.
-```
-
-In a deployed app you can instead load the catalog through your bundler or server. Linked catalog URLs resolve against the HTML page URL. On nested routes, map them to your static assets before creating the controller, for example:
-
-```js
-for (const item of catalog) {
-  if (item.image && !item.image.startsWith('data:')) {
-    item.image = new URL('/scroll/' + item.image, location.href).href;
-  }
-}
-```
-
-`set(id)` waits for image decoding before replacing the visible surface and resolves `true` when applied. A later request supersedes an earlier one; the superseded request resolves `false`. Unknown IDs and decode failures reject. On load failure, the existing background remains visible (or the initial CSS fallback). Handle rejected promises in your application. `destroy()` invalidates an outstanding decode request; the controller attaches no event listeners. Remove any selector listeners your application adds when unmounting.
-
-To add another surface, place its repeatable WebP in `assets/` and add an entry with a unique ID, label, image path, fallback color, and positive square `tileSize` in CSS pixels. Rebuild the same `index.html`. Check its actual repeats in both axes at mobile and desktop widths before treating it as final artwork.
-
-[Background checks](../notes/background-verification.json) record responsive layout, independence from paper selection, unchanged paper rendering, rapid selection, native document scrolling, and selected-only loading in the linked build. These checks do not establish real-device FPS or certify Firefox/Safari.
+Applications use `createTableSurface(element, {surface:'walnut'})` or React's `<TableSurface surface="walnut">`. The helper decorates the explicit container rather than assuming document ownership. CSS handles repetition; decoding and request guards handle updates. See [integration](INTEGRATION.md) for setup and cleanup.
 
 ## Optional contact shadow
 
@@ -238,19 +166,9 @@ A small shadow is rendered from the decoration’s alpha (transparency), followi
 
 The long body is **not filtered**. Its left/right shadows are native repeating patterns whose pattern periods are 56×384 CSS px and filter regions are limited to 56×400 CSS px (including vertical guard samples), using the same photographic edge alpha as the body. Each input includes extra vertical samples so blurring at a repeat boundary does not create a stripe. Top/bottom caps use their existing SVG artwork through `use` references and receive independent local filters, with 8px of extra room around each cap. Original rolls retain their existing join fade in the shadow source. This avoids a filter region spanning the entire document.
 
-`src/endings.js` emits `parchment-surface-layout` when it rebuilds the ends after a paper/style/width/content-height change. `ParchmentShadow` listens to that event, so it needs no additional ResizeObserver or scroll listener. It creates three decorative pieces, reuses the existing atlas/patterns, and adds no image download. The long body still requires ordinary painting, and native filters/paint caches use browser resources; these bounds do not establish a universal FPS or graphics-memory guarantee.
+`lib/endings.js` emits `parchment-surface-layout` when it rebuilds the ends after a paper/style/width/content-height change. The internal shadow controller listens to that event, so it needs no additional ResizeObserver or scroll listener. It creates three decorative pieces, reuses the existing atlas/patterns, and adds no image download. The long body still requires ordinary painting, and native filters/paint caches use browser resources; these bounds do not establish a universal FPS or graphics-memory guarantee.
 
-For application integration, load `src/shadow.js`, retain the scoped shadow CSS from `template.html`, and create the controller after mounting the markup **before the first `endings.setPaper(theme)` call**:
-
-```js
-const shadow = ParchmentShadow.create(root, { enabled: true });
-shadow.setEnabled(false);
-shadow.setEnabled(true);
-// On unmount:
-shadow.destroy();
-```
-
-The full application initializer below includes this controller. If an application omits shadows entirely, omit the controller and its script. Only one parchment instance per document is supported by the current shared SVG IDs, including shadow IDs. The controller removes its listener and added layer on `destroy()`.
+The public API handles the shadow controller automatically. Set `shadow: false` through `page.update()` or React props to hide it. Each instance has its own SVG ID namespace; multiple parchments and their shadows can share a document. Destroying an instance removes its event listener, generated layers, and layout observer.
 
 [Shadow checks](../notes/contact-shadow-verification.json) cover on/off layout, all paper/end artwork with shadows disabled, changes made while disabled, long-page filter bounds, and native scrolling. Browser screenshots were reviewed on wood/marble and at fractional display density.
 
@@ -273,7 +191,7 @@ Each is 1254×1254 RGBA. Exact final prompts, source paths, and tool mode are in
 
 ## Build and extend
 
-Run `python3 build.py` from the project root. It writes `index.html`, embedding each atlas once. Use `--linked` for adjacent external assets; it writes the same entry point. A real app should normally use cacheable external assets. The embedded demo contains all eight paper atlases and three backgrounds and is approximately 9.39MB including embedded fonts; a linked app initially loads only the selected paper atlas and surface.
+Run `python3 build.py` from the project root. It writes `index.html`, embedding each atlas once. Use `--linked` for adjacent external assets; it writes the same entry point. A real app should normally use cacheable external assets. The embedded demo contains all eight paper atlases and three backgrounds and is approximately 9.62MB including embedded fonts; a linked app initially loads only the selected paper atlas and surface.
 
 The builder requires Python 3 and its standard library only; Pillow and the image-generation tool are not needed to rebuild existing assets. No npm install or bundler is required. From this repository's root:
 
@@ -289,129 +207,17 @@ To build a separate deployment directory, run `python3 build.py --linked --outpu
 
 Both commands overwrite the **same** root `index.html`. Rebuild without `--linked` to restore the self-contained version. Generated HTML is ignored by Git; edit the source and rebuild. Edit the source files and rebuild; edits made only to generated `index.html` are lost on the next build.
 
-For deployment, an embedded build needs only `index.html`. A linked build needs `index.html` and the complete adjacent `assets/` directory. A relative URL such as `assets/sage-material-atlas.webp` resolves against the **HTML page URL**, not the JavaScript file's location. Keep that directory structure when serving the standalone page.
+For deployment, an embedded build needs only `index.html`. A linked demo needs `index.html`, `assets/`, and `demo-assets/`. The deployment builder also includes `lib/`, the plain-JavaScript example, and the browser ZIP. A relative URL such as `assets/sage-material-atlas.webp` resolves against the **HTML page URL**, not the JavaScript file's location. Keep that directory structure when serving the standalone page.
 
-`src/template.html` holds the HTML/CSS, `src/surface.js` the pattern construction and controls, `src/endings.js` the plain paper cap renderer, `src/papers.js` the mode/tone resolver, `src/themes.json` the catalog and crop geometry, and `src/shell.html` the document shell and CSS workspace background; `src/backgrounds.json` and `src/backgrounds.js` hold the surface catalog and selector/API; `src/shadow.js` supplies the optional contact shadow. The builder validates unique IDs, complete palettes, family/mode/tone consistency, reciprocal light/dark pairs, existing assets, and at least two options per family, along with unique background IDs and existing background assets, before writing the output.
+`src/template.html` and `src/demo.js` hold demo content, typography, controls, and URL behavior. `lib/renderer.js`, `lib/endings.js`, and `lib/shadow.js` preserve the fixed-scale artwork pipeline. `lib/core.js` supplies mounting, scoped IDs, loading, updates, and cleanup; `lib/react.js` is its optional React adapter. `lib/styles.css` contains scoped geometry; `lib/typography.css` is optional. `scripts/build-library.py` generates the catalog and CSS asset declarations from `src/themes.json` and `src/backgrounds.json`. `src/shell.html` holds the standalone document shell. The builder validates unique IDs, complete palettes, family/mode/tone consistency, reciprocal light/dark pairs, existing assets, and at least two options per family, along with unique background IDs and existing background assets, before writing the output.
 
 To add a material or a roll design, prepare one matching atlas, inspect its actual dimensions and silhouette, and add an entry with calibrated crop coordinates. Do not assume a new generated image will align with the existing crops. A different roll design in the same material is another coordinated kit; its paper sample can be shared in a future separate-asset manifest if needed. Original roll selection binds complete compatible sets. Plain paper endings reuse each selected atlas directly and therefore need no additional matching color artwork. Atlas decoding finishes before a coordinated theme swap, with a request guard for fast changes.
 
 ## Integrating real content into an application
 
-The supplied `surface.js` is a self-running **demo renderer**, not an exported rendering component. Its initialization expects the toolbar and replaces `.mr-sections` with cloned placeholder sections. Simply deleting the toolbar or inserting app content while retaining that initialization will either break its element lookups or replace your content. The separate `ParchmentPapers` catalog and `ParchmentEndings` APIs are reusable without those controls. Load `src/endings.js` as a classic script before your initializer to use the paper endings. Load `src/shadow.js` before the initializer to include the optional shadow shown below.
+Use the [application integration guide](INTEGRATION.md) for plain JavaScript, React, plain HTML, all public options, automatic asset handling, typography, and cleanup. The renderer no longer requires extracting functions or copying internal markup. The demo uses the same `createParchment()` and `createTableSurface()` public APIs as consumers.
 
-Use this extraction procedure for a real app:
-
-1. Copy the geometry CSS from `src/template.html`, or retain its entire first `<style>` block initially. It is scoped to `#manuscript-realistic`. Keep the sizing, masks, stacking order, and `pointer-events` rules; customize typography separately.
-2. Retain the `main.mr-scroll` structure shown below inside the root. Replace `.mr-content` with your application's actual content. You can omit the demo header, `.mr-sections`, footer, and toolbar.
-3. Copy **only the `function surface(theme) { ... }` definition** from `src/surface.js` into your application initializer. It closes over `root`; define that variable as shown in the initializer below. Do not copy the demo's section cloning, length controls, width controls, or startup `setLength()` call.
-4. Supply the theme array from `src/themes.json`, either through your bundler/server or as the `mr-theme-data` JSON script. The initializer below assumes that JSON script is already populated. The existing builder fills the `__SCROLL_THEMES__` token when you retain that script in the template.
-5. Run the initializer after the markup is mounted. An application with client-side routing should initialize on mount, not only once when the document first loads. The extracted original surface function does not attach resize or scroll listeners. Loading `endings.js` adds one body ResizeObserver, which must be disconnected on unmount with `endings.destroy()`. The optional shadow controller listens to its layout event and must also be released with `shadow.destroy()`. If you use its optional material-switch listener, retain its callback and remove it when unmounting; do the same for any optional system-mode listener you add.
-
-For a standalone document, retain the shell's `<!doctype html>`, UTF-8 charset, and `<meta name="viewport" content="width=device-width,initial-scale=1">`. The viewport tag is necessary for mobile browsers to use the actual device width. The shell's background and outer gutters are optional application styling.
-
-The required structural HTML is:
-
-```html
-<div id="manuscript-realistic">
-  <main class="mr-scroll">
-    <svg class="mr-definitions" width="0" height="0"
-         aria-hidden="true" focusable="false"><defs></defs></svg>
-    <div class="mr-cap mr-top" aria-hidden="true"></div>
-    <div class="mr-body">
-      <div class="mr-texture" aria-hidden="true"></div>
-      <div class="mr-content">
-        <!-- Your normal HTML or framework-rendered content goes here. -->
-      </div>
-    </div>
-    <div class="mr-cap mr-bottom" aria-hidden="true"></div>
-  </main>
-</div>
-<script type="application/json" id="mr-theme-data">__SCROLL_THEMES__</script>
-```
-
-Use the following initializer **with the copied `surface(theme)` function in its indicated position**. This is an application adaptation, not an API already exposed by the current demo:
-
-```js
-(() => {
-  const root = document.getElementById('manuscript-realistic');
-  const themes = JSON.parse(document.getElementById('mr-theme-data').textContent);
-  let request = 0;
-
-  // Paste function surface(theme) { ... } from src/surface.js here, unchanged.
-  const endings = ParchmentEndings.create(root, {
-    top: 'paper', bottom: 'paper'
-  });
-  const shadow = ParchmentShadow.create(root, { enabled: true });
-
-  async function setPaper(id) {
-    const theme = themes.find(item => item.id === id);
-    if (!theme) throw new Error('Unknown parchment theme: ' + id);
-    const version = ++request;
-    const main = root.querySelector('main');
-    main.setAttribute('aria-busy', 'true');
-    try {
-      const image = new Image();
-      image.src = theme.atlas;
-      await image.decode();
-      if (version !== request) return;
-      surface(theme);
-      endings.setPaper(theme); // Call immediately after rebuilding the original surface.
-      root.dataset.theme = theme.id;
-    } finally {
-      if (version === request) main.setAttribute('aria-busy', 'false');
-    }
-  }
-
-  // Optional application-controlled material switch.
-  root.addEventListener('parchment-theme', event => {
-    setPaper(event.detail).catch(console.error);
-  });
-  setPaper('ivory').catch(console.error);
-})();
-```
-
-In that adaptation, switch the material with:
-
-```js
-document.getElementById('manuscript-realistic').dispatchEvent(
-  new CustomEvent('parchment-theme', { detail: 'ivory' })
-);
-```
-
-Within that initializer, change endings without changing the paper:
-
-```js
-endings.setOptions({ top: 'default', bottom: 'paper' });
-endings.setOptions({ bottom: 'default' }); // Omitted top stays unchanged.
-```
-
-Accepted values are `default` and `paper`. Invalid values throw before changing either selection. The standalone module defaults both to `default`; the application initializer above explicitly chooses paper at both ends; the demo starts with original rolls. `setPaper(theme)` captures the original roll markup, so always call `surface(theme)` immediately before it, including on material changes. Do not call it again merely to change end styles. Call `shadow.destroy()` and `endings.destroy()` on component unmount, and remove any application event listeners you added.
-
-Set a maximum width on the root; use `none` for fluid width:
-
-```css
-#manuscript-realistic { --mr-width: 1100px; }
-```
-
-No refresh call is needed when content changes. Append or render content inside `.mr-content`; its height determines the body and bottom roll position. Avoid giving `.mr-body` or `.mr-content` a fixed height or `overflow-y: auto`. For very wide tables, code blocks, or media, apply normal responsive layout within the content, for example `max-width: 100%` on images and `overflow-wrap: anywhere` where appropriate.
-
-Remove the template's final `:not([data-theme]) .mr-scroll { visibility:hidden; }` rule in this application adaptation. That rule is a demo loading treatment and would hide real content when artwork cannot load. A simple readable loading/error fallback is:
-
-```css
-#manuscript-realistic:not([data-theme]) .mr-body { background: #eee4cc; }
-```
-
-For linked assets on nested application routes, map the theme URLs to your static-asset location **in the application initializer**, before calling `setPaper`. For example, if the files live under `/scroll/assets/`:
-
-```js
-for (const theme of themes) {
-  if (!theme.atlas.startsWith('data:')) {
-    theme.atlas = new URL('/scroll/' + theme.atlas, location.href).href;
-  }
-}
-```
-
-Keep source-manifest atlas paths relative if using the existing embedded builder: it interprets them as local file paths. In a framework, manage only `.mr-content` with framework rendering and let this renderer own the decorative containers. Its generated IDs (`mr-atlas`, pattern IDs, and mask IDs) are document-wide, so the unchanged renderer supports **one scroll per document**. Multiple simultaneous scroll instances require unique root and SVG IDs and corresponding reference changes. The standalone build uses inline CSS/JavaScript and, by default, data-image URLs; a deployment with a restrictive content policy needs compatible nonces/hashes or an adaptation to external CSS/JavaScript and linked assets.
+The core has no runtime dependencies. React is an optional peer dependency, isolated behind the `/react` entry point. Multiple instances use distinct SVG namespaces. Server imports are safe; React owns a stable content subtree while the renderer updates only decorative slots.
 
 ## Crop-setting reference
 
@@ -445,6 +251,8 @@ When adding artwork, ensure every crop fits the source, allowing for the oversca
 
 ## Verification and limits
 
+The current library is checked from an actual npm archive in isolated vanilla and React/Vite consumers: paper/end combinations, responsive widths, content growth, DOM/input preservation, rapid updates, teardown/remount, failed-load recovery, React development Strict Mode, server rendering/hydration, and production asset paths beneath a subdirectory. See [library checks](../notes/library-integration-verification.json).
+
 Current options are limited to plain paper and the original roll. [Option-removal checks](../notes/paper-scroll-options-verification.json) verify all eight papers, both choices for each end, responsive layout, and unchanged plain-paper/original-roll artwork. The earlier [paper-ending verification](../notes/paper-endings-verification.json) records the initial 180-combination checks, including an experimental shape that has since been removed. Its content-growth, fractional-density join, and scroll checks remain historical evidence for the shared renderer.
 
 The earlier paper-ending application extraction was checked without demo controls: custom content remained, content growth moved the ending, theme changes preserved end choices, invalid choices were rejected without changing state, and `destroy()` disconnected layout updates. The linked build, demo startup, and 640px maximum width were also checked. [Application checks](../notes/paper-ending-app-verification.json) record these results. These checks do not measure real-device graphics memory or FPS.
@@ -459,7 +267,7 @@ This is not a real-device performance benchmark or Firefox/Safari certification.
 
 The eight-paper catalog also passed the six-width Chromium matrix, with four groups of two options, unchanged fixed dimensions and 78 decorative descendants. Mode/tone selection, reciprocal material pairs, automatic system-mode changes, manual override, explicit-theme precedence, rapid switching, native anchors, and appended content were checked. The linked build fetched one atlas initially and loaded all eight on selection. The updated application extraction retained custom HTML and applied a dark counterpart and its palette while preserving content-driven height and maximum width. Results are in [../notes/paper-tone-verification.json](../notes/paper-tone-verification.json). Earlier stress figures above describe the four-paper renderer; no new real-device FPS or graphics-memory benchmark is implied.
 
-For performance planning, distinguish transfer size, decoded images, paint surfaces, and application content. All eight compressed atlases total **2,901,094 bytes** before HTML/base64 overhead; the current embedded HTML, including background textures and bundled fonts, is approximately **9.39MB**. One decoded RGBA atlas is **6,290,064 bytes**; that arithmetic is not a measurement of the browser's full graphics memory. The demo's JavaScript decoding map and browser caches may retain previously selected materials, so visiting eight can retain more decoded artwork than visiting four. Only the selected image is initially decoded by the script; the embedded file still transfers all eight. A linked build can fetch only the selected material. The family resolver does not fetch or preload anything. Longer pages still contain more real HTML, and larger visible areas still require painting even though the decorative structure stays fixed.
+For performance planning, distinguish transfer size, decoded images, paint surfaces, and application content. All eight compressed atlases total **2,901,094 bytes** before HTML/base64 overhead; the current embedded HTML, including background textures and bundled fonts, is approximately **9.62MB**. One decoded RGBA atlas is **6,290,064 bytes**; that arithmetic is not a measurement of the browser's full graphics memory. The demo's JavaScript decoding map and browser caches may retain previously selected materials, so visiting eight can retain more decoded artwork than visiting four. Only the selected image is initially decoded by the script; the embedded file still transfers all eight. A linked build can fetch only the selected material. The family resolver does not fetch or preload anything. Longer pages still contain more real HTML, and larger visible areas still require painting even though the decorative structure stays fixed.
 
 Use the linked build and cacheable assets for an app; avoid preloading every material unless the UX needs it. Keep the local edge/cap masks local when customizing. Large blur filters, full-page masks, forced compositing, animation, or a full-document canvas would introduce costs that this implementation has not measured. Test Firefox, Safari, a representative phone, display zoom, and the application's actual content before setting a production performance budget.
 
@@ -468,11 +276,11 @@ Use the linked build and cacheable assets for an app; avoid preloading every mat
 | Symptom | Check |
 | --- | --- |
 | Artwork unavailable / blank demo surface | The linked `assets/` folder may be missing or the route may resolve its URLs incorrectly. Inspect the image request and status text, or rebuild with embedded assets. |
-| Raw `__SCROLL_THEMES__`, `__PAPERS_JS__`, or `__SURFACE_JS__` text | You opened the source template or deployed an unbuilt file. Run the builder and use `index.html`. |
-| Content disappears or gets duplicated | The demo's `setLength()`/cloning initialization is still running on app content. Follow the extraction procedure. |
+| Raw `__LIBRARY_JS__` or `__DEMO_JS__` text | You opened the source template or deployed an unbuilt file. Run the builder and use `index.html`. |
+| Content disappears or gets duplicated | Use the library API in applications rather than the demo initializer. The React wrapper retains ownership of children. |
 | Rolls grow when resizing | A width-dependent image size, aspect ratio, or transform has been reintroduced. Cap/end sizes should follow the fixed manifest values. |
 | Rectangular paper fills torn margins | The field's inset no longer overlaps the inner part of the edge sample correctly. Check `coreInset`, `edgeX`, and `edgeWidth`. |
 | Thin lines appear between repeats | Preserve the overscan, roll guard, and edge-local viewports; check at fractional screen density as well as 1x. |
-| Two scrolls interfere with each other | The unchanged renderer shares document-wide SVG IDs. Give each component its own complete ID namespace. |
+| Artwork URL missing | Load `styles.css` before mounting, or supply an `assetsBase` containing the original texture filenames. |
 
-Use Git commits for history and regression comparisons. There are no `current/` or `prev/` snapshot directories in this repository. Make changes in `src/`, rebuild, and check narrow/wide layouts and content growth before committing.
+Use Git commits for history and regression comparisons. There are no `current/` or `prev/` snapshot directories in this repository. Make changes in `lib/` or `src/`, rebuild, and check narrow/wide layouts and content growth before committing.

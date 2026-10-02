@@ -1,0 +1,19 @@
+@import "./assets.css";
+.es-parchment { --mr-width:900px; --mr-ink:#322b22; --mr-muted:#5a5043; --mr-link:#563916; --mr-surface:#e8e0ce; --mr-scheme:light; --es-ink:var(--mr-ink); --es-muted:var(--mr-muted); --es-link:var(--mr-link); --es-paper-surface:var(--mr-surface); --es-content-gutter:clamp(14px,3vw,40px); --es-content-block-padding:28px; --mr-cap-height:100px; --mr-overlap:30px; --mr-paper-inset:42px; }
+.es-parchment :where(.mr-scroll,.mr-cap,.mr-body,.mr-content,.mr-texture,.mr-contact-shadow,.mr-shadow-piece) { box-sizing:border-box; }
+.es-parchment .mr-scroll { position:relative; isolation:isolate; width:100%; max-width:var(--mr-width); margin:0 auto; }
+.es-parchment .mr-contact-shadow { position:absolute; inset:0; z-index:-1; pointer-events:none; }
+.es-parchment[data-shadow="off"] .mr-contact-shadow { display:none; }
+.es-parchment .mr-shadow-piece { position:absolute; left:0; width:100%; }
+.es-parchment .mr-shadow-piece>svg { display:block; width:100%; height:100%; overflow:visible; }
+.es-parchment .mr-definitions { position:absolute; overflow:hidden; pointer-events:none; }
+.es-parchment .mr-cap { position:relative; width:100%; pointer-events:none; z-index:2; }
+.es-parchment .mr-cap>svg { display:block; width:100%; height:100%; overflow:hidden; }
+.es-parchment .mr-top { height:var(--mr-top-height,var(--mr-cap-height)); margin-bottom:calc(-1 * var(--mr-top-overlap,var(--mr-overlap))); mask-image:linear-gradient(to bottom,#000 calc(100% - var(--mr-overlap)),transparent); }
+.es-parchment .mr-bottom { height:var(--mr-bottom-height,var(--mr-cap-height)); margin-top:calc(-1 * var(--mr-bottom-overlap,var(--mr-overlap))); mask-image:linear-gradient(to bottom,transparent,#000 var(--mr-overlap)); }
+.es-parchment .mr-cap[data-style="paper"] { mask-image:none; }
+.es-parchment .mr-body { position:relative; padding:0 calc(var(--mr-paper-inset) + var(--es-content-gutter)); color:var(--mr-ink); }
+.es-parchment .mr-texture { position:absolute; inset:0; pointer-events:none; }
+.es-parchment .mr-texture>svg { display:block; width:100%; height:100%; overflow:hidden; }
+.es-parchment .mr-content { position:relative; z-index:3; padding:var(--es-content-block-padding) 0; width:100%; color-scheme:var(--mr-scheme); }
+.es-table { background-color:var(--es-table-color,#282925); background-image:var(--es-table-image,none); background-size:var(--es-table-size,auto); background-repeat:repeat; background-attachment:scroll; }

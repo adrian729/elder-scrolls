@@ -1,21 +1,66 @@
 # Elder Scrolls
 
-Realistic parchment and scroll surfaces for ordinary web pages. Content stays selectable, accessible HTML, and the browser scrolls the entire document. The sheet grows with your content; its grain and rolls keep their physical size as the page width changes.
+Realistic parchment and scroll surfaces for real HTML pages, plain JavaScript, and React. Content stays selectable and accessible. The browser scrolls the whole document; the sheet grows with your content, while grain and roll thickness keep their physical size.
 
-**[Live demo](https://adrian729.github.io/elder-scrolls/)** · **[Usage and implementation guide](docs/GUIDE.md)**
+**[Live demo](https://adrian729.github.io/elder-scrolls/)** · **[Integration guide](https://github.com/adrian729/elder-scrolls/blob/main/docs/INTEGRATION.md)** · **[Plain JS example](https://adrian729.github.io/elder-scrolls/examples/vanilla/)** · **[Browser ZIP](https://adrian729.github.io/elder-scrolls/elder-scrolls-browser.zip)**
 
-The demo opens with **Ivory vellum · Medium content · Original roll at both ends · Max 900px width · Dark walnut**, with contact shadows enabled.
+- Eight papers across light, warm/burnt, and matching dark families.
+- Independent original-roll or plain-paper endings at the top and bottom.
+- Optional contact shadows and oak, walnut, marble, or plain table surfaces.
+- Responsive width, unlimited content-driven height, multiple independent sheets.
+- Dependency-free core; optional React wrapper and TypeScript declarations.
+- Automatic texture URLs, no renderer extraction or manual crop adjustments.
 
-- Eight papers: two light, two warm/burnt, and matching neutral/warm dark families.
-- Independent top and bottom choices: plain paper or the selected material's original roll.
-- Aged oak, dark walnut, honed marble, or a plain background.
-- Optional contact shadow, native page scrolling, and responsive width.
-- Polyhymnia typography: Junicode prose, Texturina headings, EB Garamond small caps and layered initials; self-hosted WOFF2 fonts.
-- Vanilla HTML/CSS/JavaScript, native SVG patterns, and WebP artwork. No runtime dependencies, canvas animation, or scroll handlers.
+## Install
 
-## Run locally
+```sh
+npm install @ranx729/elder-scrolls
+```
 
-Requires Python 3; no packages need installing.
+Before publication, or when testing a checkout, run `npm pack` and install the resulting `.tgz` in your application.
+
+## Plain JavaScript
+
+```js
+import { createParchment, createTableSurface } from '@ranx729/elder-scrolls';
+import '@ranx729/elder-scrolls/styles.css';
+
+// #page contains your existing HTML.
+const page = createParchment(document.getElementById('page'), {
+  paper: 'ivory', top: 'roll', bottom: 'paper', maxWidth: 900
+});
+const table = createTableSurface(document.body, { surface: 'walnut' });
+await Promise.all([page.ready, table.ready]); // Handle loading errors in your app.
+
+await page.update({ paper: 'ivory-dark', shadow: false });
+// On route teardown:
+page.destroy();
+table.destroy();
+```
+
+React is not required for the core. For plain HTML without npm or a bundler, use the [browser ZIP](https://adrian729.github.io/elder-scrolls/elder-scrolls-browser.zip), which includes native modules, a classic-script build, CSS, textures, and a working example.
+
+## React
+
+```jsx
+import { Parchment, TableSurface } from '@ranx729/elder-scrolls/react';
+import '@ranx729/elder-scrolls/styles.css';
+
+<TableSurface surface="walnut">
+  <Parchment paper="ivory" top="roll" bottom="paper" maxWidth={900}
+    onError={error => console.error(error)}>
+    <YourPageContent />
+  </Parchment>
+</TableSurface>
+```
+
+The wrapper handles prop changes and cleanup; React owns your content and form state. Add padding/min-height to the table container as appropriate for your layout. Fonts and content styles are yours; demo typography is an optional import.
+
+See the [complete guide](https://github.com/adrian729/elder-scrolls/blob/main/docs/INTEGRATION.md) for options, asset hosting, paper-tone selection, cleanup, typography, server rendering, and both [runnable examples](https://github.com/adrian729/elder-scrolls/blob/main/examples/README.md).
+
+## Run the demo locally
+
+Requires Python 3, with no third-party packages:
 
 ```sh
 git clone https://github.com/adrian729/elder-scrolls.git
@@ -23,52 +68,52 @@ cd elder-scrolls
 python3 build.py
 ```
 
-Open the generated `index.html` in your browser. This default build embeds every texture and works offline as a single file.
-
-For a smaller page with cacheable image files:
-
-```sh
-python3 build.py --linked
-python3 -m http.server 8000
-```
-
-Visit `http://localhost:8000`. The linked demo initially requests only the selected paper and table texture. Try a particular combination with:
-
-```text
-?theme=rag-dark&width=900&length=12&top=default&bottom=paper&background=walnut&shadow=on
-```
-
-## Use it in your app
-
-Follow [the application integration instructions](docs/GUIDE.md#integrating-real-content-into-an-application). They show the required HTML, renderer extraction, material selection, independent endings, shadow controls, and cleanup. The supplied `surface.js` initializes demo controls and placeholder content; copy its documented rendering function rather than loading the whole demo initializer over your application's content.
-
-The current renderer supports one parchment instance per document. Fonts and application content are yours to style. All original rolled ends use complete matching artwork; wooden parts are not interchangeable between papers.
-
-## Build and publish
+Open the generated `index.html`. This embeds textures, illustrations, and fonts into one offline HTML file. For cacheable files and the plain-JS example:
 
 ```sh
 python3 build.py --linked --output dist/index.html
+python3 -m http.server 8000 --directory dist
 ```
 
-This creates `dist/index.html` and copies its `assets/` directory. Serve or deploy that directory as a static site. The [GitHub Pages workflow](.github/workflows/pages.yml) builds and deploys it automatically on pushes to `main`; it can also be run manually. Generated HTML and build directories are ignored by Git. Commits provide history, so there are no `current/` or `prev/` folders.
+Open <http://localhost:8000>. Defaults are **Ivory vellum · Medium content · Original rolls · Max 900px · Dark walnut**, with shadows enabled. Demo prose is justified, with manuscript cutouts including the weird dog. The [implementation guide](https://github.com/adrian729/elder-scrolls/blob/main/docs/GUIDE.md) explains the controls, URL parameters, geometry, decisions, and performance.
 
-## Project layout
+## Development and release
+
+```sh
+npm ci
+npm test
+npm run test:types
+npm run test:integration
+npm run build
+npm run build:browser
+npm pack
+```
+
+Integration checks use Chromium (`CHROME_BIN` overrides the executable), install a real package archive, and exercise vanilla HTML plus React development/production builds. React, Vite, and TypeScript are development dependencies; vanilla consumers do not install them. Consumers do not need Python.
+
+The GitHub Pages workflow builds the linked demo, native-JS example, and browser download. Generated files are ignored; Git commits provide history.
 
 ```text
-src/                    HTML/CSS, renderer, controllers, and material catalogs
-assets/                 Paper/tabletop textures and self-hosted fonts
-docs/GUIDE.md           Usage, design decisions, performance, and integration
-notes/                  Generation prompts and recorded verification
-build.py                Standard-library-only static page builder
-.github/workflows/      GitHub Pages deployment
+lib/                    Core API, React adapter, geometry and optional typography
+src/                    Demo, document shell, canonical paper/background manifests
+assets/                 Runtime paper/table textures and optional licensed fonts
+demo-assets/            Demo-only manuscript illustrations and source records
+examples/               Plain JavaScript and React examples
+docs/                   Integration and implementation guides
+tests/                  Catalog, server render, types, and packaged browser checks
+scripts/                Catalog and browser-distribution builders
+notes/                  Artwork prompts and verification records
+build.py                Offline/linked demo builder
 ```
 
 ## Performance and artwork
 
-The renderer uses fixed-scale repeating textures and small local masks/shadow filters. One observer updates the ends after content or size changes; there is no JavaScript work during scrolling. The [guide](docs/GUIDE.md#verification-and-limits) records transfer sizes, decoded-image costs, Chromium checks, and limitations. These checks are not a real-device FPS benchmark or Firefox/Safari certification.
+Fixed-scale SVG patterns reuse WebP atlases. One observer per sheet updates layout after content/size changes; there are no scroll handlers. Shadows use local filter regions rather than filtering the long page. Linked applications request selected textures, and optional fonts only load when used.
 
-The included textures are AI-generated, encoded as WebP, and calibrated for this renderer. [Prompts and provenance](notes/README.md) are included; reference photographs and earlier prototype archives are not distributed.
+[Performance details and verification limits](https://github.com/adrian729/elder-scrolls/blob/main/docs/GUIDE.md#verification-and-limits) distinguish transfer size, decoded images, and browser painting costs. Recorded Chromium checks are not a real-device FPS benchmark or Firefox/Safari certification.
+
+Parchment/table textures are AI-generated; [prompts and provenance](https://github.com/adrian729/elder-scrolls/blob/main/notes/README.md) are included. Demo illustrations come from [medieval-cutouts](https://github.com/adrian729/medieval-cutouts); [source records and licensing scope](https://github.com/adrian729/elder-scrolls/blob/main/demo-assets/illustrations/README.md) are separate. They are excluded from the npm package.
 
 ## License
 
-[MIT](LICENSE) for code, documentation, and included texture assets. Bundled fonts remain under **SIL Open Font License 1.1**; see [font credits and license texts](assets/fonts/README.md).
+[MIT](https://github.com/adrian729/elder-scrolls/blob/main/LICENSE) for code, documentation, and generated parchment/table texture assets. Fonts retain **SIL Open Font License 1.1**; see [font credits](https://github.com/adrian729/elder-scrolls/blob/main/assets/fonts/README.md). Demo cutouts retain their source's licensing status and are outside the MIT grant for generated textures.

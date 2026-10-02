@@ -1,0 +1,126 @@
+// Real browser checks against npm-packed consumers. No test-only renderer mocks.
+import assert from 'node:assert/strict';
+import { mkdtemp, mkdir, readFile, writeFile, cp, symlink, access } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createServer } from 'node:http';
+import { spawn, execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { createElement as h } from 'react';
+import { renderToString } from 'react-dom/server';
+const exec = promisify(execFile);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const folder = await mkdtemp(path.join(tmpdir(), 'elder-scrolls-integration-'));
+const app = path.join(folder, 'app');
+const children = [];
+const pause = (ms=60) => new Promise(resolve => setTimeout(resolve, ms));
+const records = [];
+let server, ws, chrome;
+try {
+  await mkdir(app);
+  const pack = JSON.parse((await exec('npm', ['pack', '--json', '--pack-destination', folder], {cwd:root})).stdout);
+  assert.ok(pack[0].files.some(file => file.path === 'lib/index.d.ts'));
+  assert.ok(pack[0].files.some(file => file.path === 'docs/INTEGRATION.md'));
+  assert.ok(!pack[0].files.some(file => /^(demo-assets|examples|notes|src|tests)\//.test(file.path)));
+  await writeFile(path.join(app, 'package.json'), '{"private":true,"type":"module"}');
+  await exec('npm', ['install',path.join(folder,pack[0].filename),'--offline','--ignore-scripts','--no-audit','--no-fund'], {cwd:app});
+  for (const name of ['react','react-dom']) await symlink(path.join(root,'node_modules',name),path.join(app,'node_modules',name),'dir');
+  for (const name of ['main.jsx','index.html','style.css']) await cp(path.join(root,'examples/react',name),path.join(app,name));
+  const vanilla = (await readFile(path.join(root,'examples/vanilla/index.html'),'utf8')).replaceAll('../../lib/','./app/node_modules/@ranx729/elder-scrolls/lib/');
+  await writeFile(path.join(folder,'vanilla.html'),vanilla);
+  const { Parchment } = await import(pathToFileURL(path.join(app,'node_modules/@ranx729/elder-scrolls/lib/react.js')));
+  const ssr = renderToString(h(Parchment,{id:'hydrated'},h('input',{id:'hydrated-input',defaultValue:'Server value'}),h('p',null,'Readable server content')));
+  await writeFile(path.join(app,'hydrate.html'),`<!doctype html><html lang="en"><meta charset="utf-8"><div id="root">${ssr}</div><script type="module" src="/hydrate.jsx"></script></html>`);
+  await writeFile(path.join(app,'hydrate.jsx'),`import React from 'react';import {hydrateRoot} from 'react-dom/client';import {Parchment} from '@ranx729/elder-scrolls/react';import '@ranx729/elder-scrolls/styles.css';const input=document.getElementById('hydrated-input');input.value='Typed before hydration';window.before=input;hydrateRoot(document.getElementById('root'),<Parchment id="hydrated"><input id="hydrated-input" defaultValue="Server value"/><p>Readable server content</p></Parchment>);`);
+  // Use a nested production base to catch asset paths that only work at '/'.
+  await exec(process.execPath,[path.join(root,'node_modules/vite/bin/vite.js'),'build','--base=/app/dist/'],{cwd:app});
+  const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.webp':'image/webp','.woff2':'font/woff2'};
+  server = createServer(async(req,res) => {
+    try {
+      const pathname = decodeURIComponent(new URL(req.url,'http://localhost').pathname);
+      let filename=path.resolve(folder,'.'+pathname);
+      if (!filename.startsWith(folder+path.sep)) throw Error('Outside fixture');
+      if(pathname.endsWith('/'))filename=path.join(filename,'index.html');
+      const body=await readFile(filename);res.writeHead(200,{'content-type':mime[path.extname(filename)]||'application/octet-stream'});res.end(body);
+    } catch {res.writeHead(404);res.end('Not found');}
+  });
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+  const base='http://127.0.0.1:'+server.address().port;
+  chrome=spawn(process.env.CHROME_BIN||'google-chrome',['--headless','--no-sandbox','--disable-gpu','--remote-debugging-port=0','--user-data-dir='+path.join(folder,'chrome'),'about:blank'],{stdio:['ignore','ignore','pipe']});children.push(chrome);
+  chrome.on('error',error=>console.error(error));
+  let endpoint='';chrome.stderr.on('data',data=>{const match=data.toString().match(/DevTools listening on (ws:\/\/[^\s]+)/);if(match)endpoint=match[1];});
+  for(let i=0;i<100&&!endpoint;i++)await pause();
+  assert.ok(endpoint,'Chromium did not start; set CHROME_BIN to its executable');
+  const tabs=await(await fetch(endpoint.replace(/^ws:/,'http:').replace(/\/devtools\/browser\/.*/, '/json'))).json();
+  ws=new WebSocket(tabs.find(tab=>tab.type==='page').webSocketDebuggerUrl);
+  await new Promise(resolve=>ws.addEventListener('open',resolve,{once:true}));
+  let sequence=0;const pending=new Map(),errors=[],failed=[],requests=[];
+  ws.addEventListener('message',event=>{const message=JSON.parse(event.data);if(message.id){const task=pending.get(message.id);pending.delete(message.id);message.error?task.reject(message.error):task.resolve(message.result);}if(message.method==='Runtime.exceptionThrown')errors.push(message.params.exceptionDetails);if(message.method==='Runtime.consoleAPICalled'&&message.params.type==='error')errors.push(message.params.args);if(message.method==='Network.responseReceived'&&message.params.response.status>=400&&!message.params.response.url.endsWith('/favicon.ico'))failed.push(message.params.response);if(message.method==='Network.requestWillBeSent')requests.push(message.params.request.url);});
+  const send=(method,params={})=>new Promise((resolve,reject)=>{const id=++sequence;pending.set(id,{resolve,reject});ws.send(JSON.stringify({id,method,params}));});
+  async function evaluate(expression){const result=await send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true,replMode:true});if(result.exceptionDetails)throw Error(JSON.stringify(result.exceptionDetails));return result.result.value;}
+  async function until(expression){for(let i=0;i<150;i++){if(await evaluate(expression))return;await pause();}throw Error('Timeout: '+expression+' '+JSON.stringify({errors,failed,page:await evaluate('({url:location.href,html:document.documentElement.outerHTML.slice(0,2200)})')}));}
+  async function navigate(url,ready){await send('Page.navigate',{url});await until(ready);await pause(100);}
+  async function viewport(width){await send('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});await pause(100);}
+  async function geometry(){const result=await evaluate(`(()=>{const roots=[...document.querySelectorAll('.es-parchment')];const ids=[...document.querySelectorAll('[id]')].map(e=>e.id);return {overflow:document.documentElement.scrollWidth>document.documentElement.clientWidth,unique:ids.length===new Set(ids).size,sheets:roots.map(root=>{const box=s=>root.querySelector(s).getBoundingClientRect();const body=box('.mr-body'),top=box('.mr-top'),bottom=box('.mr-bottom'),content=box('.mr-content');const pad=getComputedStyle(root.querySelector('.mr-body'));return {width:body.width,topHeight:top.height,bottomHeight:bottom.height,aligned:Math.abs(body.width-top.width)<.1&&Math.abs(body.width-bottom.width)<.1,filled:Math.abs(content.width-(body.width-parseFloat(pad.paddingLeft)-parseFloat(pad.paddingRight)))<.1,internal:['.mr-scroll','.mr-body','.mr-content'].some(s=>{const e=root.querySelector(s);return ['auto','scroll'].includes(getComputedStyle(e).overflowY)&&e.scrollHeight>e.clientHeight+1;})};})};})()`);assert.ok(!result.overflow&&result.unique,JSON.stringify(result));for(const sheet of result.sheets)assert.ok(sheet.aligned&&sheet.filled&&!sheet.internal,JSON.stringify(sheet));return result;}
+  await send('Runtime.enable');await send('Page.enable');await send('Network.enable');
+  await viewport(997);
+  await navigate(base+'/vanilla.html',`document.getElementById('page')?.dataset.theme==='ivory'&&document.getElementById('second')?.dataset.theme==='rag-dark'`);
+  const initialImages=requests.filter(url=>url.endsWith('.webp'));
+  assert.equal(new Set(initialImages).size,3,'Only two chosen papers and the selected table should load');
+  await evaluate(`window.api=await import('./app/node_modules/@ranx729/elder-scrolls/lib/index.js');window.originalInput=document.getElementById('notes');window.originalInput.value='Persistent note';`);
+  // A dedicated controller exercises the public lifecycle independently of UI.
+  await evaluate(`window.extra=document.createElement('article');extra.innerHTML='<input value="keep"><p>Content</p>';document.body.append(extra);window.original=extra.firstChild;window.sheet=api.createParchment(extra,{paper:'sage',top:'paper',bottom:'roll',maxWidth:'fluid'});await sheet.ready;`);
+  await geometry();
+  for (const width of [320,375,768,1920]) {await viewport(width);const result=await geometry();records.push({kind:'vanilla',width,...result});}
+  for (const paper of ['ivory','sage','original','rag','ivory-dark','sage-dark','original-dark','rag-dark']) {
+    for (const top of ['roll','paper']) for (const bottom of ['roll','paper']) {
+      await evaluate(`await sheet.update(${JSON.stringify({paper,top,bottom})})`);
+      const result=await geometry();assert.equal(result.sheets.at(-1).topHeight,top==='roll'?100:56);assert.equal(result.sheets.at(-1).bottomHeight,bottom==='roll'?100:56);
+    }
+  }
+  assert.deepEqual(await evaluate(`await Promise.all([sheet.update({paper:'ivory'}),sheet.update({paper:'rag-dark'})])`),[false,true]);
+  assert.equal(await evaluate(`(()=>{const before=extra.dataset.theme;try{sheet.update({top:'pointy'});return false}catch{return extra.dataset.theme===before}})()`),true);
+  await evaluate(`original.focus();original.value='Typed';await sheet.update({paper:'ivory',maxWidth:640});`);
+  assert.equal(await evaluate(`original===extra.querySelector('input')&&original.value==='Typed'&&document.activeElement===original`),true);
+  const before=await evaluate(`extra.querySelector('.mr-bottom').getBoundingClientRect().top+scrollY`);
+  await evaluate(`const block=document.createElement('div');block.style.height='50000px';sheet.content.append(block);`);await pause(160);
+  assert.ok(await evaluate(`extra.querySelector('.mr-bottom').getBoundingClientRect().top+scrollY`)>before+49999);
+  const pendingDestroy=await evaluate(`const pending=sheet.update({paper:'original-dark'});sheet.destroy();sheet.destroy();const result=await pending;({result,restored:extra.firstChild===original,value:original.value,decorations:extra.querySelectorAll('.mr-scroll').length});`);
+  assert.deepEqual(pendingDestroy,{result:false,restored:true,value:'Typed',decorations:0});
+  await evaluate(`sheet=api.createParchment(extra);await sheet.ready;sheet.destroy();extra.remove();`);
+  assert.deepEqual(failed,[], 'Unexpected requests before recovery check');
+  // A missing asset yields a recoverable error.
+  assert.equal(await evaluate(`const e=document.createElement('article');document.body.append(e);const p=api.createParchment(e,{assetsBase:'/missing/'});let failed=false;try{await p.ready}catch{failed=true}await p.update({assetsBase:undefined});p.destroy();e.remove();failed;`),true);
+  failed.length=0; // The intentional missing-image request above is expected.
+  await viewport(997);
+  await navigate(base+'/app/dist/',`document.getElementById('primary')?.dataset.theme==='ivory'&&document.getElementById('secondary')?.dataset.theme==='rag-dark'`);
+  await geometry();
+  for(const width of [320,375,997,1920]){await viewport(width);records.push({kind:'react-production',width,...await geometry()});}
+  await evaluate(`window.input=document.querySelector('#primary input');const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(input,'Controlled note');input.dispatchEvent(new Event('input',{bubbles:true}));`);
+  await evaluate(`document.querySelectorAll('nav button')[0].click()`);await until(`document.getElementById('primary').dataset.theme==='ivory-dark'`);
+  assert.equal(await evaluate(`input===document.querySelector('#primary input')&&input.value==='Controlled note'`),true);
+  await evaluate(`document.querySelectorAll('nav button')[1].click();document.querySelectorAll('nav button')[2].click()`);await until(`document.getElementById('primary').dataset.bottomEnding==='paper'&&document.getElementById('primary').dataset.shadow==='off'`);
+  const oldBottom=await evaluate(`document.querySelector('#primary .mr-bottom').getBoundingClientRect().top`);
+  await evaluate(`document.querySelectorAll('nav button')[3].click()`);await pause(150);
+  assert.ok(await evaluate(`document.querySelector('#primary .mr-bottom').getBoundingClientRect().top`)>oldBottom);
+  await evaluate(`document.querySelectorAll('nav button')[4].click()`);await until(`!document.getElementById('primary')`);
+  await evaluate(`document.querySelectorAll('nav button')[4].click()`);await until(`document.getElementById('primary')?.dataset.theme==='ivory-dark'`);await geometry();
+  assert.equal(await evaluate(`document.querySelector('#primary input').value`),'Controlled note');
+  await evaluate(`document.querySelectorAll('nav button')[5].click()`);await until(`document.querySelector('.es-table').dataset.surface==='marble'`);
+  // Development build actually performs Strict Mode's extra setup/cleanup cycle.
+  const vite=spawn(process.execPath,[path.join(root,'node_modules/vite/bin/vite.js'),'--host','127.0.0.1','--port','0'],{cwd:app,stdio:['ignore','pipe','pipe']});children.push(vite);
+  let dev='';vite.stdout.on('data',data=>{const match=data.toString().match(/http:\/\/127\.0\.0\.1:\d+\//);if(match)dev=match[0];});
+  for(let i=0;i<150&&!dev;i++)await pause();assert.ok(dev,'Vite development server did not start');
+  await navigate(dev,`document.getElementById('primary')?.dataset.theme==='ivory'&&document.getElementById('secondary')?.dataset.theme==='rag-dark'`);
+  await geometry();assert.equal(await evaluate(`document.querySelectorAll('.mr-contact-shadow').length`),2);
+  assert.ok(await evaluate(`Number(document.querySelector('#primary .mr-definitions image').id.split('-')[1]) > 2`), 'Development Strict Mode must have remounted the renderer');
+  await navigate(dev+'hydrate.html',`document.getElementById('hydrated')?.dataset.theme==='ivory'`);
+  assert.equal(await evaluate(`before===document.getElementById('hydrated-input')&&before.value==='Typed before hydration'`),true);
+  assert.deepEqual(errors,[],'Browser runtime errors');assert.deepEqual(failed,[],'Unexpected failed requests');
+  const summary={package:pack[0].name,version:pack[0].version,initialSelectedImages:3,vanillaMatrix:32,responsive:records,contentHeight:50000,inputIdentity:true,latestRequestWins:true,cleanup:true,recovery:true,reactProduction:true,reactDevelopmentStrictMode:true,hydration:true,errors:[]};
+  await writeFile(path.join(root,'notes/library-integration-verification.json'),JSON.stringify(summary,null,2)+'\n');
+  console.log('PASS packed vanilla + React: 32 paper/end combinations, responsive widths, 50,000px growth, preserved inputs, async guards, cleanup, Strict Mode, hydration, nested production asset paths');
+} finally {
+  ws?.close();for(const child of children)child.kill();if(server)await new Promise(resolve=>server.close(resolve));
+}

@@ -9,7 +9,8 @@
 __FONTS_CSS__
   </style>
   <style>
-    :root { color-scheme:light dark; background-color:var(--workspace-color,light-dark(#e5e3dd,#282925)); background-image:var(--workspace-image,none); background-size:var(--workspace-size,auto); background-repeat:repeat; background-attachment:scroll; }
+    :root { color-scheme:light dark; }
+    :root:not(.es-table) { background-color:light-dark(#e5e3dd,#282925); }
     html,body { margin:0; padding:0; }
     body { padding:12px clamp(0px,2vw,20px) 30px; }
     a,button { cursor:pointer; }

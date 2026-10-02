@@ -1,0 +1,25 @@
+{
+  "runtimeTexturesUnchanged": true,
+  "topRollPixelComparison": {
+    "size": [
+      900,
+      100
+    ],
+    "differenceBounds": null
+  },
+  "responsiveDemoWidths": [
+    320,
+    375,
+    768,
+    1920
+  ],
+  "justifiedDemoProse": true,
+  "illustrations": [
+    "rabbit-reading-book",
+    "flying-pig",
+    "weird-dog",
+    "snail"
+  ],
+  "illustrationsEmbeddedOffline": true,
+  "longContentAdd": true
+}
