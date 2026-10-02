@@ -1,0 +1,102 @@
+<div id="manuscript-realistic" aria-label="Responsive parchment scroll variations">
+  <div class="mr-toolbar" id="mr-controls">
+    <div class="mr-control-grid">
+      <label>Paper tone<select class="mr-theme" aria-describedby="mr-description"></select></label>
+      <label>Surface beneath paper<select class="mr-background"></select></label>
+      <label>Page width<select class="mr-width"><option value="fluid" selected>Fluid · fit window</option><option value="640">Max · 640 px</option><option value="900">Max · 900 px</option><option value="1100">Max · 1100 px</option></select></label>
+      <label>Content length<select class="mr-length"><option value="1">Short</option><option value="5" selected>Medium</option><option value="12">Long</option><option value="custom" hidden>Custom</option></select></label>
+      <label>Top ending<select class="mr-top-style"><option value="default">Original roll</option><option value="paper" selected>Paper</option></select></label>
+      <label>Bottom ending<select class="mr-bottom-style"><option value="default">Original roll</option><option value="paper" selected>Paper</option></select></label>
+    </div>
+    <div class="mr-actions"><button type="button" class="mr-add">Add content</button><a href="#mr-end">Go to bottom ↓</a><label class="mr-shadow-control"><input class="mr-shadow-toggle" type="checkbox" checked> Contact shadow</label></div>
+    <p id="mr-description" role="status" aria-live="polite">Loading parchment…</p>
+    <p class="mr-background-status" role="status" aria-live="polite"></p>
+  </div>
+  <main class="mr-scroll" id="mr-start">
+    <svg class="mr-definitions" width="0" height="0" aria-hidden="true" focusable="false"><defs></defs></svg>
+    <div class="mr-cap mr-top" aria-hidden="true"></div>
+    <div class="mr-body">
+      <div class="mr-texture" aria-hidden="true"></div>
+      <div class="mr-content">
+        <header><p class="mr-caption">PLACEHOLDER CONTENT</p><h2>A page on parchment</h2><p>A continuous page, from the first section to the last.</p></header>
+        <div class="mr-sections">
+          <section><h3>Overview</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae justo sed nibh suscipit consequat. Donec dignissim, sapien sed posuere egestas, nunc lorem sodales erat, vitae fermentum mi ipsum sit amet neque.</p><p>Praesent at lorem quis augue tincidunt tempus. Sed vitae ex a erat consequat volutpat. Nulla facilisi. Curabitur a sapien eget arcu malesuada interdum, vel dictum lectus.</p></section>
+          <section><h3>Notes</h3><p>Aliquam erat volutpat. Morbi dignissim, eros at finibus dapibus, nibh urna blandit magna, at pretium erat augue id lorem. Maecenas ut neque eu nisl sollicitudin consequat. Pellentesque tincidunt arcu ut sapien commodo, a molestie augue tristique.</p><p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Suspendisse id ligula ut nisl cursus imperdiet. Vivamus consequat nulla sit amet nisl lacinia, vitae vestibulum eros convallis.</p></section>
+          <section><h3>Details</h3><p>Donec euismod lectus vel nisl tincidunt, sit amet bibendum metus blandit. Quisque sed tortor quis nisl facilisis egestas. Etiam finibus magna et erat posuere, vel pellentesque est gravida. Nullam viverra tellus quis lectus facilisis ultrices.</p><p>Sed ac metus id sem commodo hendrerit. Pellentesque vel purus mi. Duis a sem nec nibh auctor molestie. Fusce feugiat magna in libero posuere, at scelerisque enim vehicula.</p></section>
+          <section><h3>Further reading</h3><p>Phasellus at risus in urna faucibus tempor. Aenean vel felis ut nunc mattis faucibus. Nulla dapibus massa eget diam tempor, sit amet interdum purus accumsan. Integer suscipit nisl vel velit interdum tristique.</p><p>Nam lacinia dolor sed ligula sollicitudin, eget commodo lectus condimentum. Ut vitae eros in quam hendrerit consequat. Donec non lorem quis diam tempor ultrices. Nunc tincidunt libero ut nisi posuere scelerisque.</p></section>
+          <section><h3>Final notes</h3><p>Maecenas posuere libero at purus ullamcorper, vitae vestibulum ipsum placerat. Praesent pulvinar dui vel sapien pharetra, id condimentum magna tincidunt. Cras a massa quis neque congue interdum. Aenean ac mi sed lectus iaculis pellentesque.</p><p>Donec in augue eu justo vulputate fringilla. Morbi venenatis sem vel nulla gravida, quis viverra nisl rhoncus. Proin id eros sed velit imperdiet facilisis. Suspendisse potenti.</p></section>
+        </div>
+        <footer id="mr-end"><span>End of page</span><a class="cursor-interaction" href="#mr-start">Back to top ↑</a></footer>
+      </div>
+    </div>
+    <div class="mr-cap mr-bottom" aria-hidden="true"></div>
+  </main>
+</div>
+<style>
+html[data-workspace] #manuscript-realistic .mr-toolbar { background:#262622; color:#f0eee4; border-radius:6px; margin-bottom:22px; padding:16px; }
+html[data-workspace] #manuscript-realistic .mr-toolbar :is(select,button) { background:#3b3b35; color:inherit; border-color:#74746a; }
+#manuscript-realistic .mr-background-status { margin:0; width:100%; }
+#manuscript-realistic { --mr-width:none; --mr-ink:#322b22; --mr-muted:#5a5043; --mr-link:#563916; --mr-surface:#eee4cc; --mr-scheme:light; --mr-cap-height:90px; --mr-overlap:27px; --mr-paper-inset:38px; font-family:system-ui,sans-serif; }
+#manuscript-realistic * { box-sizing:border-box; }
+#manuscript-realistic .mr-toolbar { max-width:880px; margin:0 auto; padding:14px 12px 24px; display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; align-items:center; color:light-dark(#3c3c39,#deded7); font-size:13px; }
+#manuscript-realistic .mr-toolbar>div { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+#manuscript-realistic .mr-toolbar button { background:light-dark(#e9e8e2,#373834); color:inherit; border:1px solid light-dark(#b9b9ae,#696a62); border-radius:3px; padding:9px 12px; font:inherit; }
+#manuscript-realistic .mr-toolbar a { color:inherit; text-underline-offset:3px; }
+#manuscript-realistic .mr-scroll { position:relative; isolation:isolate; width:100%; max-width:var(--mr-width); margin:0 auto; }
+#manuscript-realistic .mr-contact-shadow { position:absolute; inset:0; z-index:-1; pointer-events:none; }
+#manuscript-realistic[data-shadow="off"] .mr-contact-shadow { display:none; }
+#manuscript-realistic .mr-shadow-piece { position:absolute; left:0; width:100%; }
+#manuscript-realistic .mr-shadow-piece>svg { display:block; width:100%; height:100%; overflow:visible; }
+#manuscript-realistic .mr-shadow-control { display:flex; gap:7px; align-items:center; cursor:pointer; }
+#manuscript-realistic .mr-shadow-toggle { margin:0; accent-color:#c8b88d; }
+#manuscript-realistic .mr-definitions { position:absolute; overflow:hidden; pointer-events:none; }
+#manuscript-realistic .mr-cap { position:relative; width:100%; pointer-events:none; z-index:2; }
+#manuscript-realistic .mr-cap>svg { display:block; width:100%; height:100%; overflow:hidden; }
+#manuscript-realistic .mr-top { height:var(--mr-top-height,var(--mr-cap-height)); margin-bottom:calc(-1 * var(--mr-top-overlap,var(--mr-overlap))); mask-image:linear-gradient(to bottom,#000 calc(100% - var(--mr-overlap)),transparent); }
+#manuscript-realistic .mr-bottom { height:var(--mr-bottom-height,var(--mr-cap-height)); margin-top:calc(-1 * var(--mr-bottom-overlap,var(--mr-overlap))); mask-image:linear-gradient(to bottom,transparent,#000 var(--mr-overlap)); }
+#manuscript-realistic .mr-cap[data-style="paper"] { mask-image:none; }
+#manuscript-realistic .mr-body { position:relative; padding:0 calc(var(--mr-paper-inset) + clamp(14px,3vw,40px)); color:var(--mr-ink); }
+#manuscript-realistic .mr-texture { position:absolute; inset:0; pointer-events:none; }
+#manuscript-realistic .mr-texture>svg { display:block; width:100%; height:100%; overflow:hidden; }
+#manuscript-realistic .mr-content { position:relative; z-index:3; padding:28px 0; color-scheme:var(--mr-scheme); }
+#manuscript-realistic .mr-content a { color:var(--mr-link); }
+#manuscript-realistic .mr-caption, #manuscript-realistic footer span { color:var(--mr-muted); }
+#manuscript-realistic .mr-caption { font-size:11px; letter-spacing:1.7px; margin:0 0 12px; }
+#manuscript-realistic h2 { font-family:inherit; font-size:clamp(26px,5vw,36px); font-weight:500; line-height:1.2; margin:0 0 14px; }
+#manuscript-realistic header>p:last-child { font-size:16px; line-height:1.6; margin:0; }
+#manuscript-realistic .mr-sections section { padding:46px 0 10px; }
+#manuscript-realistic h3 { font-family:inherit; font-size:22px; font-weight:500; margin:0 0 16px; line-height:1.3; }
+#manuscript-realistic .mr-sections p { font-size:16px; line-height:1.75; margin:0 0 18px; }
+#manuscript-realistic footer { padding:40px 0 15px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; }
+#manuscript-realistic footer a { text-underline-offset:3px; }
+@media(max-width:520px){
+  #manuscript-realistic .mr-toolbar { padding:10px 8px 20px; }
+  #manuscript-realistic .mr-sections section { padding-top:35px; }
+  #manuscript-realistic h3 { font-size:20px; }
+}
+#manuscript-realistic .mr-toolbar { max-width:1100px; }
+#manuscript-realistic .mr-toolbar .mr-control-grid { display:grid; grid-template-columns:minmax(200px,2fr) minmax(145px,1fr) minmax(120px,1fr); width:100%; gap:14px; }
+#manuscript-realistic .mr-control-grid label { display:grid; gap:7px; min-width:0; }
+#manuscript-realistic select { font:inherit; color:inherit; background:light-dark(#f2f1eb,#373834); border:1px solid light-dark(#b9b9ae,#696a62); border-radius:3px; padding:9px; width:100%; min-width:0; cursor:pointer; }
+#manuscript-realistic .mr-actions { display:flex; gap:16px; align-items:center; }
+#manuscript-realistic #mr-description { width:100%; min-height:1.5em; margin:0; line-height:1.5; }
+@media(max-width:640px) { #manuscript-realistic .mr-toolbar .mr-control-grid { grid-template-columns:1fr 1fr; } #manuscript-realistic .mr-control-grid label:first-child { grid-column:1 / -1; } }
+</style>
+<script type="application/json" id="mr-theme-data">__SCROLL_THEMES__</script>
+<script>
+__PAPERS_JS__
+</script>
+<script>
+__ENDINGS_JS__
+</script>
+<script>
+__SHADOW_JS__
+</script>
+<script type="application/json" id="mr-background-data">__BACKGROUND_DATA__</script>
+<script>
+__BACKGROUNDS_JS__
+</script>
+<script>
+__SURFACE_JS__
+</script>
+<style>#manuscript-realistic:not([data-theme]) .mr-scroll { visibility:hidden; }</style>

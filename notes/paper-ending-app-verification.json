@@ -1,0 +1,14 @@
+{
+  "customContent": true,
+  "growth": 1300,
+  "themeSwitch": true,
+  "optionValidation": {
+    "threw": true,
+    "top": "pointy"
+  },
+  "cleanup": true,
+  "linkedBuild": true,
+  "defaultSelection": true,
+  "maxWidth": 640,
+  "errors": []
+}

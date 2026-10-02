@@ -1,0 +1,6 @@
+[
+  { "id": "oak", "label": "Aged oak", "image": "assets/background-oak.webp", "color": "#82603d", "tileSize": 627 },
+  { "id": "walnut", "label": "Dark walnut", "image": "assets/background-walnut.webp", "color": "#4e3627", "tileSize": 627 },
+  { "id": "marble", "label": "Honed marble", "image": "assets/background-marble.webp", "color": "#b5afa4", "tileSize": 627 },
+  { "id": "plain", "label": "Plain background", "image": null, "color": "#282925" }
+]

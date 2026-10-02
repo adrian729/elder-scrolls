@@ -1,0 +1,701 @@
+{
+  "checks": [
+    {
+      "width": 320,
+      "background": "oak",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 320,
+      "background": "oak",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 320,
+      "background": "walnut",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 320,
+      "background": "walnut",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 320,
+      "background": "marble",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 320,
+      "background": "marble",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 320,
+      "background": "plain",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 320,
+      "background": "plain",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "oak",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "oak",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "walnut",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "walnut",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "marble",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "marble",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "plain",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 375,
+      "background": "plain",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "oak",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "oak",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "walnut",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "walnut",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "marble",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "marble",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "plain",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 768,
+      "background": "plain",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "oak",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "oak",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "walnut",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "walnut",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "marble",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "marble",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "plain",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 997,
+      "background": "plain",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "oak",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "oak",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "walnut",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "walnut",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "marble",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "marble",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "plain",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1440,
+      "background": "plain",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "oak",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "oak",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "walnut",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "walnut",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "marble",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "marble",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "plain",
+      "theme": "ivory",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    },
+    {
+      "width": 1920,
+      "background": "plain",
+      "theme": "rag-dark",
+      "state": "on",
+      "pieces": 3,
+      "bodyFilter": "none",
+      "mainFilter": "none",
+      "textFilter": "none",
+      "sideFilterHeight": 400,
+      "toggleLayoutUnchanged": true
+    }
+  ],
+  "originalArtwork": [
+    {
+      "theme": "ivory",
+      "end": "paper"
+    },
+    {
+      "theme": "ivory",
+      "end": "default"
+    },
+    {
+      "theme": "sage",
+      "end": "paper"
+    },
+    {
+      "theme": "sage",
+      "end": "default"
+    },
+    {
+      "theme": "original",
+      "end": "paper"
+    },
+    {
+      "theme": "original",
+      "end": "default"
+    },
+    {
+      "theme": "rag",
+      "end": "paper"
+    },
+    {
+      "theme": "rag",
+      "end": "default"
+    },
+    {
+      "theme": "ivory-dark",
+      "end": "paper"
+    },
+    {
+      "theme": "ivory-dark",
+      "end": "default"
+    },
+    {
+      "theme": "sage-dark",
+      "end": "paper"
+    },
+    {
+      "theme": "sage-dark",
+      "end": "default"
+    },
+    {
+      "theme": "original-dark",
+      "end": "paper"
+    },
+    {
+      "theme": "original-dark",
+      "end": "default"
+    },
+    {
+      "theme": "rag-dark",
+      "end": "paper"
+    },
+    {
+      "theme": "rag-dark",
+      "end": "default"
+    }
+  ],
+  "disabledThenUpdated": true,
+  "growth": {
+    "bottom": 51346.0625,
+    "body": 50798.5625,
+    "sideTop": 54,
+    "sideHeight": 50798.6,
+    "bottomShadowTop": 50850.6,
+    "bottomTop": 50850.5625,
+    "filterHeights": [
+      400,
+      400,
+      72,
+      72
+    ]
+  },
+  "scrollChanges": 0,
+  "dpr": [
+    1.25,
+    2,
+    3
+  ],
+  "errors": [],
+  "applicationIntegration": {
+    "customContent": true,
+    "growth": 1300,
+    "toggle": true,
+    "themeAndStyleWhileOff": true,
+    "cleanup": true,
+    "linkedAssets": [
+      "file://temporary-files/background-oak.webp",
+      "file://temporary-files/ivory-material-atlas.webp"
+    ],
+    "errors": []
+  },
+  "visualReview": {
+    "surfaces": [
+      "oak",
+      "marble"
+    ],
+    "endings": [
+      "paper",
+      "default"
+    ],
+    "mobileDensities": [
+      1.25,
+      2,
+      3
+    ],
+    "longPageBottom": true
+  },
+  "pixelComparison": {
+    "changedPixelsBelowToolbar": 7060,
+    "maxInteriorDifference": 0
+  },
+  "limitations": "Chromium functional/visual checks; no real-device FPS or total graphics-memory measurement, Firefox/Safari not certified."
+}

@@ -1,0 +1,43 @@
+{
+  "mode": "built-in image_gen",
+  "intent": "paper-color edits; retain scroll geometry and end designs",
+  "encoding": "WebP quality92 method6; generated alpha preserved; no raster recoloring or resizing",
+  "prompts": [
+    {
+      "id": "ivory-dark",
+      "prompt": "Use case: precise-object-edit. Asset type: photographic material atlas for a responsive real webpage. Input image is the EDIT TARGET, not just inspiration. Make a faithful DARK PAPER counterpart, changing only paper coloration. Retain exactly the same square canvas, orthographic overhead view, scroll silhouette, ragged edges, roll centerlines and cylinder thickness, curl folds and tiny fiber scale. Preserve the wood finials unchanged where present. Same single upper roll around y60..170 and lower roll around y1085..1190 in 1254-square proportions; body vertical edges near x125 and x1128. Keep central x300..950/y360..912 flat, uniform, quiet and subtle for repeated webpage texture; no big spots, no folds, no high contrast mottling. Top and bottom paper rolls, sheet and edges must ALL be the same requested dark material, with believable cylinder shading that is restrained rather than glossy. It is dark-colored paper photographed under soft neutral museum light, NOT a light scroll in a dim room or an inverted negative. Real porous matte vellum / paper fibers. No stone, leather upholstery, metal, plastic, game texture, fake CGI, excessive cracked surface or dramatic burnt black edges. Blank with no text or markings. Keep actual transparent alpha outside silhouette, not a black or gray opaque matte, no new background or shadow. Preserve source framing exactly. Paper palette: softly cool dark slate / charcoal gray vellum, quiet neutral-blue undertone, medium-dark body approximately #373c42 (not pure black), tiny soft gray fibers. The same ivory vellum material now dyed slate; no wood at all, preserve both bare-paper curls. Paper end folds and faint age wear stay charcoal too.",
+      "source": "generated-originals/exec-ac26f580-1edf-4281-8f77-c982d0308116.png",
+      "asset": "assets/ivory-dark-material-atlas.webp",
+      "references": [
+        "assets/ivory-material-atlas.webp"
+      ]
+    },
+    {
+      "id": "sage-dark",
+      "prompt": "Use case: precise-object-edit. Asset type: photographic material atlas for a responsive real webpage. Input image is the EDIT TARGET, not just inspiration. Make a faithful DARK PAPER counterpart, changing only paper coloration. Retain exactly the same square canvas, orthographic overhead view, scroll silhouette, ragged edges, roll centerlines and cylinder thickness, curl folds and tiny fiber scale. Preserve the wood finials unchanged where present. Same single upper roll around y60..170 and lower roll around y1085..1190 in 1254-square proportions; body vertical edges near x125 and x1128. Keep central x300..950/y360..912 flat, uniform, quiet and subtle for repeated webpage texture; no big spots, no folds, no high contrast mottling. Top and bottom paper rolls, sheet and edges must ALL be the same requested dark material, with believable cylinder shading that is restrained rather than glossy. It is dark-colored paper photographed under soft neutral museum light, NOT a light scroll in a dim room or an inverted negative. Real porous matte vellum / paper fibers. No stone, leather upholstery, metal, plastic, game texture, fake CGI, excessive cracked surface or dramatic burnt black edges. Blank with no text or markings. Keep actual transparent alpha outside silhouette, not a black or gray opaque matte, no new background or shadow. Preserve source framing exactly. Paper palette: neutral dark smoke-gray vellum with a faint olive mineral undertone, body approximately #41433d, slightly lighter and warmer than blue charcoal, with restrained scraped skin detail. Preserve both sets of pointed rubbed oak wood finials and their natural brown coloring exactly; recolor only all visible vellum to smoke gray.",
+      "source": "generated-originals/exec-63ce40e1-e3d9-4db5-a65c-83e7090a9e08.png",
+      "asset": "assets/sage-dark-material-atlas.webp",
+      "references": [
+        "assets/sage-material-atlas.webp"
+      ]
+    },
+    {
+      "id": "original-dark",
+      "prompt": "Use case: precise-object-edit. Asset type: photographic material atlas for a responsive real webpage. Input image is the EDIT TARGET, not just inspiration. Make a faithful DARK PAPER counterpart, changing only paper coloration. Retain exactly the same square canvas, orthographic overhead view, scroll silhouette, ragged edges, roll centerlines and cylinder thickness, curl folds and tiny fiber scale. Preserve the wood finials unchanged where present. Same single upper roll around y60..170 and lower roll around y1085..1190 in 1254-square proportions; body vertical edges near x125 and x1128. Keep central x300..950/y360..912 flat, uniform, quiet and subtle for repeated webpage texture; no big spots, no folds, no high contrast mottling. Top and bottom paper rolls, sheet and edges must ALL be the same requested dark material, with believable cylinder shading that is restrained rather than glossy. It is dark-colored paper photographed under soft neutral museum light, NOT a light scroll in a dim room or an inverted negative. Real porous matte vellum / paper fibers. No stone, leather upholstery, metal, plastic, game texture, fake CGI, excessive cracked surface or dramatic burnt black edges. Blank with no text or markings. Keep actual transparent alpha outside silhouette, not a black or gray opaque matte, no new background or shadow. Preserve source framing exactly. Paper palette: deep warm burnt umber parchment, body approximately #483428, soft tobacco-brown fibers, restrained bronze-tan age wear confined to narrow borders. Rich warm dyed parchment, no glowing orange highlights. Preserve the TOP small rounded wood knobs natural brown exactly and preserve the BOTTOM bare-paper curl with absolutely no wooden additions.",
+      "source": "generated-originals/exec-550b9b89-c2b1-414e-bb11-404972ba3dfd.png",
+      "asset": "assets/original-dark-material-atlas.webp",
+      "references": [
+        "assets/original-material-atlas.webp"
+      ]
+    },
+    {
+      "id": "rag-dark",
+      "prompt": "Use case: precise-object-edit. Asset type: photographic material atlas for a responsive real webpage. Input image is the EDIT TARGET, not just inspiration. Make a faithful DARK PAPER counterpart, changing only paper coloration. Retain exactly the same square canvas, orthographic overhead view, scroll silhouette, ragged edges, roll centerlines and cylinder thickness, curl folds and tiny fiber scale. Preserve the wood finials unchanged where present. Same single upper roll around y60..170 and lower roll around y1085..1190 in 1254-square proportions; body vertical edges near x125 and x1128. Keep central x300..950/y360..912 flat, uniform, quiet and subtle for repeated webpage texture; no big spots, no folds, no high contrast mottling. Top and bottom paper rolls, sheet and edges must ALL be the same requested dark material, with believable cylinder shading that is restrained rather than glossy. It is dark-colored paper photographed under soft neutral museum light, NOT a light scroll in a dim room or an inverted negative. Real porous matte vellum / paper fibers. No stone, leather upholstery, metal, plastic, game texture, fake CGI, excessive cracked surface or dramatic burnt black edges. Blank with no text or markings. Keep actual transparent alpha outside silhouette, not a black or gray opaque matte, no new background or shadow. Preserve source framing exactly. Paper palette: dark toasted linen / cocoa rag paper, body approximately #514238, muted brown-gray with restrained warm sienna undertone and tiny linen fibers, slightly lighter and less orange than deep umber. Preserve all walnut wood rods and round knobs unchanged at both rolls. Flat paper dark cocoa, cylindrical paper matching it.",
+      "source": "generated-originals/exec-2a1640b2-f0e5-4003-a889-30d13c9b2df1.png",
+      "asset": "assets/rag-dark-material-atlas.webp",
+      "references": [
+        "assets/rag-material-atlas.webp"
+      ]
+    }
+  ]
+}

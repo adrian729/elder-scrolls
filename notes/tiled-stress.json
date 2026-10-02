@@ -1,0 +1,13 @@
+{
+  "height": 145932,
+  "decorations": 78,
+  "overflow": false,
+  "frames": {
+    "frames": 120,
+    "elapsed": 1978.0999999940395
+  },
+  "scriptSeconds": 0.013345,
+  "layoutSeconds": 0,
+  "jsHeapUsed": 2302828,
+  "note": "Chromium headless software rendering smoke check, not real-device FPS or memory benchmark"
+}

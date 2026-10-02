@@ -1,0 +1,45 @@
+{
+  "mode": "built-in image_gen",
+  "encoding": "WebP quality92 method6; alpha preserved; raster content unedited",
+  "prompts": [
+    {
+      "id": "sage",
+      "prompt": "Use case: product-mockup. Asset type: a source artwork for a nine-slice realistic parchment web component. Input image 1 is a MATERIAL AND WOOD REFERENCE ONLY. Generate a NEW blank scroll matching its cool gray-ivory vellum and slender rubbed oak finials. Orthographic overhead archival product photography, soft neutral museum light, no game or CGI aesthetic. Output square 2048x2048. A compact square sheet of vellum with a horizontal roll at the top and another at the bottom, wooden pointed finials at both ends of each roll. Keep all ends inside canvas. The roll cylinders have uniform diameter and constant vertical position from left to right; no perspective convergence. Flat body paper width constant, left/right borders nearly straight with tiny natural nicks. Top roll occupies approximately y100..300 and bottom y1748..1948. Main paper body edges near x180 and x1868; wood ends near x40 and x2008. Wide flat body y380..1668 has QUIET, finely scraped skin texture, soft tiny fibers, very low contrast organic mottling, uniformly lit; no distinctive foxing stars, no large stains, NO long crosswise creases, NO folds, no dramatic edge discoloration. The CENTRAL 1200x1200 region should work as a subtle repeating material sample. Upper and lower roll central 1200px portions must be similarly restrained and uniform along their length for horizontal tiling. Paper around rolls and edges must be the EXACT same material as flat body; only cylindrical shading gives the rolls volume. Restrained authentic wear concentrated in the narrow outer edge only. Real fine material detail at source resolution. Blank, no writing, no symbols, no text, no labels, no layout grid or guides, no watermark. Genuinely transparent alpha outside silhouette, no background matte, no drop shadow except tiny physical contact shading.",
+      "source": "generated-originals/exec-d5be0ff9-3471-47e9-9aba-d5ef3820f8a1.png",
+      "asset": "assets/sage-material-atlas.webp",
+      "references": [
+        "historical-baseline/assets/scroll-sage-slender-v3.webp"
+      ]
+    },
+    {
+      "id": "original",
+      "prompt": "Use case: precise-object-edit. Asset type: coordinated source atlas for a real responsive parchment webpage. Input image 1 is the new square cool-vellum scroll: retain EXACT square canvas, straight overhead viewpoint, silhouette geometry, roll positions and diameter, body width and uniform diffuse museum lighting. Input image 2 is a MATERIAL/DESIGN reference for the requested variant, not a layout. Produce one NEW square blank scroll, actual transparent background outside. Keep top cylinder near y60..170 and bottom y1085..1190 in 1254x1254 proportions; paper left/right near x125/x1128. Keep narrow gently irregular edges, no perspective. Central paper must remain extremely quiet, finely detailed photographic fibers with only subtle mottling, uniformly bright enough for text. NO prominent stains, no star-shaped foxing, no recognizable large blotches, no crosswise creases, folds or large scratches; its center will repeat. The middle of each roll needs a constant height/profile across x300..950, continuous uniform lighting so it can repeat horizontally. All paper parts use exactly the same material and grain scale. Real aged material and physical cylindrical shading, not CGI or videogame art. Blank, no writing, symbols, labels, grid, guides or watermark. Change ONLY material and requested roll ends; keep geometry as reference 1.\nVariant: Warm aged calfskin parchment, mellow cream and ochre undertones, delicate scraped fibers, faint sparse brown pinpoint aging and softly worn tawny margins. Both ends have natural thin curled layers. The TOP roll has a slender rubbed dark-brown wooden spindle with small rounded turned knobs outside the paper. The BOTTOM roll is bare parchment with NO wood handles or finials, just softly curled layered paper ends. Strong archival photorealism, no burned edges or dark perimeter.",
+      "source": "generated-originals/exec-90d1bc2c-3905-49c5-b293-3bb6fc341c41.png",
+      "asset": "assets/original-material-atlas.webp",
+      "references": [
+        "assets/sage-material-atlas.webp",
+        "historical-baseline/assets/scroll-conservation-v2.webp"
+      ]
+    },
+    {
+      "id": "ivory",
+      "prompt": "Use case: precise-object-edit. Asset type: coordinated source atlas for a real responsive parchment webpage. Input image 1 is the new square cool-vellum scroll: retain EXACT square canvas, straight overhead viewpoint, silhouette geometry, roll positions and diameter, body width and uniform diffuse museum lighting. Input image 2 is a MATERIAL/DESIGN reference for the requested variant, not a layout. Produce one NEW square blank scroll, actual transparent background outside. Keep top cylinder near y60..170 and bottom y1085..1190 in 1254x1254 proportions; paper left/right near x125/x1128. Keep narrow gently irregular edges, no perspective. Central paper must remain extremely quiet, finely detailed photographic fibers with only subtle mottling, uniformly bright enough for text. NO prominent stains, no star-shaped foxing, no recognizable large blotches, no crosswise creases, folds or large scratches; its center will repeat. The middle of each roll needs a constant height/profile across x300..950, continuous uniform lighting so it can repeat horizontally. All paper parts use exactly the same material and grain scale. Real aged material and physical cylindrical shading, not CGI or videogame art. Blank, no writing, symbols, labels, grid, guides or watermark. Change ONLY material and requested roll ends; keep geometry as reference 1.\nVariant: Pale ivory calfskin vellum, the lightest and cleanest of the sets. Delicate scraped fibers, subtle cloudy translucency, gently rubbed neutral beige margins with tiny natural nicks. BOTH top and bottom are plain bare parchment curls with thin visible layers, WITHOUT any wood rod or wooden handle or finial anywhere. Keep paper left/right near x125/x1128 and keep the same cylinder profile and quiet flat center.",
+      "source": "generated-originals/exec-f52ceff0-d838-4e63-aa40-cbc72fe9e556.png",
+      "asset": "assets/ivory-material-atlas.webp",
+      "references": [
+        "assets/sage-material-atlas.webp",
+        "historical-baseline/assets/scroll-ivory-v3.webp"
+      ]
+    },
+    {
+      "id": "rag",
+      "prompt": "Use case: precise-object-edit. Asset type: coordinated source atlas for a real responsive parchment webpage. Input image 1 is the new square cool-vellum scroll: retain EXACT square canvas, straight overhead viewpoint, silhouette geometry, roll positions and diameter, body width and uniform diffuse museum lighting. Input image 2 is a MATERIAL/DESIGN reference for the requested variant, not a layout. Produce one NEW square blank scroll, actual transparent background outside. Keep top cylinder near y60..170 and bottom y1085..1190 in 1254x1254 proportions; paper left/right near x125/x1128. Keep narrow gently irregular edges, no perspective. Central paper must remain extremely quiet, finely detailed photographic fibers with only subtle mottling, uniformly bright enough for text. NO prominent stains, no star-shaped foxing, no recognizable large blotches, no crosswise creases, folds or large scratches; its center will repeat. The middle of each roll needs a constant height/profile across x300..950, continuous uniform lighting so it can repeat horizontally. All paper parts use exactly the same material and grain scale. Real aged material and physical cylindrical shading, not CGI or videogame art. Blank, no writing, symbols, labels, grid, guides or watermark. Change ONLY material and requested roll ends; keep geometry as reference 1.\nVariant: Warm oatmeal Renaissance linen rag paper, mellow honey-cream, tiny visible linen fibers and modest soft tan edge wear. Sparse faint pinpoint foxing, no stars or large patches. BOTH top and bottom curls wrap around slender rubbed dark walnut rods, with small round wooden knobs outside the paper at both sides. Matte fine wood grain, restrained craftsmanship, no pointed finials, oversized knobs or carvings.",
+      "source": "generated-originals/exec-b214d930-6c51-4f20-841f-12682e0a40a0.png",
+      "asset": "assets/rag-material-atlas.webp",
+      "references": [
+        "assets/sage-material-atlas.webp",
+        "historical-baseline/assets/scroll-rag-v3.webp"
+      ]
+    }
+  ]
+}

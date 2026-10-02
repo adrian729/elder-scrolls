@@ -1,0 +1,68 @@
+{
+  "encoding": "WebP quality 90 method 6; format conversion only; no pixel retouching or mirroring",
+  "assets": [
+    {
+      "id": "oak",
+      "source": "generated-originals/exec-6c02067e-5053-4c48-a2ee-27dce27579b7.png",
+      "asset": "assets/background-oak.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 555874,
+      "rawRGBARasterBytes": 6290064,
+      "edgeDiagnostics": {
+        "vertical": {
+          "wrapDifference": 12.246,
+          "ordinaryNeighborDifference": 6.493,
+          "ratio": 1.886
+        },
+        "horizontal": {
+          "wrapDifference": 14.989,
+          "ordinaryNeighborDifference": 13.077,
+          "ratio": 1.146
+        }
+      }
+    },
+    {
+      "id": "walnut",
+      "source": "generated-originals/exec-3a755a70-0bfb-417e-8fd3-9844bc8de3c8.png",
+      "asset": "assets/background-walnut.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 359390,
+      "rawRGBARasterBytes": 6290064,
+      "edgeDiagnostics": {
+        "vertical": {
+          "wrapDifference": 6.546,
+          "ordinaryNeighborDifference": 3.783,
+          "ratio": 1.73
+        },
+        "horizontal": {
+          "wrapDifference": 7.924,
+          "ordinaryNeighborDifference": 6.905,
+          "ratio": 1.148
+        }
+      }
+    },
+    {
+      "id": "marble",
+      "source": "generated-originals/exec-2c3c0405-bb12-406e-ace1-1cf1670f7a43.png",
+      "asset": "assets/background-marble.webp",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 475140,
+      "rawRGBARasterBytes": 6290064,
+      "edgeDiagnostics": {
+        "vertical": {
+          "wrapDifference": 10.808,
+          "ordinaryNeighborDifference": 7.549,
+          "ratio": 1.432
+        },
+        "horizontal": {
+          "wrapDifference": 10.177,
+          "ordinaryNeighborDifference": 7.309,
+          "ratio": 1.392
+        }
+      }
+    }
+  ]
+}
