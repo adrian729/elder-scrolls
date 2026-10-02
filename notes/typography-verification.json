@@ -1,0 +1,15 @@
+{
+  "cases": 8,
+  "initialRegistration": true,
+  "accessibleTitle": true,
+  "loadedFontFiles": [
+    "junicode-roman.woff2",
+    "eb-garamond-latin-wght-normal.woff2",
+    "eb-garamond-initials-f1.woff2",
+    "eb-garamond-initials-f2.woff2",
+    "texturina-latin-opsz-normal.woff2"
+  ],
+  "externalServices": false,
+  "embeddedFonts": true,
+  "errors": []
+}

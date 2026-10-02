@@ -8,7 +8,7 @@ All eight photographic atlases remain unchanged. Original rolls retain their com
 
 ## Using the demo
 
-1. Open the [live demo](https://adrian729.github.io/elder-scrolls/) in a modern browser, or open your locally built `index.html`. The default embedded build works offline and does not fetch fonts, libraries, or artwork from a service.
+1. Open the [live demo](https://adrian729.github.io/elder-scrolls/) in a modern browser, or open your locally built `index.html`. The default embedded build works offline and does not fetch fonts, libraries, or artwork from a service; fonts and artwork are embedded.
 2. Select **Paper tone** to choose a paper within one of the four families. Its texture and suggested text palette change together; your selected top/bottom styles stay selected.
 3. Leave **Page width** on **Fluid · fit window** for continuous responsive width. The other options are maximum widths, not fixed widths: a 900px maximum still shrinks to fit a smaller window.
 4. Select **Short**, **Medium**, or **Long** to display 1, 5, or 12 placeholder sections. **Add content** appends a section; **Go to bottom** scrolls the browser document to the footer. Resizing the window reflows content and exposes more or less texture without enlarging its grain or rolls.
@@ -51,7 +51,7 @@ The families describe **paper color**, independently of the end-design metadata:
 
 “Burnt” describes the warm color family; it does not add charred holes or glowing edges. The dark papers are separate generated photographic assets, not runtime inversion, brightness filters, or tinted overlays. Their folds and fibers retain physical shading. End geometry/design is retained from each light partner; the paper on the rolls is recolored to match the body. A dark counterpart is an art-directed adaptation and is not pixel-identical to its light partner.
 
-`src/themes.json` is the catalog. Each entry carries `mode`, `tone`, `family`, `pair`, `counterpart`, and `ends`. For example, `rag` and `rag-dark` share `pair: "rag"` and `ends: "walnut-round"`. `palette` supplies suggested `surface`, `ink`, `muted`, and `link` colors. The renderer applies these as `--mr-surface`, `--mr-ink`, `--mr-muted`, and `--mr-link`; it sets `--mr-scheme` and the root's `data-mode`, `data-tone`, and `data-family` attributes too. Fonts remain application styling. The colors are starting points for the preview, not a contrast certification for every textured pixel or for your final UI.
+`src/themes.json` is the catalog. Each entry carries `mode`, `tone`, `family`, `pair`, `counterpart`, and `ends`. For example, `rag` and `rag-dark` share `pair: "rag"` and `ends: "walnut-round"`. `palette` supplies suggested `surface`, `ink`, `muted`, and `link` colors. The renderer applies these as `--mr-surface`, `--mr-ink`, `--mr-muted`, and `--mr-link`; it sets `--mr-scheme` and the root's `data-mode`, `data-tone`, and `data-family` attributes too. The demo uses the Polyhymnia font roles described below; applications can replace those typography rules independently. The colors are starting points for the preview, not a contrast certification for every textured pixel or for your final UI.
 
 For application selection, load `src/papers.js` as a classic script before the initializer. The build embeds it automatically. It defines a small catalog factory; it does not load images or render content:
 
@@ -99,6 +99,26 @@ applyPreferredMode();
 
 This application example intentionally keeps following the system; your application decides whether a manual choice should disable it. The demo's `mode=auto` behavior does disable following after a manual choice. For a user-controlled mode or a contextual surface, pass that mode and tone directly to `resolve()` instead.
 
+## Demo typography
+
+The example uses the same font roles, Junicode alternates, and raised illuminated capital as [Polyhymnia](https://github.com/adrian729/app):
+
+| Role | Font | Demo use |
+| --- | --- | --- |
+| Body/UI | Junicode VF | Prose, labels, controls, footer; the app's character variants are applied here only. |
+| Display | Texturina Variable | Page `h1` and section `h2`; automatic optical sizing, weight 600. |
+| Specimen | EB Garamond Variable | Letter-spaced small-cap caption. |
+| Initial | EB Garamond Initials Fill1 / Fill2 | Two stacked glyphs on the title baseline, with blue frame and red letter. |
+| Data | JetBrains Mono Variable | `code` / `pre`, if supplied; not downloaded by the default prose-only example. |
+
+`src/fonts.css` defines self-hosted faces, with the app's Unicode ranges and `font-display: swap`. Font declarations are embedded by the builder. The linked version points to `assets/fonts/`; the offline build embeds all WOFF2 files as data URLs, so it remains a single file. The app's full Junicode Roman/Italic files and published normal Fontsource subsets are copied unchanged. The font binaries total **2,716,328 bytes**; unused subsets/faces are not fetched by the linked demo. The offline HTML therefore grows by approximately 4/3 of that size. No font service, runtime package, or network request is required to build.
+
+The title's frame is `aria-hidden` and excluded from selection; its letter is real text. Use the initial layers only for uppercase A–Z, the range carried by the app's subset; leave other leading characters in Texturina. Junicode alternates are reset for headings, small caps, initials, and mono. The initial colors follow the selected paper's light/dark mode. Text keeps a 64ch maximum measure, within the existing responsive paper margins.
+
+Typography is optional application styling. To reuse it, include `src/fonts.css` (or the built declarations), retain its font assets, and keep the typography rules from the template. The CSS file's font URLs resolve relative to that CSS file; built inline URLs resolve relative to the HTML. To replace it, change the `--mr-font-*` tokens and remove the decorative initial markup/rules as desired; the paper renderer has no font-family dependency. Keep the body ResizeObserver so late font loading can update the endings and shadow.
+
+All font software retains **SIL Open Font License 1.1**, separately from this project's MIT code/artwork license. [Font credits](../assets/fonts/README.md) link to each bundled license text.
+
 ## Width and height are independent
 
 The main scroll fills available width, with optional 640/900/1100px maximum widths. Its material is no longer scaled to that width. The paper repeats horizontally and vertically; narrow edges repeat vertically; each roll has fixed-size ends and a horizontally repeating center. The bottom ending follows actual content height.
@@ -139,7 +159,7 @@ Edge samples feather inward over the paper field using masks within the small re
 | Local edge feathering and short cap overlap | Hides small sampling differences while preserving a transparent outer silhouette. Larger mismatches still need better artwork or crop calibration. |
 | Overscan and transparent roll guard area | Corrects the thin lines observed at fractional screen density without changing the material's repeat size. |
 | Native document flow | Supports real links, selectable text, arbitrary HTML, and content-driven height. There is no fixed-height page or internal content scrollbar. |
-| System fonts and placeholder text | Keeps the material demo independent of typography and editorial content, which can be supplied by the application. |
+| Self-hosted Polyhymnia fonts and placeholder text | Gives the demo manuscript typography while keeping application fonts and content customizable. WOFF2 files add transfer/decode cost; linked builds fetch only faces/subsets used by the text. |
 
 This version still downsamples each raster region once, by a constant `scale` value; it does **not** scale those regions as the viewport grows. Browser zoom is separate and can eventually exceed the available raster detail.
 
@@ -253,7 +273,7 @@ Each is 1254×1254 RGBA. Exact final prompts, source paths, and tool mode are in
 
 ## Build and extend
 
-Run `python3 build.py` from the project root. It writes `index.html`, embedding each atlas once. Use `--linked` for adjacent external assets; it writes the same entry point. A real app should normally use cacheable external assets. The embedded demo contains all eight paper atlases and three backgrounds and is approximately 5.76MB; a linked app initially loads only the selected paper atlas and surface.
+Run `python3 build.py` from the project root. It writes `index.html`, embedding each atlas once. Use `--linked` for adjacent external assets; it writes the same entry point. A real app should normally use cacheable external assets. The embedded demo contains all eight paper atlases and three backgrounds and is approximately 9.39MB including embedded fonts; a linked app initially loads only the selected paper atlas and surface.
 
 The builder requires Python 3 and its standard library only; Pillow and the image-generation tool are not needed to rebuild existing assets. No npm install or bundler is required. From this repository's root:
 
@@ -439,7 +459,7 @@ This is not a real-device performance benchmark or Firefox/Safari certification.
 
 The eight-paper catalog also passed the six-width Chromium matrix, with four groups of two options, unchanged fixed dimensions and 78 decorative descendants. Mode/tone selection, reciprocal material pairs, automatic system-mode changes, manual override, explicit-theme precedence, rapid switching, native anchors, and appended content were checked. The linked build fetched one atlas initially and loaded all eight on selection. The updated application extraction retained custom HTML and applied a dark counterpart and its palette while preserving content-driven height and maximum width. Results are in [../notes/paper-tone-verification.json](../notes/paper-tone-verification.json). Earlier stress figures above describe the four-paper renderer; no new real-device FPS or graphics-memory benchmark is implied.
 
-For performance planning, distinguish transfer size, decoded images, paint surfaces, and application content. All eight compressed atlases total **2,901,094 bytes** before HTML/base64 overhead; the current embedded HTML, including background textures, is approximately **5.76MB**. One decoded RGBA atlas is **6,290,064 bytes**; that arithmetic is not a measurement of the browser's full graphics memory. The demo's JavaScript decoding map and browser caches may retain previously selected materials, so visiting eight can retain more decoded artwork than visiting four. Only the selected image is initially decoded by the script; the embedded file still transfers all eight. A linked build can fetch only the selected material. The family resolver does not fetch or preload anything. Longer pages still contain more real HTML, and larger visible areas still require painting even though the decorative structure stays fixed.
+For performance planning, distinguish transfer size, decoded images, paint surfaces, and application content. All eight compressed atlases total **2,901,094 bytes** before HTML/base64 overhead; the current embedded HTML, including background textures and bundled fonts, is approximately **9.39MB**. One decoded RGBA atlas is **6,290,064 bytes**; that arithmetic is not a measurement of the browser's full graphics memory. The demo's JavaScript decoding map and browser caches may retain previously selected materials, so visiting eight can retain more decoded artwork than visiting four. Only the selected image is initially decoded by the script; the embedded file still transfers all eight. A linked build can fetch only the selected material. The family resolver does not fetch or preload anything. Longer pages still contain more real HTML, and larger visible areas still require painting even though the decorative structure stays fixed.
 
 Use the linked build and cacheable assets for an app; avoid preloading every material unless the UX needs it. Keep the local edge/cap masks local when customizing. Large blur filters, full-page masks, forced compositing, animation, or a full-document canvas would introduce costs that this implementation has not measured. Test Firefox, Safari, a representative phone, display zoom, and the application's actual content before setting a production performance budget.
 

@@ -4,6 +4,7 @@ import argparse
 import base64
 import json
 import shutil
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--linked', action='store_true', help='Reference assets/ instead of embedding images')
@@ -32,6 +33,19 @@ for family in families:
         raise ValueError('Each paper family needs at least two options: ' + family)
 template = (root / 'src/template.html').read_text()
 shell = (root / 'src/shell.html').read_text()
+fonts_css = (root / 'src/fonts.css').read_text()
+def font_url(match):
+    source = (root / 'src' / match.group(1)).resolve()
+    if root / 'assets/fonts' not in source.parents or not source.is_file():
+        raise ValueError('Missing or invalid font asset: ' + match.group(1))
+    if args.linked:
+        url = source.relative_to(root).as_posix()
+    else:
+        url = 'data:font/woff2;base64,' + base64.b64encode(source.read_bytes()).decode()
+    return 'url("' + url + '")'
+fonts_css = re.sub(r"url\(['\"]?([^)'\"]+)['\"]?\)", font_url, fonts_css)
+shell = shell.replace('__FONTS_CSS__', fonts_css)
+
 cache = {}
 backgrounds = json.loads((root / 'src/backgrounds.json').read_text())
 if len({item['id'] for item in backgrounds}) != len(backgrounds):

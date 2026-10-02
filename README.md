@@ -8,6 +8,7 @@ Realistic parchment and scroll surfaces for ordinary web pages. Content stays se
 - Independent top and bottom choices: plain paper or the selected material's original roll.
 - Aged oak, dark walnut, honed marble, or a plain background.
 - Optional contact shadow, native page scrolling, and responsive width.
+- Polyhymnia typography: Junicode prose, Texturina headings, EB Garamond small caps and layered initials; self-hosted WOFF2 fonts.
 - Vanilla HTML/CSS/JavaScript, native SVG patterns, and WebP artwork. No runtime dependencies, canvas animation, or scroll handlers.
 
 ## Run locally
@@ -53,7 +54,7 @@ This creates `dist/index.html` and copies its `assets/` directory. Serve or depl
 
 ```text
 src/                    HTML/CSS, renderer, controllers, and material catalogs
-assets/                 Eight paper atlases and three tabletop textures
+assets/                 Paper/tabletop textures and self-hosted fonts
 docs/GUIDE.md           Usage, design decisions, performance, and integration
 notes/                  Generation prompts and recorded verification
 build.py                Standard-library-only static page builder
@@ -68,4 +69,4 @@ The included textures are AI-generated, encoded as WebP, and calibrated for this
 
 ## License
 
-[MIT](LICENSE), covering the code, documentation, and included texture assets.
+[MIT](LICENSE) for code, documentation, and included texture assets. Bundled fonts remain under **SIL Open Font License 1.1**; see [font credits and license texts](assets/fonts/README.md).
