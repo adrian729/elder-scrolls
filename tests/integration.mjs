@@ -47,11 +47,20 @@ try {
   });
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const base='http://127.0.0.1:'+server.address().port;
-  chrome=spawn(process.env.CHROME_BIN||'google-chrome',['--headless','--no-sandbox','--disable-gpu','--remote-debugging-port=0','--user-data-dir='+path.join(folder,'chrome'),'about:blank'],{stdio:['ignore','ignore','pipe']});children.push(chrome);
-  chrome.on('error',error=>console.error(error));
-  let endpoint='';chrome.stderr.on('data',data=>{const match=data.toString().match(/DevTools listening on (ws:\/\/[^\s]+)/);if(match)endpoint=match[1];});
-  for(let i=0;i<100&&!endpoint;i++)await pause();
-  assert.ok(endpoint,'Chromium did not start; set CHROME_BIN to its executable');
+  const profile=path.join(folder,'chrome');
+  chrome=spawn(process.env.CHROME_BIN||'google-chrome',['--headless','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--remote-debugging-port=0','--user-data-dir='+profile,'about:blank'],{stdio:['ignore','ignore','pipe']});children.push(chrome);
+  let chromeLog='', chromeFailure='';
+  chrome.on('error',error=>{chromeFailure=error.message;});
+  chrome.on('exit',(code,signal)=>{chromeFailure='exit '+code+' signal '+signal;});
+  chrome.stderr.on('data',data=>{chromeLog+=data.toString();});
+  let endpoint='';
+  for(let i=0;i<400&&!endpoint&&!chromeFailure;i++){
+    try {
+      const [port,route]= (await readFile(path.join(profile,'DevToolsActivePort'),'utf8')).trim().split('\n');
+      if(port&&route)endpoint='ws://127.0.0.1:'+port+route;
+    } catch { await pause(); }
+  }
+  assert.ok(endpoint,'Chromium did not start; set CHROME_BIN. '+chromeFailure+' '+chromeLog.slice(-3000));
   const tabs=await(await fetch(endpoint.replace(/^ws:/,'http:').replace(/\/devtools\/browser\/.*/, '/json'))).json();
   ws=new WebSocket(tabs.find(tab=>tab.type==='page').webSocketDebuggerUrl);
   await new Promise(resolve=>ws.addEventListener('open',resolve,{once:true}));
