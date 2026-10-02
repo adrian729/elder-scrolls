@@ -1,6 +1,6 @@
 # Elder Scrolls usage and implementation guide
 
-Try the [live demo](https://adrian729.github.io/elder-scrolls/), or build `index.html` locally for the offline demo. It starts with Ivory vellum, plain paper at both ends. Choose top and bottom independently from **Original roll** and **Paper**, for any of the eight papers. It opens on aged oak; **Surface beneath paper** offers aged oak, dark walnut, honed marble, or a plain background independently of the paper. Content uses normal HTML and browser document scrolling.
+Try the [live demo](https://adrian729.github.io/elder-scrolls/), or build `index.html` locally for the offline demo. It starts with Ivory vellum, Medium content (five sections), original rolls at both ends, and a responsive 900px maximum page width. Choose top and bottom independently from **Original roll** and **Paper**, for any of the eight papers. It opens on dark walnut; **Surface beneath paper** offers aged oak, dark walnut, honed marble, or a plain background independently of the paper. Content uses normal HTML and browser document scrolling.
 
 This is the main guide for the implementation. Start with [using the demo](#using-the-demo), then [building](#build-and-extend) or [integrating real content](#integrating-real-content-into-an-application). The historical [plan](../notes/responsive-texture-plan.md), [generation prompts](../notes/tiled-art-prompts.json), [functional checks](../notes/tiled-verification.json), and [long-page check](../notes/tiled-stress.json) provide supporting detail.
 
@@ -10,7 +10,7 @@ All eight photographic atlases remain unchanged. Original rolls retain their com
 
 1. Open the [live demo](https://adrian729.github.io/elder-scrolls/) in a modern browser, or open your locally built `index.html`. The default embedded build works offline and does not fetch fonts, libraries, or artwork from a service; fonts and artwork are embedded.
 2. Select **Paper tone** to choose a paper within one of the four families. Its texture and suggested text palette change together; your selected top/bottom styles stay selected.
-3. Leave **Page width** on **Fluid · fit window** for continuous responsive width. The other options are maximum widths, not fixed widths: a 900px maximum still shrinks to fit a smaller window.
+3. The default **Page width** is **Max · 900 px**, which shrinks to fit smaller windows. Select **Fluid · fit window** to fill a wider window. All numeric options are maximum widths, not fixed widths.
 4. Select **Short**, **Medium**, or **Long** to display 1, 5, or 12 placeholder sections. **Add content** appends a section; **Go to bottom** scrolls the browser document to the footer. Resizing the window reflows content and exposes more or less texture without enlarging its grain or rolls.
 5. Choose **Surface beneath paper** independently of the paper and its end choices. Choose **Max 900 px** or **Max 1100 px** if you want to see a wider area of the tabletop on a large display; fluid width is unchanged.
 6. Toggle **Contact shadow** to compare the paper sitting on the surface with the original unshadowed rendering. The toggle does not change layout or paper color.
@@ -27,11 +27,11 @@ index.html?theme=rag&width=900&length=12&top=default&bottom=paper&background=wal
 | `theme` | `ivory`, `sage`, `original`, `rag`, and each corresponding `-dark` ID | `ivory` when no mode/tone selection is supplied |
 | `mode` | `light`, `dark`, `auto` | Unset; explicit `theme` takes priority |
 | `tone` | `neutral`, `warm` | `neutral` when resolving by mode/tone |
-| `width` | `fluid`, `640`, `900`, `1100` | `fluid` |
+| `width` | `fluid`, `640`, `900`, `1100` | `900` |
 | `length` | `1`, `5`, `12` | `5` |
-| `top` | `default`, `paper` | `paper` |
-| `bottom` | `default`, `paper` | `paper` |
-| `background` | `oak`, `walnut`, `marble`, `plain` | `oak` |
+| `top` | `default`, `paper` | `default` |
+| `bottom` | `default`, `paper` | `default` |
+| `background` | `oak`, `walnut`, `marble`, `plain` | `walnut` |
 | `shadow` | `on`, `off` | `on` |
 
 Unrecognized parameter values are ignored. An explicit valid `theme` takes priority over `mode` and `tone`. With no explicit theme, `mode=auto` follows `prefers-color-scheme` and responds to system-mode changes; choosing a paper manually stops that automatic following for this visit. Toolbar changes are not saved to the URL or local storage; reloading restores the URL's selection or the defaults. The `#mr-end` anchor points to the footer, while `#mr-start` points to the beginning of the scroll. The bottom decoration follows the footer in normal document flow.
@@ -385,7 +385,7 @@ endings.setOptions({ top: 'default', bottom: 'paper' });
 endings.setOptions({ bottom: 'default' }); // Omitted top stays unchanged.
 ```
 
-Accepted values are `default` and `paper`. Invalid values throw before changing either selection. The standalone module defaults both to `default`; the demo and initializer above explicitly choose paper at both ends. `setPaper(theme)` captures the original roll markup, so always call `surface(theme)` immediately before it, including on material changes. Do not call it again merely to change end styles. Call `shadow.destroy()` and `endings.destroy()` on component unmount, and remove any application event listeners you added.
+Accepted values are `default` and `paper`. Invalid values throw before changing either selection. The standalone module defaults both to `default`; the application initializer above explicitly chooses paper at both ends; the demo starts with original rolls. `setPaper(theme)` captures the original roll markup, so always call `surface(theme)` immediately before it, including on material changes. Do not call it again merely to change end styles. Call `shadow.destroy()` and `endings.destroy()` on component unmount, and remove any application event listeners you added.
 
 Set a maximum width on the root; use `none` for fluid width:
 

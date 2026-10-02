@@ -120,7 +120,7 @@
   function appendSection(){
     const count=sections.childElementCount;
     const section=originals[count%originals.length].cloneNode(true);
-    if(count>=originals.length)section.querySelector('h3').textContent='Additional section '+(count-originals.length+1);
+    if(count>=originals.length)section.querySelector('h2').textContent='Additional section '+(count-originals.length+1);
     sections.appendChild(section);
   }
   function setLength(count){sections.replaceChildren();for(let i=0;i<count;i++)appendSection();}

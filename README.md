@@ -4,6 +4,8 @@ Realistic parchment and scroll surfaces for ordinary web pages. Content stays se
 
 **[Live demo](https://adrian729.github.io/elder-scrolls/)** · **[Usage and implementation guide](docs/GUIDE.md)**
 
+The demo opens with **Ivory vellum · Medium content · Original roll at both ends · Max 900px width · Dark walnut**, with contact shadows enabled.
+
 - Eight papers: two light, two warm/burnt, and matching neutral/warm dark families.
 - Independent top and bottom choices: plain paper or the selected material's original roll.
 - Aged oak, dark walnut, honed marble, or a plain background.

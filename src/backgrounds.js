@@ -25,7 +25,7 @@ window.ParchmentBackgrounds={create(element,catalog){
   const status=document.querySelector('.mr-background-status');
   for(const item of catalog)select.append(new Option(item.label,item.id));
   const parameter=new URLSearchParams(location.search).get('background');
-  select.value=catalog.some(item=>item.id===parameter)?parameter:'oak';
+  select.value=catalog.some(item=>item.id===parameter)?parameter:'walnut';
   async function apply(){
     const id=select.value;status.textContent='Loading surface…';
     try{if(await backgrounds.set(id))status.textContent='';}
