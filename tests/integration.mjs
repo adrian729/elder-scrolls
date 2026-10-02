@@ -16,7 +16,7 @@ const app = path.join(folder, 'app');
 const children = [];
 const pause = (ms=60) => new Promise(resolve => setTimeout(resolve, ms));
 const records = [];
-let server, ws, chrome;
+let server, ws, chrome, viteServer;
 try {
   await mkdir(app);
   const pack = JSON.parse((await exec('npm', ['pack', '--json', '--pack-destination', folder], {cwd:root})).stdout);
@@ -109,9 +109,10 @@ try {
   assert.equal(await evaluate(`document.querySelector('#primary input').value`),'Controlled note');
   await evaluate(`document.querySelectorAll('nav button')[5].click()`);await until(`document.querySelector('.es-table').dataset.surface==='marble'`);
   // Development build actually performs Strict Mode's extra setup/cleanup cycle.
-  const vite=spawn(process.execPath,[path.join(root,'node_modules/vite/bin/vite.js'),'--host','127.0.0.1','--port','0'],{cwd:app,stdio:['ignore','pipe','pipe']});children.push(vite);
-  let dev='';vite.stdout.on('data',data=>{const match=data.toString().match(/http:\/\/127\.0\.0\.1:\d+\//);if(match)dev=match[0];});
-  for(let i=0;i<150&&!dev;i++)await pause();assert.ok(dev,'Vite development server did not start');
+  const { createServer: createViteServer } = await import('vite');
+  viteServer = await createViteServer({root:app,configFile:false,logLevel:'error',server:{host:'127.0.0.1',port:0}});
+  await viteServer.listen();
+  const dev='http://127.0.0.1:'+viteServer.httpServer.address().port+'/';
   await navigate(dev,`document.getElementById('primary')?.dataset.theme==='ivory'&&document.getElementById('secondary')?.dataset.theme==='rag-dark'`);
   await geometry();assert.equal(await evaluate(`document.querySelectorAll('.mr-contact-shadow').length`),2);
   assert.ok(await evaluate(`Number(document.querySelector('#primary .mr-definitions image').id.split('-')[1]) > 2`), 'Development Strict Mode must have remounted the renderer');
@@ -122,5 +123,5 @@ try {
   await writeFile(path.join(root,'notes/library-integration-verification.json'),JSON.stringify(summary,null,2)+'\n');
   console.log('PASS packed vanilla + React: 32 paper/end combinations, responsive widths, 50,000px growth, preserved inputs, async guards, cleanup, Strict Mode, hydration, nested production asset paths');
 } finally {
-  ws?.close();for(const child of children)child.kill();if(server)await new Promise(resolve=>server.close(resolve));
+  ws?.close();if(viteServer)await viteServer.close();for(const child of children)child.kill();if(server)await new Promise(resolve=>server.close(resolve));
 }
