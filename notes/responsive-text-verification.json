@@ -1,0 +1,63 @@
+{
+  "widths": [
+    {
+      "viewport": 320,
+      "available": 180.21875,
+      "actual": 180.21875,
+      "left": 56,
+      "paddingLeft": 56,
+      "max": "none"
+    },
+    {
+      "viewport": 375,
+      "available": 233,
+      "actual": 233,
+      "left": 56,
+      "paddingLeft": 56,
+      "max": "none"
+    },
+    {
+      "viewport": 768,
+      "available": 592.2012500000001,
+      "actual": 592.21875,
+      "left": 65.03125,
+      "paddingLeft": 65.04,
+      "max": "none"
+    },
+    {
+      "viewport": 997,
+      "available": 798.3050000000001,
+      "actual": 798.3125,
+      "left": 71.90625,
+      "paddingLeft": 71.91,
+      "max": "none"
+    },
+    {
+      "viewport": 1440,
+      "available": 1221,
+      "actual": 1221,
+      "left": 82,
+      "paddingLeft": 82,
+      "max": "none"
+    },
+    {
+      "viewport": 1920,
+      "available": 1701,
+      "actual": 1701,
+      "left": 82,
+      "paddingLeft": 82,
+      "max": "none"
+    }
+  ],
+  "capped": {
+    "available": 736,
+    "actual": 736,
+    "left": 82,
+    "paddingLeft": 82,
+    "max": "none"
+  },
+  "contentGrowth": true,
+  "rolledEnds": true,
+  "darkPaper": true,
+  "errors": []
+}
