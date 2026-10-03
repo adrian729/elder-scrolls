@@ -1,8 +1,10 @@
 {
   "package": "@ranx729/elder-scrolls",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "registryInstall": true,
   "installedDependencies": 1,
   "runtimeFilesMatchVerifiedSource": true,
-  "registryIntegrity": "sha512-SdjF015m4HJd+whNxX7zfZVY4VY0DvvrM7F+2+gZDtjpNMg/t4xA9Fhq82jw4ANTnWdEE+a1OyXOX4OX+1X/zw=="
+  "allPackageFilesMatchVerifiedSource": true,
+  "verifiedFiles": 54,
+  "registryIntegrity": "sha512-P+3UiRxkD3BDYkRVG3MwlhMALOC4hLe7yEOuJoSRPOCMS5ZPNYIFYrPhlVxpGDXY0R5W7iow+dP0iJqTDpAQkg=="
 }
