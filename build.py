@@ -82,6 +82,7 @@ print('Saved:', target)
 if args.linked and target.parent != root:
     shutil.copytree(root / 'lib', target.parent / 'lib', dirs_exist_ok=True)
     shutil.copytree(root / 'examples/vanilla', target.parent / 'examples/vanilla', dirs_exist_ok=True)
+    shutil.copytree(root / 'examples/performance', target.parent / 'examples/performance', dirs_exist_ok=True)
     runpy.run_path(str(root / 'scripts/build-browser.py'))
     if (root / 'dist/elder-scrolls-browser.zip').resolve() != (target.parent / 'elder-scrolls-browser.zip').resolve():
         shutil.copy2(root / 'dist/elder-scrolls-browser.zip', target.parent / 'elder-scrolls-browser.zip')

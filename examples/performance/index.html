@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elder Scrolls — performance fixture</title>
+  <script>
+    // Set this before the first paint so hiding test controls cannot create CLS.
+    if (new URLSearchParams(location.search).get('controls') === 'off') document.documentElement.dataset.hideControls = '';
+  </script>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../lib/styles.css">
+  <style>
+    body { margin:0; padding:16px 8px 32px; background:#595955; color:#fff; font:16px/1.6 system-ui,sans-serif; }
+    #controls { max-width:900px; margin:0 auto 24px; padding:16px; box-sizing:border-box; background:#282925; border-radius:8px; }
+    html[data-hide-controls] #controls { display:none; }
+    #controls p { margin:0 0 12px; }
+    .fields { display:flex; flex-wrap:wrap; align-items:end; gap:12px; }
+    .fields label { display:grid; grid-template-columns:minmax(0,1fr); gap:4px; min-width:0; max-width:100%; }
+    button,select,input { font:inherit; max-width:100%; box-sizing:border-box; }
+    button,select { padding:4px 8px; }
+    #status { display:block; min-height:1.6em; margin-top:8px; }
+    #page h1 { font-size:1.75rem; line-height:1.25; }
+    #page h2 { font-size:1.25rem; }
+    #page a { color:var(--es-link); }
+    #page input { display:block; width:100%; }
+  </style>
+</head>
+<body>
+  <nav id="controls" aria-label="Performance fixture settings">
+    <p>Try the parchment on different backgrounds and at different sizes. Settings are saved in the URL.</p>
+    <div class="fields">
+      <label>Background <select id="surface"><option value="none">Plain gray (isolated)</option></select></label>
+      <label>Paper <select id="paper"></select></label>
+      <label>Top <select id="top"><option value="roll">Roll</option><option value="paper">Paper</option></select></label>
+      <label>Bottom <select id="bottom"><option value="roll">Roll</option><option value="paper">Paper</option></select></label>
+      <label>Shadow <select id="shadow"><option value="on">On</option><option value="off">Off</option></select></label>
+      <label>Maximum width <select id="width"><option value="320">320 px</option><option value="480">480 px</option><option value="640">640 px</option><option value="900">900 px</option><option value="1200">1200 px</option><option value="fluid">Fluid</option></select></label>
+      <label>Sections <input id="length" type="number" min="1" max="100" step="1" value="4"></label>
+      <button id="add" type="button">Add a section</button>
+    </div>
+    <output id="status" role="status">Loading parchment…</output>
+  </nav>
+  <article id="page">
+    <h1>A parchment with ordinary HTML</h1>
+    <p>This page isolates Elder Scrolls artwork, layout, and updates. Select text, follow a <a href="#last-section">link to the last section</a>, and edit the field while changing paper or endings.</p>
+    <label>A persistent note <input id="note" value="Keep this text while changing the parchment"></label>
+    <div id="sections"></div>
+  </article>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

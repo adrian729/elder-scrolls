@@ -92,12 +92,63 @@ try {
   assert.equal(await evaluate(`(()=>{const before=extra.dataset.theme;try{sheet.update({top:'pointy'});return false}catch{return extra.dataset.theme===before}})()`),true);
   await evaluate(`original.focus();original.value='Typed';await sheet.update({paper:'ivory',maxWidth:640});`);
   assert.equal(await evaluate(`original===extra.querySelector('input')&&original.value==='Typed'&&document.activeElement===original`),true);
+  // Content growth must retain cap/shadow trees. Only the bottom paper phase
+  // and shadow positions follow height; input identity and focus stay native.
+  await pause(100);
+  await evaluate(`window.artBefore=[...extra.querySelectorAll('.mr-cap > svg,.mr-shadow-piece')];window.phaseBefore=extra.querySelector('.mr-bottom pattern').getAttribute('y');`);
   const before=await evaluate(`extra.querySelector('.mr-bottom').getBoundingClientRect().top+scrollY`);
   await evaluate(`const block=document.createElement('div');block.style.height='50000px';sheet.content.append(block);`);await pause(160);
   assert.ok(await evaluate(`extra.querySelector('.mr-bottom').getBoundingClientRect().top+scrollY`)>before+49999);
+  assert.equal(await evaluate(`artBefore.every((node,i)=>node===extra.querySelectorAll('.mr-cap > svg,.mr-shadow-piece')[i])`),true,'Height changes preserve paper caps and shadow pieces');
+  assert.ok(Math.abs(await evaluate(`Number(extra.querySelector('.mr-bottom pattern').getAttribute('y'))-Number(phaseBefore)`)+50000)<.1,'Bottom paper phase follows content height');
+  assert.equal(await evaluate(`(()=>{const cap=extra.querySelector('.mr-bottom').getBoundingClientRect(),shadow=extra.querySelector('.mr-shadow-bottom').getBoundingClientRect();return Math.abs(cap.top-shadow.top)<.1;})()`),true);
+  const mutations=await evaluate(`await (async()=>{
+    const layer=extra.querySelector('.mr-contact-shadow');let rebuilds=0;
+    const observer=new MutationObserver(records=>{rebuilds+=records.filter(r=>r.target===layer).length;});observer.observe(layer,{childList:true});
+    await sheet.update();await new Promise(r=>requestAnimationFrame(r));const noop=rebuilds;
+    await sheet.update({top:'roll',bottom:'roll'});await new Promise(r=>requestAnimationFrame(r));const ending=rebuilds-noop;
+    const caps=[...extra.querySelectorAll('.mr-cap > svg')];const block=document.createElement('div');block.style.height='100px';sheet.content.append(block);
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+    const retained=caps.every((node,i)=>node===extra.querySelectorAll('.mr-cap > svg')[i]);
+    observer.disconnect();return {noop,ending,growth:rebuilds-noop-ending,retained};
+  })()`);
+  assert.deepEqual(mutations,{noop:0,ending:1,growth:0,retained:true});
+  records.push({kind:'incremental-rendering',...mutations});
+  const shadowUpdates=await evaluate(`await (async()=>{
+    const caps=[...extra.querySelectorAll('.mr-cap > svg')];
+    await sheet.update({top:'paper',bottom:'paper'});await sheet.update({top:'roll',bottom:'roll'});
+    const restoredRolls=caps.every((node,i)=>node===extra.querySelectorAll('.mr-cap > svg')[i]);
+    const pieces=[...extra.querySelectorAll('.mr-shadow-piece')];
+    await sheet.update({shadow:false});
+    const block=document.createElement('div');block.style.height='123px';sheet.content.append(block);
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+    await sheet.update({shadow:true});
+    const retainedShadows=pieces.every((node,i)=>node===extra.querySelectorAll('.mr-shadow-piece')[i]);
+    const aligned=()=>['top','bottom'].every(side=>{
+      const cap=extra.querySelector('.mr-'+side),shadow=extra.querySelector('.mr-shadow-'+side);
+      const a=cap.getBoundingClientRect(),b=shadow.getBoundingClientRect();
+      const target=document.getElementById(shadow.querySelector('use').getAttribute('href').slice(1));
+      return Math.abs(a.top-b.top)<.1&&Math.abs(a.height-b.height)<.1&&target===cap.firstElementChild
+        &&Math.abs(Number(shadow.querySelector('filter').getAttribute('width'))-a.width-16)<.1;
+    });
+    const growthAligned=aligned();
+    await sheet.update({shadow:false});
+    await sheet.update({paper:'rag-dark',top:'paper',bottom:'roll',maxWidth:480});
+    await sheet.update({shadow:true});
+    const resizedAligned=aligned()&&extra.querySelector('.mr-body').getBoundingClientRect().width===480;
+    return {restoredRolls,retainedShadows,growthAligned,resizedAligned};
+  })()`);
+  assert.deepEqual(shadowUpdates,{restoredRolls:true,retainedShadows:true,growthAligned:true,resizedAligned:true});
+  records.push({kind:'shadow-update-recovery',...shadowUpdates});
+  assert.deepEqual(await evaluate(`await Promise.all([sheet.update({paper:'ivory'}),sheet.update({paper:'rag-dark'})])`),[false,true],'An unchanged winning request must still cancel an older update');
+  assert.equal(await evaluate(`extra.querySelector('.mr-scroll').getAttribute('aria-busy')`),'false');
   const pendingDestroy=await evaluate(`const pending=sheet.update({paper:'original-dark'});sheet.destroy();sheet.destroy();const result=await pending;({result,restored:extra.firstChild===original,value:original.value,decorations:extra.querySelectorAll('.mr-scroll').length});`);
   assert.deepEqual(pendingDestroy,{result:false,restored:true,value:'Typed',decorations:0});
-  await evaluate(`sheet=api.createParchment(extra);await sheet.ready;sheet.destroy();extra.remove();`);
+  await evaluate(`sheet=api.createParchment(extra,{shadow:false});await sheet.ready;`);
+  assert.equal(await evaluate(`extra.querySelectorAll('.mr-shadow-piece').length`),0);
+  await evaluate(`await sheet.update({shadow:true});`);
+  assert.equal(await evaluate(`extra.querySelectorAll('.mr-shadow-piece').length`),3,'Shadows can be enabled after mounting without them');
+  await evaluate(`sheet.destroy();extra.remove();`);
   assert.deepEqual(failed,[], 'Unexpected requests before recovery check');
   // A missing asset yields a recoverable error.
   assert.equal(await evaluate(`const e=document.createElement('article');document.body.append(e);const p=api.createParchment(e,{assetsBase:'/missing/'});let failed=false;try{await p.ready}catch{failed=true}await p.update({assetsBase:undefined});p.destroy();e.remove();failed;`),true);

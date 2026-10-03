@@ -11,10 +11,14 @@ npm install @ranx729/elder-scrolls
 For a checkout or a release not yet published, run `npm pack` in the library repository and install the resulting `.tgz` in your application. Consumers do not need Python; it is used only to build and package this repository.
 
 ```sh
-npm install /path/to/ranx729-elder-scrolls-0.1.0.tgz
+npm install /path/to/ranx729-elder-scrolls-0.1.1.tgz
 ```
 
 The core has no runtime dependencies. React is an optional peer dependency, required only by the `/react` entry point. Published code is ESM, with TypeScript declarations.
+
+### Upgrading from 0.1.0 to 0.1.1
+
+Run `npm install @ranx729/elder-scrolls@0.1.1` and rebuild your application. No code migration is needed: JavaScript imports, React props, options, stylesheets, and asset paths are unchanged. The existing SVG renderer automatically reuses decorative nodes and skips unchanged updates. Responsive sizing, artwork, and native HTML content are preserved; no renderer selection or extra assets are required.
 
 ## Plain JavaScript with a bundler
 

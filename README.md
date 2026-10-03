@@ -17,7 +17,7 @@ Realistic parchment and scroll surfaces for real HTML pages, plain JavaScript, a
 npm install @ranx729/elder-scrolls
 ```
 
-Before publication, or when testing a checkout, run `npm pack` and install the resulting `.tgz` in your application.
+When testing a checkout, run `npm pack` and install the resulting `.tgz` in your application. Upgrading from 0.1.0 to 0.1.1 requires no application code changes; see the [changelog](https://github.com/adrian729/elder-scrolls/blob/main/CHANGELOG.md).
 
 ## Plain JavaScript
 
@@ -109,6 +109,8 @@ build.py                Offline/linked demo builder
 ## Performance and artwork
 
 Fixed-scale SVG patterns reuse WebP atlases. One observer per sheet updates layout after content/size changes; there are no scroll handlers. Shadows use local filter regions rather than filtering the long page. Linked applications request selected textures, and optional fonts only load when used.
+
+Unchanged options skip decoration updates. Content growth retains cap and shadow SVG nodes, updating only texture alignment and shadow geometry. Ending and width changes refresh shadows after the final geometry is available. The [isolated preview](https://adrian729.github.io/elder-scrolls/examples/performance/?surface=walnut&width=900) lets you check backgrounds, widths, endings, and growing content without the showcase's fonts or illustrations.
 
 [Performance details and verification limits](https://github.com/adrian729/elder-scrolls/blob/main/docs/GUIDE.md#verification-and-limits) distinguish transfer size, decoded images, and browser painting costs. Recorded Chromium checks are not a real-device FPS benchmark or Firefox/Safari certification.
 

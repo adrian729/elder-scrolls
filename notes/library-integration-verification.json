@@ -1,6 +1,6 @@
 {
   "package": "@ranx729/elder-scrolls",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "initialSelectedImages": 3,
   "vanillaMatrix": 32,
   "responsive": [
@@ -131,6 +131,20 @@
           "internal": false
         }
       ]
+    },
+    {
+      "kind": "incremental-rendering",
+      "noop": 0,
+      "ending": 1,
+      "growth": 0,
+      "retained": true
+    },
+    {
+      "kind": "shadow-update-recovery",
+      "restoredRolls": true,
+      "retainedShadows": true,
+      "growthAligned": true,
+      "resizedAligned": true
     },
     {
       "kind": "react-production",
