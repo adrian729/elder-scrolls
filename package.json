@@ -56,10 +56,12 @@
     }
   },
   "scripts": {
+    "demo:refresh": "node scripts/resolve-demo-illustrations.mjs",
     "build": "python3 scripts/build-library.py && python3 build.py --linked --output dist/index.html",
     "build:browser": "python3 scripts/build-browser.py",
     "prepack": "python3 scripts/build-library.py",
     "test": "node --test tests/*.test.mjs",
+    "test:demo": "python3 -m unittest discover -s tests -p 'test_demo_*.py'",
     "test:integration": "node tests/integration.mjs",
     "test:types": "tsc --noEmit --strict --noUncheckedSideEffectImports --module nodenext --target es2022 --jsx react-jsx tests/types.tsx"
   },
@@ -67,6 +69,7 @@
     "access": "public"
   },
   "devDependencies": {
+    "@ranx729/medieval-ornaments": "0.7.0",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "react": "19.3.0",

@@ -8,7 +8,9 @@ import re
 import runpy
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--linked', action='store_true', help='Reference assets/ instead of embedding images')
+parser.add_argument('--linked', action='store_true', help='Reference local textures/fonts and CDN illustrations instead of embedding them')
+parser.add_argument('--offline', action='store_true', help='Build using cached illustrations only; never download artwork')
+parser.add_argument('--illustration-cache', type=Path, help='Illustration cache directory (default: tmp/illustrations)')
 parser.add_argument('--output', type=Path, help='Output HTML path (default: index.html next to build.py)')
 args = parser.parse_args()
 
@@ -67,16 +69,14 @@ styles = re.sub(r'url\("\.\./([^"\)]+)"\)', texture_url, styles)
 markup = '<style>\n' + styles + '\n</style>\n' + template
 markup = markup.replace('__LIBRARY_JS__', bundle)
 markup = markup.replace('__DEMO_JS__', (root / 'src/demo.js').read_text())
-if not args.linked:
-    def illustration_url(match):
-        source = root / match.group(1)
-        return 'src="data:image/webp;base64,' + base64.b64encode(source.read_bytes()).decode() + '"'
-    markup = re.sub(r'src="(demo-assets/illustrations/[^"\s]+\.webp)"', illustration_url, markup)
+illustrations = json.loads((root / 'demo-assets/illustrations/sources.json').read_text())['illustrations']
+render_illustrations = runpy.run_path(str(root / 'scripts/demo-illustrations.py'))['render_illustrations']
+markup = render_illustrations(markup, illustrations, linked=args.linked,
+                              cache=args.illustration_cache or root / 'tmp/illustrations', offline=args.offline)
 target = args.output.resolve() if args.output else root / 'index.html'
 target.parent.mkdir(parents=True, exist_ok=True)
 if args.linked and target.parent != root:
     shutil.copytree(root / 'assets', target.parent / 'assets', dirs_exist_ok=True)
-    shutil.copytree(root / 'demo-assets', target.parent / 'demo-assets', dirs_exist_ok=True)
 target.write_text(shell.replace('<!--__SCROLL_PAGE__-->', markup))
 print('Saved:', target)
 if args.linked and target.parent != root:

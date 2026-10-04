@@ -1,0 +1,55 @@
+{
+  "runtime": {
+    "package": "@ranx729/medieval-ornaments",
+    "version": "0.7.0"
+  },
+  "vendoredIllustrations": 0,
+  "browserChecks": [
+    {
+      "deviceScaleFactor": 1,
+      "selectedVariant": 128,
+      "uniqueCdnImages": 4,
+      "footerImagesDeferredUntilScroll": true,
+      "runtimeOrCatalogRequests": 0,
+      "errors": []
+    },
+    {
+      "deviceScaleFactor": 2,
+      "selectedVariant": 256,
+      "uniqueCdnImages": 4,
+      "footerImagesDeferredUntilScroll": true,
+      "runtimeOrCatalogRequests": 0,
+      "errors": []
+    }
+  ],
+  "illustrationBytes": {
+    "1x": 51108,
+    "2x": 162908
+  },
+  "offline": {
+    "selected256pxImagesEmbedded": 4,
+    "verifiedCacheFiles": 4,
+    "cachedBuildWithoutNetwork": true,
+    "missingOrCorruptCacheRejected": true,
+    "browserInternetDisabled": true,
+    "viewportWidth": 375,
+    "horizontalOverflow": false,
+    "externalRequests": [],
+    "errors": []
+  },
+  "distributions": {
+    "npmIncludesIllustrations": false,
+    "browserZipIncludesIllustrations": false,
+    "ornamentsBrowserRuntimeIncluded": false,
+    "runtimeDependencies": []
+  },
+  "checks": [
+    "npm test",
+    "npm run test:demo",
+    "npm run test:types",
+    "npm run build",
+    "python3 build.py",
+    "python3 build.py --offline",
+    "npm pack --dry-run --json"
+  ]
+}

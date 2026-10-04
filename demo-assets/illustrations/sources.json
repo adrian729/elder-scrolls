@@ -1,34 +1,116 @@
-[
-  {
-    "name": "flying-pig",
-    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/flying-pig.webp",
-    "description": "A pink pig facing right has large gold feathered wings, a curled tail, and dangling legs.",
-    "width": 256,
-    "height": 256,
-    "bytes": 45056
+{
+  "runtime": {
+    "package": "@ranx729/medieval-ornaments",
+    "version": "0.7.0"
   },
-  {
-    "name": "snail",
-    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/snail.webp",
-    "description": "An orange-brown snail faces right with long feelers and a large brown spiral shell.",
-    "width": 256,
-    "height": 128,
-    "bytes": 30716
-  },
-  {
-    "name": "rabbit-reading-book",
-    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/rabbit-reading-book.webp",
-    "description": "A brown rabbit with tall ears and a wide white eye leans left over an open pale book, with a paw resting on the marked pages.",
-    "width": 256,
-    "height": 179,
-    "bytes": 38766
-  },
-  {
-    "name": "weird-dog",
-    "source": "https://github.com/adrian729/medieval-cutouts/blob/main/webp/256/weird-dog.webp",
-    "description": "A seated shaggy dog-like creature with a human-like bearded face.",
-    "width": 256,
-    "height": 210,
-    "bytes": 48370
-  }
-]
+  "illustrations": [
+    {
+      "name": "rabbit-reading-book",
+      "description": "A brown rabbit with tall ears and a wide white eye leans left over an open pale book, with a paw resting on the marked pages.",
+      "displayWidth": 128,
+      "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
+      "version": "0.1.0",
+      "variants": [
+        {
+          "pixelRatio": 1,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/rabbit-reading-book.webp",
+          "path": "webp/128/rabbit-reading-book.webp",
+          "width": 128,
+          "height": 90,
+          "bytes": 13080,
+          "sha256": "7c2aaf9db5a97a34533bad88bc8a85a3377b0ad9e1a65453e7771261a95c989f"
+        },
+        {
+          "pixelRatio": 2,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/rabbit-reading-book.webp",
+          "path": "webp/256/rabbit-reading-book.webp",
+          "width": 256,
+          "height": 179,
+          "bytes": 38766,
+          "sha256": "93109d025db6ec26ba8299444b3f61630cf9e9b1e3d600d3e15e76535965d2e1"
+        }
+      ]
+    },
+    {
+      "name": "flying-pig",
+      "description": "A pink pig facing right has large gold feathered wings, a curled tail, and dangling legs.",
+      "displayWidth": 112,
+      "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
+      "version": "0.1.0",
+      "variants": [
+        {
+          "pixelRatio": 1,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/flying-pig.webp",
+          "path": "webp/128/flying-pig.webp",
+          "width": 128,
+          "height": 128,
+          "bytes": 14564,
+          "sha256": "37497ea764e1c4aaeb8b001b9ee55261bab5d48c9db7d83e5398825512a777b0"
+        },
+        {
+          "pixelRatio": 2,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/flying-pig.webp",
+          "path": "webp/256/flying-pig.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 45056,
+          "sha256": "96045e4294813bdc3c202f72f7a3d1d8325057512d53998360270458f643343f"
+        }
+      ]
+    },
+    {
+      "name": "weird-dog",
+      "description": "A seated shaggy dog-like creature has a human-like bearded face looking toward the viewer, dark paws, and a long curled tail.",
+      "displayWidth": 128,
+      "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
+      "version": "0.1.0",
+      "variants": [
+        {
+          "pixelRatio": 1,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/weird-dog.webp",
+          "path": "webp/128/weird-dog.webp",
+          "width": 128,
+          "height": 105,
+          "bytes": 14374,
+          "sha256": "52ff0fc490ec59d86bcb0448af53606bb26aa7794d9849e044fbdfa2a5b7f4fc"
+        },
+        {
+          "pixelRatio": 2,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/weird-dog.webp",
+          "path": "webp/256/weird-dog.webp",
+          "width": 256,
+          "height": 210,
+          "bytes": 48370,
+          "sha256": "4adddfedb186a844fb421f87155483a071ce657ba1bf1e623bbcf9fb654bdb22"
+        }
+      ]
+    },
+    {
+      "name": "snail",
+      "description": "An orange-brown snail faces right with long feelers and a large brown spiral shell.",
+      "displayWidth": 120,
+      "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
+      "version": "0.1.0",
+      "variants": [
+        {
+          "pixelRatio": 1,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/snail.webp",
+          "path": "webp/128/snail.webp",
+          "width": 128,
+          "height": 64,
+          "bytes": 9090,
+          "sha256": "a5b8f8771e6de59fcf2278498a1882983076299d7117b008919ad88f6f447812"
+        },
+        {
+          "pixelRatio": 2,
+          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/snail.webp",
+          "path": "webp/256/snail.webp",
+          "width": 256,
+          "height": 128,
+          "bytes": 30716,
+          "sha256": "88a07a4a98cc39d5ed9716c786bb922664202f8d4c75ceb202aea07a6ec1775e"
+        }
+      ]
+    }
+  ]
+}

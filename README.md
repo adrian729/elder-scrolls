@@ -68,7 +68,9 @@ cd elder-scrolls
 python3 build.py
 ```
 
-Open the generated `index.html`. This embeds textures, illustrations, and fonts into one offline HTML file. For cacheable files and the plain-JS example:
+Open the generated `index.html`. This embeds textures, illustrations, and fonts into one offline HTML file. The first build downloads only four selected, version-pinned illustrations and verifies their hashes; subsequent builds reuse the ignored `tmp/illustrations/` cache. To require a build without network access, run `python3 build.py --offline` after populating that cache.
+
+For cacheable local textures/fonts, CDN illustrations, and the plain-JS example:
 
 ```sh
 python3 build.py --linked --output dist/index.html
@@ -82,6 +84,7 @@ Open <http://localhost:8000>. Defaults are **Ivory vellum · Medium content · O
 ```sh
 npm ci
 npm test
+npm run test:demo
 npm run test:types
 npm run test:integration
 npm run build
@@ -89,7 +92,7 @@ npm run build:browser
 npm pack
 ```
 
-Integration checks use Chromium (`CHROME_BIN` overrides the executable), install a real package archive, and exercise vanilla HTML plus React development/production builds. React, Vite, and TypeScript are development dependencies; vanilla consumers do not install them. Consumers do not need Python.
+Integration checks use Chromium (`CHROME_BIN` overrides the executable), install a real package archive, and exercise vanilla HTML plus React development/production builds. React, Vite, TypeScript, and the medieval-ornaments resolver are development dependencies; vanilla consumers do not install them. Consumers do not need Python. Run `npm run demo:refresh` when upgrading medieval-ornaments or changing demo image selections/sizes; it updates the committed source metadata using the runtime's individual resolvers and verified resource manifests.
 
 The GitHub Pages workflow builds the linked demo, native-JS example, and browser download. Generated files are ignored; Git commits provide history.
 
@@ -97,7 +100,7 @@ The GitHub Pages workflow builds the linked demo, native-JS example, and browser
 lib/                    Core API, React adapter, geometry and optional typography
 src/                    Demo, document shell, canonical paper/background manifests
 assets/                 Runtime paper/table textures and optional licensed fonts
-demo-assets/            Demo-only manuscript illustrations and source records
+demo-assets/            Demo-only illustration source metadata; no image binaries
 examples/               Plain JavaScript and React examples
 docs/                   Integration and implementation guides
 tests/                  Catalog, server render, types, and packaged browser checks
@@ -114,7 +117,7 @@ Unchanged options skip decoration updates. Content growth retains cap and shadow
 
 [Performance details and verification limits](https://github.com/adrian729/elder-scrolls/blob/main/docs/GUIDE.md#verification-and-limits) distinguish transfer size, decoded images, and browser painting costs. Recorded Chromium checks are not a real-device FPS benchmark or Firefox/Safari certification.
 
-Parchment/table textures are AI-generated; [prompts and provenance](https://github.com/adrian729/elder-scrolls/blob/main/notes/README.md) are included. Demo illustrations come from [medieval-cutouts](https://github.com/adrian729/medieval-cutouts); [source records and licensing scope](https://github.com/adrian729/elder-scrolls/blob/main/demo-assets/illustrations/README.md) are separate. They are excluded from the npm package.
+Parchment/table textures are AI-generated; [prompts and provenance](https://github.com/adrian729/elder-scrolls/blob/main/notes/README.md) are included. Demo illustrations come from [medieval-ornaments](https://github.com/adrian729/medieval-ornaments) through version-pinned CDN URLs; [source records and licensing scope](https://github.com/adrian729/elder-scrolls/blob/main/demo-assets/illustrations/README.md) are separate. They are excluded from the npm package.
 
 ## License
 
