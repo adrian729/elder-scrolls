@@ -48,3 +48,6 @@ export declare const papers: {
 };
 export declare function createParchment(element: HTMLElement, options?: ParchmentOptions): ParchmentController;
 export declare function createTableSurface(element: HTMLElement, options?: TableSurfaceOptions): Controller<TableSurfaceOptions>;
+export interface PreloadOptions { papers?: readonly PaperId[]; surfaces?: readonly TableSurfaceId[]; assetsBase?: string; }
+/** Fetches and decodes artwork ahead of use; sheets and tables mounted afterwards apply it before the next frame. */
+export declare function preloadArtwork(options?: PreloadOptions): Promise<void>;

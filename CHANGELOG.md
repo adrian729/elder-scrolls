@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.3 — 2026-10-05
+
+Applications can decode artwork before a sheet needs it. Everything else is unchanged.
+
+- Add `preloadArtwork({ papers, surfaces, assetsBase })`. It fetches and decodes the chosen artwork into the renderer's shared cache, so sheets and tables mounted afterwards apply it within their mounting task, before the next frame, instead of showing an unpainted sheet while it decodes.
+- Add a packed-archive integration check: preloaded artwork applies before the next frame, while artwork that was not preloaded is still waiting for its decode.
+
+In a React/Vite application whose contents sidebar mounts on navigation (Chrome, 4× CPU throttling, five runs), the sidebar showed its paper one to three frames after appearing without preloading, and in its first frame with it.
+
+**Upgrade:** `npm install @ranx729/elder-scrolls@0.1.3`. No code changes are needed; call `preloadArtwork` early for artwork your application mounts later.
+
 ## 0.1.2 — 2026-10-05
 
 Mounting a parchment or table no longer forces the browser to recalculate styles or layout of the page around it. Appearance, responsive geometry, native HTML behavior, and the public API are unchanged.

@@ -1,6 +1,6 @@
 {
   "name": "@ranx729/elder-scrolls",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Realistic responsive parchment and scroll surfaces for HTML, JavaScript and React",
   "type": "module",
   "license": "MIT",

@@ -78,6 +78,10 @@ try {
   const initialImages=requests.filter(url=>url.endsWith('.webp'));
   assert.equal(new Set(initialImages).size,3,'Only two chosen papers and the selected table should load');
   await evaluate(`window.api=await import('./app/node_modules/@ranx729/elder-scrolls/lib/index.js');window.originalInput=document.getElementById('notes');window.originalInput.value='Persistent note';`);
+  // Preloaded artwork applies within the mounting task (microtasks only, no frame); artwork that was
+  // not preloaded is still waiting for its decode at that point.
+  const preloadTiming=await evaluate(`await api.preloadArtwork({papers:['sage-dark'],surfaces:['oak']});const mount=paper=>{const e=document.createElement('article');document.body.append(e);return [e,api.createParchment(e,{paper})];};const [a,pa]=mount('sage-dark'),[b,pb]=mount('original-dark');for(let i=0;i<20;i++)await null;const result={preloaded:a.dataset.theme??null,cold:b.dataset.theme??null};await pb.ready;pa.destroy();pb.destroy();a.remove();b.remove();result`);
+  assert.deepEqual(preloadTiming,{preloaded:'sage-dark',cold:null},'Preloaded artwork must apply before the next frame');
   // A dedicated controller exercises the public lifecycle independently of UI.
   await evaluate(`window.extra=document.createElement('article');extra.innerHTML='<input value="keep"><p>Content</p>';document.body.append(extra);window.original=extra.firstChild;window.sheet=api.createParchment(extra,{paper:'sage',top:'paper',bottom:'roll',maxWidth:'fluid'});await sheet.ready;`);
   await geometry();

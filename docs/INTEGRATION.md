@@ -11,14 +11,14 @@ npm install @ranx729/elder-scrolls
 For a checkout or a release not yet published, run `npm pack` in the library repository and install the resulting `.tgz` in your application. Consumers do not need Python; it is used only to build and package this repository.
 
 ```sh
-npm install /path/to/ranx729-elder-scrolls-0.1.2.tgz
+npm install /path/to/ranx729-elder-scrolls-0.1.3.tgz
 ```
 
 The core has no runtime dependencies. React is an optional peer dependency, required only by the `/react` entry point. Published code is ESM, with TypeScript declarations.
 
-### Upgrading from 0.1.x to 0.1.2
+### Upgrading from 0.1.x to 0.1.3
 
-Run `npm install @ranx729/elder-scrolls@0.1.2` and rebuild your application. No code migration is needed: JavaScript imports, React props, options, stylesheets, and asset paths are unchanged. The existing SVG renderer automatically reuses decorative nodes and skips unchanged updates, and mounting no longer forces style or layout recalculation. Responsive sizing, artwork, and native HTML content are preserved; no renderer selection or extra assets are required.
+Run `npm install @ranx729/elder-scrolls@0.1.3` and rebuild your application. No code migration is needed: JavaScript imports, React props, options, stylesheets, and asset paths are unchanged. The existing SVG renderer automatically reuses decorative nodes and skips unchanged updates, and mounting no longer forces style or layout recalculation. Responsive sizing, artwork, and native HTML content are preserved; no renderer selection or extra assets are required.
 
 ## Plain JavaScript with a bundler
 
@@ -152,6 +152,18 @@ A numeric width is a **maximum**: the sheet shrinks to its container. Grain, edg
 Table options are `surface` (`walnut` by default; `oak`, `walnut`, `marble`, `plain`) and optional `assetsBase`. Tables are independent of parchments. They decorate only the supplied element and do not reset document margins or add their own scrolling container.
 
 `update()` merges options with the previous request. Validate IDs and endings before applying a change; invalid options throw synchronously. Asset-loading failures reject the returned promise. `ready` holds the latest update promise. An update resolves `true` when applied or `false` when superseded/destroyed before application. Always handle loading rejections, including the initial `ready` promise. Failed loads can be retried; they do not permanently poison the asset cache.
+
+## Preloading artwork
+
+A sheet shows its paper once the artwork is decoded. When a sheet mounts later, for example a sidebar that appears on navigation, decode its artwork ahead of time so it appears fully painted:
+
+```js
+import { preloadArtwork } from '@ranx729/elder-scrolls';
+
+preloadArtwork({ papers: ['ivory'], surfaces: ['walnut'] }).catch(console.error);
+```
+
+Sheets and tables mounted after it resolves apply the artwork within their mounting task, before the next frame. It shares the renderer's decode cache (capped at 32 URLs), accepts the same `assetsBase` as the components, and needs the stylesheet loaded first. Invalid IDs throw synchronously; loading failures reject.
 
 ## Choosing paper tones
 
