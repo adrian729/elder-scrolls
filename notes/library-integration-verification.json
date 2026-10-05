@@ -1,6 +1,6 @@
 {
   "package": "@ranx729/elder-scrolls",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "initialSelectedImages": 3,
   "vanillaMatrix": 32,
   "responsive": [
