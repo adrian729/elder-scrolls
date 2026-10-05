@@ -17,7 +17,7 @@ Realistic parchment and scroll surfaces for real HTML pages, plain JavaScript, a
 npm install @ranx729/elder-scrolls
 ```
 
-When testing a checkout, run `npm pack` and install the resulting `.tgz` in your application. Upgrading from 0.1.0 to 0.1.1 requires no application code changes; see the [changelog](https://github.com/adrian729/elder-scrolls/blob/main/CHANGELOG.md).
+When testing a checkout, run `npm pack` and install the resulting `.tgz` in your application. Upgrading from 0.1.x to 0.1.2 requires no application code changes; see the [changelog](https://github.com/adrian729/elder-scrolls/blob/main/CHANGELOG.md).
 
 ## Plain JavaScript
 

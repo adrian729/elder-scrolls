@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.2 — 2026-10-05
+
+Mounting a parchment or table no longer forces the browser to recalculate styles or layout of the page around it. Appearance, responsive geometry, native HTML behavior, and the public API are unchanged.
+
+- Read texture URLs from the loaded stylesheet once per document instead of probing computed styles on every mount. The unpainted probe remains the fallback for stylesheets that cannot be read, such as cross-origin ones.
+- Take paper-ending geometry from the body's ResizeObserver reports and render it before paint. A sheet whose artwork is already decoded at mount still measures once, so `ready` keeps meaning complete geometry.
+
+In a React/Vite application with two sheets per page (Chrome, 4× CPU throttling, median of six runs), main-thread time for a route change that remounts both sheets dropped from 301 ms to 239 ms, and for the initial page load from 668 ms to 626 ms. These are application timings, not INP or real-device measurements.
+
+**Upgrade:** `npm install @ranx729/elder-scrolls@0.1.2`, then rebuild your application. No changes to JavaScript imports, React props, CSS imports, asset hosting, or renderer configuration are needed.
+
 ## 0.1.1 — 2026-10-03
 
 Parchment updates now reuse existing SVG artwork instead of rebuilding decorations unnecessarily. Appearance, responsive geometry, native HTML behavior, and the public API are unchanged.

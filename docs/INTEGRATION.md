@@ -11,14 +11,14 @@ npm install @ranx729/elder-scrolls
 For a checkout or a release not yet published, run `npm pack` in the library repository and install the resulting `.tgz` in your application. Consumers do not need Python; it is used only to build and package this repository.
 
 ```sh
-npm install /path/to/ranx729-elder-scrolls-0.1.1.tgz
+npm install /path/to/ranx729-elder-scrolls-0.1.2.tgz
 ```
 
 The core has no runtime dependencies. React is an optional peer dependency, required only by the `/react` entry point. Published code is ESM, with TypeScript declarations.
 
-### Upgrading from 0.1.0 to 0.1.1
+### Upgrading from 0.1.x to 0.1.2
 
-Run `npm install @ranx729/elder-scrolls@0.1.1` and rebuild your application. No code migration is needed: JavaScript imports, React props, options, stylesheets, and asset paths are unchanged. The existing SVG renderer automatically reuses decorative nodes and skips unchanged updates. Responsive sizing, artwork, and native HTML content are preserved; no renderer selection or extra assets are required.
+Run `npm install @ranx729/elder-scrolls@0.1.2` and rebuild your application. No code migration is needed: JavaScript imports, React props, options, stylesheets, and asset paths are unchanged. The existing SVG renderer automatically reuses decorative nodes and skips unchanged updates, and mounting no longer forces style or layout recalculation. Responsive sizing, artwork, and native HTML content are preserved; no renderer selection or extra assets are required.
 
 ## Plain JavaScript with a bundler
 
@@ -196,13 +196,13 @@ The demo's justified paragraphs and manuscript illustrations are demo content, n
 
 ## Asset delivery
 
-The package stylesheet declares relative texture URLs on hidden asset-probe selectors. Bundlers can copy/hash these files and rewrite their CSS URLs; the renderer reads the selected resolved URL through an unpainted CSS probe. Only selected assets are preloaded and rendered. It does not fetch every paper merely because all paths are listed in CSS.
+The package stylesheet declares relative texture URLs on hidden asset-probe selectors. Bundlers can copy/hash these files and rewrite their CSS URLs; the renderer reads the resolved URLs from the loaded stylesheet once per document, falling back to an unpainted CSS probe for stylesheets it cannot read. Only selected assets are preloaded and rendered. It does not fetch every paper merely because all paths are listed in CSS.
 
 For custom hosting, copy the WebP files to your asset directory and supply `assetsBase`, for example `/my-app/textures/` or `https://cdn.example.com/textures/`. Preserve filenames. URLs may be relative to the document or absolute. No runtime dependency on GitHub or an external CDN is required.
 
 Parchment atlases are 1254×1254 pixels (about 6 MiB decoded RGBA each). The table tiles are the same size. Switching through many materials may leave browser-cached artwork in memory; the library's shared decode-promise cache is capped at 32 URLs. Cleanup prevents later rendering but does not promise to cancel a browser image download already in progress.
 
-The library uses one body ResizeObserver per parchment, batched animation-frame layout updates, and fixed-size SVG patterns. There are no scroll handlers. Shadows retain small local filter regions; the full long page is never blurred. The React adapter introduces no separate rendering engine.
+The library uses one body ResizeObserver per parchment, whose reported sizes drive ending geometry without forced layout, and fixed-size SVG patterns. There are no scroll handlers. Shadows retain small local filter regions; the full long page is never blurred. The React adapter introduces no separate rendering engine.
 
 ## Examples and release checks
 
