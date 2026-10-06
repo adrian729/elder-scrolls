@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.5 — 2026-10-06
+
+Screens download lighter artwork. Everything else is unchanged.
+
+- Every texture now also ships a copy at its own density (`-3x` for paper atlases, `-2x` for table images), so 3x screens and 2x table surfaces load a lighter file too; the originals are unchanged and serve only denser screens.
+- All copies are re-encoded lighter: tables at WebP quality 80, where wood grain and marble hide the difference, and papers at 85, which keeps their fine fibre. `sharp_yuv` keeps the small coloured flecks in the paper from greying.
+- The packed-archive integration check now expects the `-3x` copy on 3x screens.
+
+A rag sheet on a walnut table downloads 61 KB of artwork instead of 134 KB on a 1x screen, 295 KB instead of 531 KB on a 2x screen, and 460 KB instead of 772 KB on a 3x screen. Compared in a rendered page at 1x and 2x, the paper, its rolls and the wood look the same at their drawn size; at 3x zoom the paper's fibre is slightly softer. On a 1.6 Mbps connection with a 4x slower CPU, a 2x screen showed its first screen fully drawn about 1.3 s sooner. The package carries 2.4 MB more of copies; pages download only the ones they use.
+
+**Upgrade:** `npm install @ranx729/elder-scrolls@0.1.5`. No code changes are needed. Applications that host the textures themselves (`assetsBase`) must copy the new `-3x` paper and `-2x` table files too.
+
 ## 0.1.4 — 2026-10-06
 
 Screens download artwork made for their pixel density. Everything else is unchanged.

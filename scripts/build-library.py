@@ -4,7 +4,7 @@ import json
 root = Path(__file__).resolve().parents[1]
 papers = json.loads((root / 'src/themes.json').read_text())
 backgrounds = json.loads((root / 'src/backgrounds.json').read_text())
-# Smaller copies for lower screen densities (scripts/build-densities.py); the original serves the rest.
+# Lighter copies for each screen density up to the artwork's own (scripts/build-densities.py); the original serves denser screens.
 densities = json.loads((root / 'src/densities.json').read_text())
 variants = lambda path: densities.get(path, {}).get('variants', {})
 for item in [*papers, *backgrounds]:

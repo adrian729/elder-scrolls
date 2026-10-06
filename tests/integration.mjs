@@ -82,14 +82,14 @@ try {
   // not preloaded is still waiting for its decode at that point.
   const preloadTiming=await evaluate(`await api.preloadArtwork({papers:['sage-dark'],surfaces:['oak']});const mount=paper=>{const e=document.createElement('article');document.body.append(e);return [e,api.createParchment(e,{paper})];};const [a,pa]=mount('sage-dark'),[b,pb]=mount('original-dark');for(let i=0;i<20;i++)await null;const result={preloaded:a.dataset.theme??null,cold:b.dataset.theme??null};await pb.ready;pa.destroy();pb.destroy();a.remove();b.remove();result`);
   assert.deepEqual(preloadTiming,{preloaded:'sage-dark',cold:null},'Preloaded artwork must apply before the next frame');
-  // Each screen density gets the smallest artwork made for it; denser screens get the original.
+  // Each screen density gets the copy made for it, up to the artwork's own; denser screens get the original.
   const densityFiles={};
   for (const scale of [1,2,3]) {
     await send('Emulation.setDeviceMetricsOverride',{width:997,height:900,deviceScaleFactor:scale,mobile:false});await pause(100);
     densityFiles[scale]=await evaluate(`const e=document.createElement('article');document.body.append(e);const p=api.createParchment(e,{paper:'original'});await p.ready;const file=e.querySelector('image').getAttribute('href').split('/').at(-1);p.destroy();e.remove();file`);
   }
   await viewport(997);
-  assert.deepEqual(densityFiles,{1:'original-material-atlas-1x.webp',2:'original-material-atlas-2x.webp',3:'original-material-atlas.webp'},'Artwork must match the screen density');
+  assert.deepEqual(densityFiles,{1:'original-material-atlas-1x.webp',2:'original-material-atlas-2x.webp',3:'original-material-atlas-3x.webp'},'Artwork must match the screen density');
   // A dedicated controller exercises the public lifecycle independently of UI.
   await evaluate(`window.extra=document.createElement('article');extra.innerHTML='<input value="keep"><p>Content</p>';document.body.append(extra);window.original=extra.firstChild;window.sheet=api.createParchment(extra,{paper:'sage',top:'paper',bottom:'roll',maxWidth:'fluid'});await sheet.ready;`);
   await geometry();

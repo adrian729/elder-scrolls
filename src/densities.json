@@ -3,74 +3,85 @@
     "sha256": "fd8285252bd4dedee67267bead7940f1dc41200c2aebaa555e2196d5fc7b950f",
     "variants": {
       "1": "assets/ivory-material-atlas-1x.webp",
-      "2": "assets/ivory-material-atlas-2x.webp"
+      "2": "assets/ivory-material-atlas-2x.webp",
+      "3": "assets/ivory-material-atlas-3x.webp"
     }
   },
   "assets/sage-material-atlas.webp": {
     "sha256": "24e2b10848d6194e01d8b3bd30e9a346dcc4a80dbf3d059649c5e1d6334c6f43",
     "variants": {
       "1": "assets/sage-material-atlas-1x.webp",
-      "2": "assets/sage-material-atlas-2x.webp"
+      "2": "assets/sage-material-atlas-2x.webp",
+      "3": "assets/sage-material-atlas-3x.webp"
     }
   },
   "assets/original-material-atlas.webp": {
     "sha256": "c45a4def7e8143bdc57764894a86b8623d752fc9c4ee5e4a5fd1e435f791adb3",
     "variants": {
       "1": "assets/original-material-atlas-1x.webp",
-      "2": "assets/original-material-atlas-2x.webp"
+      "2": "assets/original-material-atlas-2x.webp",
+      "3": "assets/original-material-atlas-3x.webp"
     }
   },
   "assets/rag-material-atlas.webp": {
     "sha256": "b4ada2ac11c46bb5d102ec657d7fbbe7492acf1a342ac723910b20a32e9b8945",
     "variants": {
       "1": "assets/rag-material-atlas-1x.webp",
-      "2": "assets/rag-material-atlas-2x.webp"
+      "2": "assets/rag-material-atlas-2x.webp",
+      "3": "assets/rag-material-atlas-3x.webp"
     }
   },
   "assets/ivory-dark-material-atlas.webp": {
     "sha256": "27535499cc14b60b0340b906e1344d117678b6aa28513de707c20bdd40058f15",
     "variants": {
       "1": "assets/ivory-dark-material-atlas-1x.webp",
-      "2": "assets/ivory-dark-material-atlas-2x.webp"
+      "2": "assets/ivory-dark-material-atlas-2x.webp",
+      "3": "assets/ivory-dark-material-atlas-3x.webp"
     }
   },
   "assets/sage-dark-material-atlas.webp": {
     "sha256": "3e39ac17d9c63da9662d34a5b5c0a50d00bc6e28b6027c8fcc3bb6b1350abb1f",
     "variants": {
       "1": "assets/sage-dark-material-atlas-1x.webp",
-      "2": "assets/sage-dark-material-atlas-2x.webp"
+      "2": "assets/sage-dark-material-atlas-2x.webp",
+      "3": "assets/sage-dark-material-atlas-3x.webp"
     }
   },
   "assets/original-dark-material-atlas.webp": {
     "sha256": "1f2e44d3fba99910210a5b244a1d926f02ca00c3beb241a0831feb0205c95e1c",
     "variants": {
       "1": "assets/original-dark-material-atlas-1x.webp",
-      "2": "assets/original-dark-material-atlas-2x.webp"
+      "2": "assets/original-dark-material-atlas-2x.webp",
+      "3": "assets/original-dark-material-atlas-3x.webp"
     }
   },
   "assets/rag-dark-material-atlas.webp": {
     "sha256": "7a2b402d2ffac37e3f84b85f7f305fe084c22ec2eb312318fd6d9d617b176ed0",
     "variants": {
       "1": "assets/rag-dark-material-atlas-1x.webp",
-      "2": "assets/rag-dark-material-atlas-2x.webp"
+      "2": "assets/rag-dark-material-atlas-2x.webp",
+      "3": "assets/rag-dark-material-atlas-3x.webp"
     }
   },
   "assets/background-oak.webp": {
     "sha256": "224211a2ade6a499a0f72b558db497c34e57a33f019c838376caf05d6f93f255",
     "variants": {
-      "1": "assets/background-oak-1x.webp"
+      "1": "assets/background-oak-1x.webp",
+      "2": "assets/background-oak-2x.webp"
     }
   },
   "assets/background-walnut.webp": {
     "sha256": "55dc20a74c8b6878b772ef976c2663d768d9d7980596a857b4bb98ab91a24609",
     "variants": {
-      "1": "assets/background-walnut-1x.webp"
+      "1": "assets/background-walnut-1x.webp",
+      "2": "assets/background-walnut-2x.webp"
     }
   },
   "assets/background-marble.webp": {
     "sha256": "ca4157a03daeb58b6aa1fcbc73388e5a349de985ad48eef60438aeb78e7e3e59",
     "variants": {
-      "1": "assets/background-marble-1x.webp"
+      "1": "assets/background-marble-1x.webp",
+      "2": "assets/background-marble-2x.webp"
     }
   }
 }

@@ -112,7 +112,7 @@ build.py                Offline/linked demo builder
 
 ## Performance and artwork
 
-Fixed-scale SVG patterns reuse WebP atlases. The originals are 3x art for papers and 2x for tables; each also ships smaller copies for 1x and 2x screens (`scripts/build-densities.py`), and a screen loads the smallest one that covers its pixel ratio, the original otherwise. One observer per sheet updates layout after content/size changes; there are no scroll handlers. Shadows use local filter regions rather than filtering the long page. Linked applications request selected textures, and optional fonts only load when used.
+Fixed-scale SVG patterns reuse WebP atlases. The originals are 3x art for papers and 2x for tables; each also ships lighter copies for every density up to its own, 1x, 2x and 3x for papers and 1x and 2x for tables (`scripts/build-densities.py`), and a screen loads the smallest one that covers its pixel ratio, the original only above that. One observer per sheet updates layout after content/size changes; there are no scroll handlers. Shadows use local filter regions rather than filtering the long page. Linked applications request selected textures, and optional fonts only load when used.
 
 Unchanged options skip decoration updates. Content growth retains cap and shadow SVG nodes, updating only texture alignment and shadow geometry. Ending and width changes refresh shadows after the final geometry is available. The [isolated preview](https://adrian729.github.io/elder-scrolls/examples/performance/?surface=walnut&width=900) lets you check backgrounds, widths, endings, and growing content without the showcase's fonts or illustrations.
 

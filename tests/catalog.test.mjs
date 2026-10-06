@@ -31,7 +31,7 @@ test('every paper has density copies, made from its current artwork', () => {
   const manifest = JSON.parse(readFileSync(new URL('src/densities.json', root), 'utf8'));
   for (const paper of papers.list()) {
     assert.ok(manifest[paper.atlas], paper.id + ' has no density copies: run scripts/build-densities.py');
-    assert.deepEqual(paper.densities, [1, 2]);
+    assert.deepEqual(paper.densities, [1, 2, 3]);
   }
   for (const [path, { sha256, variants }] of Object.entries(manifest)) {
     const current = createHash('sha256').update(readFileSync(new URL(path, root))).digest('hex');
