@@ -145,7 +145,7 @@ That build exposes the same core API through `ElderScrolls` and does not include
 | `top`, `bottom` | `roll` | `roll`, `paper`, independently |
 | `maxWidth` | `900` | Positive number of CSS pixels, or `fluid` |
 | `shadow` | `true` | Boolean |
-| `assetsBase` | Automatic CSS URLs | Directory URL containing the original texture filenames |
+| `assetsBase` | Automatic CSS URLs | Directory URL containing the texture files, with their `-1x`/`-2x` copies, under their original names |
 
 A numeric width is a **maximum**: the sheet shrinks to its container. Grain, edges, and roll thickness retain their fixed size. Avoid applying CSS transforms to scale the complete parchment. Original rolled artwork stays matched to each paper; wooden knobs are not interchangeable.
 
@@ -210,7 +210,7 @@ The demo's justified paragraphs and manuscript illustrations are demo content, n
 
 The package stylesheet declares relative texture URLs on hidden asset-probe selectors. Bundlers can copy/hash these files and rewrite their CSS URLs; the renderer reads the resolved URLs from the loaded stylesheet once per document, falling back to an unpainted CSS probe for stylesheets it cannot read. Only selected assets are preloaded and rendered. It does not fetch every paper merely because all paths are listed in CSS.
 
-For custom hosting, copy the WebP files to your asset directory and supply `assetsBase`, for example `/my-app/textures/` or `https://cdn.example.com/textures/`. Preserve filenames. URLs may be relative to the document or absolute. No runtime dependency on GitHub or an external CDN is required.
+Each texture ships as its original plus smaller `-1x` and `-2x` copies; a screen loads the smallest copy that covers its `devicePixelRatio`, and the original otherwise. For custom hosting, copy all the WebP files, copies included, to your asset directory and supply `assetsBase`, for example `/my-app/textures/` or `https://cdn.example.com/textures/`. Preserve filenames. URLs may be relative to the document or absolute. No runtime dependency on GitHub or an external CDN is required.
 
 Parchment atlases are 1254×1254 pixels (about 6 MiB decoded RGBA each). The table tiles are the same size. Switching through many materials may leave browser-cached artwork in memory; the library's shared decode-promise cache is capped at 32 URLs. Cleanup prevents later rendering but does not promise to cancel a browser image download already in progress.
 

@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { papers, families, createParchment } from '../lib/index.js';
 
 test('all four paper families expose at least two choices', () => {
@@ -22,4 +24,18 @@ test('invalid selections fail clearly', () => {
 test('core imports without DOM globals', () => {
   assert.equal(typeof globalThis.document, 'undefined');
   assert.equal(typeof createParchment, 'function');
+});
+
+test('every paper has density copies, made from its current artwork', () => {
+  const root = new URL('..', import.meta.url);
+  const manifest = JSON.parse(readFileSync(new URL('src/densities.json', root), 'utf8'));
+  for (const paper of papers.list()) {
+    assert.ok(manifest[paper.atlas], paper.id + ' has no density copies: run scripts/build-densities.py');
+    assert.deepEqual(paper.densities, [1, 2]);
+  }
+  for (const [path, { sha256, variants }] of Object.entries(manifest)) {
+    const current = createHash('sha256').update(readFileSync(new URL(path, root))).digest('hex');
+    assert.equal(current, sha256, path + ' changed since its copies were made: run scripts/build-densities.py');
+    for (const variant of Object.values(variants)) assert.ok(existsSync(new URL(variant, root)), variant + ' is missing');
+  }
 });

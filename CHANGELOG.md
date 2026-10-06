@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.4 — 2026-10-06
+
+Screens download artwork made for their pixel density. Everything else is unchanged.
+
+- Ship each texture with smaller copies for 1x and 2x screens (paper atlases are 3x art, table images 2x). Sheets, tables and `preloadArtwork` load the smallest copy that covers the screen's `devicePixelRatio`, and the original on denser screens. The originals are unchanged.
+- `scripts/build-densities.py` makes the copies from the originals and records their hashes; a catalog test fails if an original changes without its copies being remade.
+- Add a packed-archive integration check: at 1x, 2x and 3x a sheet uses the 1x copy, the 2x copy and the original.
+
+A rag sheet on a walnut table, the first screen of a React/Vite application, downloads 134 KB of artwork instead of 772 KB on a 1x screen and 531 KB on a 2x screen; 3x screens are unchanged. Rendered at their drawn size the copies match the browser-scaled originals closely (SSIM about 0.97), with no visible difference in a side-by-side comparison. The package carries 1.9 MB more of copies; pages download only the ones they use.
+
+**Upgrade:** `npm install @ranx729/elder-scrolls@0.1.4`. No code changes are needed. Applications that host the textures themselves (`assetsBase`) must copy the `-1x` and `-2x` files too.
+
 ## 0.1.3 — 2026-10-05
 
 Applications can decode artwork before a sheet needs it. Everything else is unchanged.
