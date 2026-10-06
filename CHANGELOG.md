@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.6 — 2026-10-07
+
+Screens denser than an artwork's own density load its densest copy instead of the original. Everything else is unchanged.
+
+- A table image is 2x art, so on 3x screens (most current phones) the original held no more detail than the `-2x` copy, only a heavier encoding. Sheets, tables and `preloadArtwork` now load the densest copy on any screen denser than the copies; artwork without copies still loads its original. The originals stay in the package as the source art.
+- The packed-archive integration check adds a 4x screen, which gets the paper's `-3x` copy.
+
+A walnut table on a 3x screen downloads 178 KB instead of 351 KB.
+
+**Upgrade:** `npm install @ranx729/elder-scrolls@0.1.6`. No code changes are needed.
+
 ## 0.1.5 — 2026-10-06
 
 Screens download lighter artwork. Everything else is unchanged.

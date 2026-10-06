@@ -1,11 +1,12 @@
 {
   "package": "@ranx729/elder-scrolls",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "initialSelectedImages": 3,
   "densityFiles": {
     "1": "original-material-atlas-1x.webp",
     "2": "original-material-atlas-2x.webp",
-    "3": "original-material-atlas-3x.webp"
+    "3": "original-material-atlas-3x.webp",
+    "4": "original-material-atlas-3x.webp"
   },
   "vanillaMatrix": 32,
   "responsive": [
