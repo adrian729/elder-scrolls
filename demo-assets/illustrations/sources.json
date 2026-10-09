@@ -1,7 +1,7 @@
 {
   "runtime": {
     "package": "@ranx729/medieval-ornaments",
-    "version": "0.7.0"
+    "version": "0.10.0"
   },
   "illustrations": [
     {
@@ -9,11 +9,11 @@
       "description": "A brown rabbit with tall ears and a wide white eye leans left over an open pale book, with a paw resting on the marked pages.",
       "displayWidth": 128,
       "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/rabbit-reading-book.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/128/rabbit-reading-book.webp",
           "path": "webp/128/rabbit-reading-book.webp",
           "width": 128,
           "height": 90,
@@ -22,7 +22,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/rabbit-reading-book.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/256/rabbit-reading-book.webp",
           "path": "webp/256/rabbit-reading-book.webp",
           "width": 256,
           "height": 179,
@@ -36,11 +36,11 @@
       "description": "A pink pig facing right has large gold feathered wings, a curled tail, and dangling legs.",
       "displayWidth": 112,
       "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/flying-pig.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/128/flying-pig.webp",
           "path": "webp/128/flying-pig.webp",
           "width": 128,
           "height": 128,
@@ -49,7 +49,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/flying-pig.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/256/flying-pig.webp",
           "path": "webp/256/flying-pig.webp",
           "width": 256,
           "height": 256,
@@ -63,11 +63,11 @@
       "description": "A seated shaggy dog-like creature has a human-like bearded face looking toward the viewer, dark paws, and a long curled tail.",
       "displayWidth": 128,
       "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/weird-dog.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/128/weird-dog.webp",
           "path": "webp/128/weird-dog.webp",
           "width": 128,
           "height": 105,
@@ -76,7 +76,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/weird-dog.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/256/weird-dog.webp",
           "path": "webp/256/weird-dog.webp",
           "width": 256,
           "height": 210,
@@ -90,11 +90,11 @@
       "description": "An orange-brown snail faces right with long feelers and a large brown spiral shell.",
       "displayWidth": 120,
       "package": "@ranx729/medieval-ornaments-assets-illustrations-001",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/128/snail.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/128/snail.webp",
           "path": "webp/128/snail.webp",
           "width": 128,
           "height": 64,
@@ -103,7 +103,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://unpkg.com/@ranx729/medieval-ornaments-assets-illustrations-001@0.1.0/webp/256/snail.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/medieval-ornaments-assets-illustrations-001@0.2.0/webp/256/snail.webp",
           "path": "webp/256/snail.webp",
           "width": 256,
           "height": 128,
