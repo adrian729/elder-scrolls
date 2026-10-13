@@ -1,6 +1,6 @@
 {
   "package": "@ranx729/elder-scrolls",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "initialSelectedImages": 3,
   "densityFiles": {
     "1": "original-material-atlas-1x.webp",

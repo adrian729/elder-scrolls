@@ -7,3 +7,4 @@ node_modules/
 *.tgz
 examples/react/dist/
 /tmp/
+/.playwright-cli/

@@ -97,6 +97,15 @@ Integration checks use Chromium (`CHROME_BIN` overrides the executable), install
 
 The GitHub Pages workflow builds the linked demo, native-JS example, and browser download. Generated files are ignored; Git commits provide history.
 
+To release, update the package version and changelog, refresh illustration metadata
+when upgrading medieval-ornaments, and run the checks above. Push the tested commit
+to `main`, then dispatch `release.yml`; npm Trusted Publishing binds that workflow
+to `adrian729/elder-scrolls` without a stored publishing token. After npm publication
+is verified, create the matching GitHub version release with
+`dist/elder-scrolls-browser.zip`. Verify the Pages demo and browser download after
+deployment. Existing npm versions are immutable; do not rerun publication after a
+successful upload.
+
 ```text
 lib/                    Core API, React adapter, geometry and optional typography
 src/                    Demo, document shell, canonical paper/background manifests

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.7 — 2026-10-13
+
+The demo now resolves its illustrations using `@ranx729/medieval-ornaments` 0.11.0.
+The four selected illustrations retain the same verified artwork, resource URLs,
+sizes and hashes. The dependency remains development-only; consumers do not
+install the ornaments runtime or its artwork packages.
+
+**Upgrade:** `npm install @ranx729/elder-scrolls@0.1.7`. No code changes are needed.
+
 ## 0.1.6 — 2026-10-07
 
 Screens denser than an artwork's own density load its densest copy instead of the original. Everything else is unchanged.
