@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-13",
+  "sourceCommit": "d13aa9cf443cfeeab06ed2e246063b940610b7fa",
+  "package": "@ranx729/elder-scrolls",
+  "version": "0.1.7",
+  "medievalOrnaments": "0.11.0",
+  "verifiedPackageFiles": 84,
+  "registryIntegrity": "sha512-lUQxzd3XeCo5a6orA+nqWTkfmSvawrtKV8I1Q+6jod2T7M5ZSFYR7M7ohKJB4T+T2hj+idXFA4mngsKLXgDk2w==",
+  "cdnEntriesVerified": true,
+  "runtimeDependencies": false,
+  "release": "https://github.com/adrian729/elder-scrolls/releases/tag/v0.1.7",
+  "site": "https://adrian729.github.io/elder-scrolls/",
+  "workflows": {
+    "tests": 38449592618,
+    "pages": 38449592678,
+    "publish": 38450746842
+  },
+  "checks": {
+    "unitTests": 6,
+    "demoTests": 5,
+    "types": "pass",
+    "packedVanillaReact": "pass",
+    "offlineBuild": "pass",
+    "linkedBuild": "pass",
+    "demoWidths": [
+      375,
+      1200
+    ],
+    "demoIllustrations": 4,
+    "verifiedCDNIllustrationVariants": 8,
+    "themeSwitch": "pass",
+    "horizontalOverflow": false,
+    "pageErrors": [],
+    "deployedBrowserZipFilesVerified": 85
+  },
+  "releaseBrowserZip": {
+    "file": "elder-scrolls-browser.zip",
+    "bytes": 10940397,
+    "sha256": "bc4a090becd3ea9feba167d919bf2903fce1b70e6f5a411ebe949ed7ded2a16a",
+    "downloadMatchesLocal": true,
+    "crc": "pass"
+  },
+  "artwork": "Selected illustration URLs, sizes and hashes are unchanged; medieval-ornaments remains a development dependency."
+}
