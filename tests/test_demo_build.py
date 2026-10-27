@@ -40,6 +40,16 @@ class IllustrationBuildTests(unittest.TestCase):
         self.assertNotIn('data-illustration', output)
         self.assertFalse(self.cache.exists())
 
+    def test_linked_build_offers_avif_first_when_every_variant_has_it(self):
+        for variant in self.records[0]['variants']:
+            variant['avif'] = {'source': variant['source'].replace('.webp', '.avif'), 'width': variant['width']}
+        output = self.build(linked=True)
+        self.assertRegex(output, r'^<picture><source type="image/avif" srcset="[^"]*snail-128\.avif 128w, [^"]*snail-256\.avif 256w" sizes="120px"><img ')
+        self.assertIn('snail-256.webp 256w', output)
+        self.assertTrue(output.endswith('</picture>'))
+        del self.records[0]['variants'][0]['avif']
+        self.assertNotIn('<picture>', self.build(linked=True))
+
     def test_downloads_only_selected_2x_image_then_rebuilds_offline(self):
         fetch = unittest.mock.Mock(return_value=io.BytesIO(self.data))
         with patch.dict(render.__globals__, {'urlopen': fetch}):

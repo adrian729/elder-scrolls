@@ -53,14 +53,23 @@ def render_illustrations(markup, records, *, linked, cache, offline=False):
             raise ValueError('Illustration width changed; run npm run demo:refresh: ' + name)
         variants = record['variants']
         fallback = next(asset for asset in variants if asset['pixelRatio'] == 2)
+        sizes = f'sizes="{record["displayWidth"]}px"'
+
+        def srcset(assets):
+            return ', '.join(html.escape(asset['source'], quote=True) + ' ' + str(asset['width']) + 'w'
+                             for asset in assets)
+
         if linked:
             source = html.escape(fallback['source'], quote=True)
-            candidates = ', '.join(html.escape(asset['source'], quote=True) + ' ' + str(asset['width']) + 'w'
-                                   for asset in variants)
-            attributes = f'src="{source}" srcset="{candidates}" sizes="{record["displayWidth"]}px"'
+            attributes = f'src="{source}" srcset="{srcset(variants)}" {sizes}'
         else:
             data = image_bytes(fallback, cache, offline)
             attributes = 'src="data:image/webp;base64,' + base64.b64encode(data).decode() + '"'
-        return tag.replace('data-illustration="' + name + '"', attributes)
+        image = tag.replace('data-illustration="' + name + '"', attributes)
+        # Linked pages offer the AVIF rungs first when every variant has one; WebP remains the <img> fallback.
+        avif = [asset['avif'] for asset in variants if 'avif' in asset]
+        if linked and len(avif) == len(variants):
+            return f'<picture><source type="image/avif" srcset="{srcset(avif)}" {sizes}>{image}</picture>'
+        return image
 
     return re.sub(r'<img\b[^>]*\bdata-illustration="([a-z0-9-]+)"[^>]*>', render, markup)

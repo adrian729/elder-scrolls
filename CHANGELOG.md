@@ -6,6 +6,8 @@ The demo's illustrations now come from the Ducktape Assets library (`@ranx729/du
 
 The illustrations are CC-BY-4.0 with attribution to adrian729; the README and the illustration source notes now say so and carry the attribution line. The library package and browser ZIP are unchanged.
 
+The linked demo now wraps each illustration in `<picture>` with the set's AVIF rungs first (about a third smaller than WebP at 128px and 256px) and the WebP `<img>` as fallback; `sources.json` records both files per density. The offline build still embeds the verified 256px WebP.
+
 ## 0.1.7 — 2026-10-13
 
 The demo now resolves its illustrations using `@ranx729/medieval-ornaments` 0.11.0.

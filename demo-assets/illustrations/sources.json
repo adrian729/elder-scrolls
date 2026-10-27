@@ -22,7 +22,15 @@
           "width": 128,
           "height": 90,
           "bytes": 5600,
-          "sha256": "9553cd33e22c9e17e54b7d120bd77ceb8d85e82a173bbc6cbfad6dd91d7b3201"
+          "sha256": "9553cd33e22c9e17e54b7d120bd77ceb8d85e82a173bbc6cbfad6dd91d7b3201",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/rabbit-reading-book-128.avif",
+            "path": "avif/rabbit-reading-book-128.avif",
+            "width": 128,
+            "height": 90,
+            "bytes": 3939,
+            "sha256": "ef0b7f79d4e9b5dd8ef79b8bb474aee64859ff6d9be90e96dcd007d1814407f8"
+          }
         },
         {
           "pixelRatio": 2,
@@ -31,7 +39,15 @@
           "width": 256,
           "height": 179,
           "bytes": 14548,
-          "sha256": "ba3414a675b2d00c2724a9c8e153efc19b4e005c332eff6e90d49f2b7313ed92"
+          "sha256": "ba3414a675b2d00c2724a9c8e153efc19b4e005c332eff6e90d49f2b7313ed92",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/rabbit-reading-book-256.avif",
+            "path": "avif/rabbit-reading-book-256.avif",
+            "width": 256,
+            "height": 179,
+            "bytes": 8452,
+            "sha256": "7598ea37153fbbb573ae6d0880feaa6b887edc0bff7aca056248191fbc740bab"
+          }
         }
       ]
     },
@@ -53,7 +69,15 @@
           "width": 128,
           "height": 128,
           "bytes": 5792,
-          "sha256": "d4ce48dd676c2e00462ed19e2a049afa702c30f56fb7750b5b34a88bf0fa23ce"
+          "sha256": "d4ce48dd676c2e00462ed19e2a049afa702c30f56fb7750b5b34a88bf0fa23ce",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/flying-pig-128.avif",
+            "path": "avif/flying-pig-128.avif",
+            "width": 128,
+            "height": 128,
+            "bytes": 4146,
+            "sha256": "d6a3808b4a752fc9d277e591280cef8bab9e4aa4f87725a73bfa74681b496e8c"
+          }
         },
         {
           "pixelRatio": 2,
@@ -62,7 +86,15 @@
           "width": 256,
           "height": 256,
           "bytes": 15184,
-          "sha256": "ff27d906b3a94ed50c9f6c5cc1c6d6ca77e39a8a8f1587bd07ba4735099893c0"
+          "sha256": "ff27d906b3a94ed50c9f6c5cc1c6d6ca77e39a8a8f1587bd07ba4735099893c0",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/flying-pig-256.avif",
+            "path": "avif/flying-pig-256.avif",
+            "width": 256,
+            "height": 256,
+            "bytes": 8859,
+            "sha256": "1c2e8b2da02e0d8e9df43c7f0eb79ac419167f1b0d4ab03e900c145c4b321322"
+          }
         }
       ]
     },
@@ -84,7 +116,15 @@
           "width": 128,
           "height": 105,
           "bytes": 6080,
-          "sha256": "5b289bb2ff2174c436c9e4291184c3b64b67aac71554e9aefa25238e6111657b"
+          "sha256": "5b289bb2ff2174c436c9e4291184c3b64b67aac71554e9aefa25238e6111657b",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/weird-dog-128.avif",
+            "path": "avif/weird-dog-128.avif",
+            "width": 128,
+            "height": 105,
+            "bytes": 3973,
+            "sha256": "964e7d930fbaf157315b18b48a91ed209a8523f340325b1a4616c88b6666dba4"
+          }
         },
         {
           "pixelRatio": 2,
@@ -93,7 +133,15 @@
           "width": 256,
           "height": 210,
           "bytes": 17690,
-          "sha256": "4679e7bc29e4b517e3ba2dbe8bae86d75020abbc30e660e32679b4b6f775ea5b"
+          "sha256": "4679e7bc29e4b517e3ba2dbe8bae86d75020abbc30e660e32679b4b6f775ea5b",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/weird-dog-256.avif",
+            "path": "avif/weird-dog-256.avif",
+            "width": 256,
+            "height": 210,
+            "bytes": 10723,
+            "sha256": "80f40eb55f9d5c77ec79050b6c24d9c3c44168c30cf0f9358842aa88ad24a295"
+          }
         }
       ]
     },
@@ -115,7 +163,15 @@
           "width": 128,
           "height": 64,
           "bytes": 4380,
-          "sha256": "789c53006d3905932c66b4d301e106b09bfc7eebf22b2f604b114a176400c1ef"
+          "sha256": "789c53006d3905932c66b4d301e106b09bfc7eebf22b2f604b114a176400c1ef",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/snail-128.avif",
+            "path": "avif/snail-128.avif",
+            "width": 128,
+            "height": 64,
+            "bytes": 2459,
+            "sha256": "90985f5b49847773dc72271508aff5659b2e4913de0b8232780331d4144ec631"
+          }
         },
         {
           "pixelRatio": 2,
@@ -124,7 +180,15 @@
           "width": 256,
           "height": 128,
           "bytes": 11538,
-          "sha256": "478b04363e061abd3ce7d6953bfff7cadd5b569c32fcc876b7b72b17342e5ec4"
+          "sha256": "478b04363e061abd3ce7d6953bfff7cadd5b569c32fcc876b7b72b17342e5ec4",
+          "avif": {
+            "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/avif/snail-256.avif",
+            "path": "avif/snail-256.avif",
+            "width": 256,
+            "height": 128,
+            "bytes": 6186,
+            "sha256": "046b1628e6150214904dff2a21bec7002be3a1677c4eb5673d3485f71949ccde"
+          }
         }
       ]
     }
