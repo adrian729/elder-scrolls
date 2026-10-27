@@ -93,12 +93,12 @@ npm run build:browser
 npm pack
 ```
 
-Integration checks use Chromium (`CHROME_BIN` overrides the executable), install a real package archive, and exercise vanilla HTML plus React development/production builds. React, Vite, TypeScript, and the medieval-ornaments resolver are development dependencies; vanilla consumers do not install them. Consumers do not need Python. Run `npm run demo:refresh` when upgrading medieval-ornaments or changing demo image selections/sizes; it updates the committed source metadata using the runtime's individual resolvers and verified resource manifests.
+Integration checks use Chromium (`CHROME_BIN` overrides the executable), install a real package archive, and exercise vanilla HTML plus React development/production builds. React, Vite, TypeScript, and the Ducktape Assets resolver are development dependencies; vanilla consumers do not install them. Consumers do not need Python. Run `npm run demo:refresh` when upgrading `@ranx729/ducktape-assets` or changing demo image selections/sizes; it updates the committed source metadata from the installed index package's set manifests, with no image downloads.
 
 The GitHub Pages workflow builds the linked demo, native-JS example, and browser download. Generated files are ignored; Git commits provide history.
 
 To release, update the package version and changelog, refresh illustration metadata
-when upgrading medieval-ornaments, and run the checks above. Push the tested commit
+when upgrading Ducktape Assets, and run the checks above. Push the tested commit
 to `main`, then dispatch `release.yml`; npm Trusted Publishing binds that workflow
 to `adrian729/elder-scrolls` without a stored publishing token. After npm publication
 is verified, create the matching GitHub version release with
@@ -127,8 +127,8 @@ Unchanged options skip decoration updates. Content growth retains cap and shadow
 
 [Performance details and verification limits](https://github.com/adrian729/elder-scrolls/blob/main/docs/GUIDE.md#verification-and-limits) distinguish transfer size, decoded images, and browser painting costs. Recorded Chromium checks are not a real-device FPS benchmark or Firefox/Safari certification.
 
-Parchment/table textures are AI-generated; [prompts and provenance](https://github.com/adrian729/elder-scrolls/blob/main/notes/README.md) are included. Demo illustrations come from [medieval-ornaments](https://github.com/adrian729/medieval-ornaments) through version-pinned CDN URLs; [source records and licensing scope](https://github.com/adrian729/elder-scrolls/blob/main/demo-assets/illustrations/README.md) are separate. They are excluded from the npm package.
+Parchment/table textures are AI-generated; [prompts and provenance](https://github.com/adrian729/elder-scrolls/blob/main/notes/README.md) are included. Demo illustrations come from the `medieval-cutouts` set of [Ducktape Assets](https://github.com/adrian729/ducktape-assets-medieval-cutouts) through version-pinned CDN URLs; [source records and licensing scope](https://github.com/adrian729/elder-scrolls/blob/main/demo-assets/illustrations/README.md) are separate. They are excluded from the npm package.
 
 ## License
 
-[MIT](https://github.com/adrian729/elder-scrolls/blob/main/LICENSE) for code, documentation, and generated parchment/table texture assets. Fonts retain **SIL Open Font License 1.1**; see [font credits](https://github.com/adrian729/elder-scrolls/blob/main/assets/fonts/README.md). Demo cutouts retain their source's licensing status and are outside the MIT grant for generated textures.
+[MIT](https://github.com/adrian729/elder-scrolls/blob/main/LICENSE) for code, documentation, and generated parchment/table texture assets. Fonts retain **SIL Open Font License 1.1**; see [font credits](https://github.com/adrian729/elder-scrolls/blob/main/assets/fonts/README.md). Demo illustrations (the `medieval-cutouts` set of Ducktape Assets: rabbit reading a book, flying pig, snail, weird dog) are licensed [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) and are outside the MIT grant. Illustrations by adrian729, via Ducktape Assets; origin unrecorded, removed on any rights claim.

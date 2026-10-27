@@ -1,58 +1,66 @@
-// Refresh build metadata using only the designs selected in the demo template.
+// Refresh build metadata using only the illustrations selected in the demo template.
+// Reads the installed @ranx729/ducktape-assets index package (metadata only); no image bytes are downloaded.
 import { readFile, writeFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
-import { getAssetSource } from '@ranx729/medieval-ornaments/resources';
-const { version } = createRequire(import.meta.url)('@ranx729/medieval-ornaments/package.json');
+import { createResolver } from '@ranx729/ducktape-assets';
+import { fsManifestLoader } from '@ranx729/ducktape-assets/node';
 
+const require = createRequire(import.meta.url);
+const { version } = require('@ranx729/ducktape-assets/package.json');
+const indexPath = require.resolve('@ranx729/ducktape-assets/index.json');
 const root = new URL('../', import.meta.url);
 const template = await readFile(new URL('src/template.html', root), 'utf8');
-const manifests = new Map();
-const records = [];
-const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 
-async function resourceManifest(source) {
-  if (!manifests.has(source.id)) {
-    const url = source.base + 'resource-manifest.json';
-    const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
-    const bytes = Buffer.from(await response.arrayBuffer());
-    if (hash(bytes) !== source.manifestSha256) throw new Error(`Resource manifest integrity mismatch: ${url}`);
-    const manifest = JSON.parse(bytes);
-    if (manifest.package !== source.package || manifest.version !== source.version) {
-      throw new Error(`Resource identity mismatch: ${url}`);
-    }
-    manifests.set(source.id, manifest);
-  }
-  return manifests.get(source.id);
+// Demo name -> library id. Names are the old medieval-ornaments names; all moved to medieval-cutouts unchanged.
+const SET = 'medieval-cutouts';
+const FORMAT = 'webp';
+const assets = createResolver({
+  index: JSON.parse(await readFile(indexPath, 'utf8')),
+  loadManifest: fsManifestLoader(indexPath),
+  formats: [FORMAT]
+});
+
+// The set manifest has no structured attribution field yet; the credit is only in the usage notes.
+function attributionOf(asset, manifest) {
+  const text = [...(asset.usage_notes ?? []), manifest.license?.notes ?? ''].join(' ');
+  const credit = text.match(/attribution to ([^.;]+)[.;]/i)?.[1];
+  if (!credit) throw new Error('No attribution found in the asset metadata');
+  return credit.trim();
 }
 
+const records = [];
 for (const [tag, name] of template.matchAll(/<img\b[^>]*\bdata-illustration="([a-z0-9-]+)"[^>]*>/g)) {
   if (records.some(record => record.name === name)) throw new Error(`Duplicate illustration: ${name}`);
   const displayWidth = Number(tag.match(/\bwidth="(\d+)"/)?.[1]);
   if (!displayWidth) throw new Error(`Missing display width: ${name}`);
-  const { ornament, resolveOrnament } = await import(`@ranx729/medieval-ornaments/designs/${name}`);
-  const source = getAssetSource(name);
-  const manifest = await resourceManifest(source);
-  // The runtime's size is CSS height. Use the exact aspect ratio so a rounded
-  // display height cannot accidentally select the next larger raster variant.
-  const size = displayWidth * ornament.height / ornament.width;
-  const variants = [1, 2].map(pixelRatio => {
-    const { asset } = resolveOrnament('image', { size, pixelRatio, format: 'webp' });
-    const file = manifest.files[asset.path];
-    if (!file || asset.resolutionLimited) throw new Error(`Missing adequate raster: ${name} at ${pixelRatio}x`);
-    return {
-      pixelRatio, source: asset.url, path: asset.path,
-      width: asset.width, height: asset.height, bytes: file.bytes, sha256: file.sha256
-    };
-  });
+  const id = `${SET}/${name}`;
+  const { asset, manifest } = await assets.get(id);
+  const ratio = asset.height / asset.width;
+  // With dpr 1 the resolver's `src` is the smallest rung at or above the requested pixel width, never upscaled.
+  const resolved = await Promise.all([1, 2].map(pixelRatio =>
+    assets.image(id, { width: displayWidth * pixelRatio, dpr: 1, placeholder: false })));
   records.push({
-    name, description: ornament.description, displayWidth,
-    package: source.package, version: source.version, variants
+    name, id, description: asset.description, displayWidth,
+    package: manifest.package, version: manifest.version,
+    license: resolved[0].license.artwork,
+    attribution: attributionOf(asset, manifest),
+    licenseNotes: resolved[0].license.notes,
+    variants: resolved.map((image, index) => {
+      const pixelRatio = index + 1;
+      if (image.resolutionLimited) throw new Error(`Missing adequate raster: ${name} at ${pixelRatio}x`);
+      const file = asset.sources[FORMAT].find(rung => assets.url(rung, SET) === image.src);
+      if (!file) throw new Error(`Selected URL is not in the manifest: ${image.src}`);
+      // The rung must keep the artwork's exact proportions (within rounding of one pixel).
+      if (Math.abs(file.h - file.w * ratio) > 1) throw new Error(`Rung changes aspect ratio: ${file.path}`);
+      return {
+        pixelRatio, source: image.src, path: file.path,
+        width: file.w, height: file.h, bytes: file.bytes, sha256: file.sha256
+      };
+    })
   });
 }
 if (!records.length) throw new Error('No demo illustrations found');
 await writeFile(new URL('demo-assets/illustrations/sources.json', root), JSON.stringify({
-  runtime: { package: '@ranx729/medieval-ornaments', version }, illustrations: records
+  runtime: { package: '@ranx729/ducktape-assets', version }, illustrations: records
 }, null, 2) + '\n');
-console.log(`Resolved ${records.length} demo illustrations; downloaded resource metadata only.`);
+console.log(`Resolved ${records.length} demo illustrations; index metadata only, no downloads.`);

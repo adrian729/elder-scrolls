@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+The demo's illustrations now come from the Ducktape Assets library (`@ranx729/ducktape-assets` 1.0.0, set `medieval-cutouts`) instead of `@ranx729/medieval-ornaments`. The four illustrations are the same artwork at new exact-version CDN URLs, 128px and 256px WebP, with dimensions, bytes and SHA-256 hashes recorded from the set manifest. `sources.json` gains `id`, `license`, `attribution` and `licenseNotes` per illustration.
+
+The illustrations are CC-BY-4.0 with attribution to adrian729; the README and the illustration source notes now say so and carry the attribution line. The library package and browser ZIP are unchanged.
+
 ## 0.1.7 — 2026-10-13
 
 The demo now resolves its illustrations using `@ranx729/medieval-ornaments` 0.11.0.
