@@ -1,7 +1,7 @@
 {
   "runtime": {
     "package": "@ranx729/ducktape-assets",
-    "version": "1.0.0"
+    "version": "1.2.0"
   },
   "illustrations": [
     {
@@ -10,14 +10,14 @@
       "description": "A brown rabbit with tall ears crouches facing left and leans over an open book lying at the left, one paw resting on the written page; transparent background.",
       "displayWidth": 128,
       "package": "@ranx729/ducktape-assets-medieval-cutouts",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license": "CC-BY-4.0",
-      "attribution": "adrian729",
+      "attribution": "adrian729 (CC-BY-4.0)",
       "licenseNotes": "Origin unrecorded; attribution to adrian729. Removed on any rights claim.",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/rabbit-reading-book-128.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/rabbit-reading-book-128.webp",
           "path": "webp/rabbit-reading-book-128.webp",
           "width": 128,
           "height": 90,
@@ -26,7 +26,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/rabbit-reading-book-256.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/rabbit-reading-book-256.webp",
           "path": "webp/rabbit-reading-book-256.webp",
           "width": 256,
           "height": 179,
@@ -41,14 +41,14 @@
       "description": "A pink pig with a curled tail and large gold feathered wings flies toward the right with its legs dangling below; transparent background.",
       "displayWidth": 112,
       "package": "@ranx729/ducktape-assets-medieval-cutouts",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license": "CC-BY-4.0",
-      "attribution": "adrian729",
+      "attribution": "adrian729 (CC-BY-4.0)",
       "licenseNotes": "Origin unrecorded; attribution to adrian729. Removed on any rights claim.",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/flying-pig-128.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/flying-pig-128.webp",
           "path": "webp/flying-pig-128.webp",
           "width": 128,
           "height": 128,
@@ -57,7 +57,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/flying-pig-256.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/flying-pig-256.webp",
           "path": "webp/flying-pig-256.webp",
           "width": 256,
           "height": 256,
@@ -72,14 +72,14 @@
       "description": "A seated shaggy cream and gray dog-like creature with a bearded human face, an open red mouth and a long plumed tail looks straight at the viewer; transparent background.",
       "displayWidth": 128,
       "package": "@ranx729/ducktape-assets-medieval-cutouts",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license": "CC-BY-4.0",
-      "attribution": "adrian729",
+      "attribution": "adrian729 (CC-BY-4.0)",
       "licenseNotes": "Origin unrecorded; attribution to adrian729. Removed on any rights claim.",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/weird-dog-128.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/weird-dog-128.webp",
           "path": "webp/weird-dog-128.webp",
           "width": 128,
           "height": 105,
@@ -88,7 +88,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/weird-dog-256.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/weird-dog-256.webp",
           "path": "webp/weird-dog-256.webp",
           "width": 256,
           "height": 210,
@@ -103,14 +103,14 @@
       "description": "A snail with an orange-tan body, two long feelers and a large brown spiral shell crawls to the right; transparent background. Wide landscape cut-out (2:1).",
       "displayWidth": 120,
       "package": "@ranx729/ducktape-assets-medieval-cutouts",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license": "CC-BY-4.0",
-      "attribution": "adrian729",
+      "attribution": "adrian729 (CC-BY-4.0)",
       "licenseNotes": "Origin unrecorded; attribution to adrian729. Removed on any rights claim.",
       "variants": [
         {
           "pixelRatio": 1,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/snail-128.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/snail-128.webp",
           "path": "webp/snail-128.webp",
           "width": 128,
           "height": 64,
@@ -119,7 +119,7 @@
         },
         {
           "pixelRatio": 2,
-          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.0/webp/snail-256.webp",
+          "source": "https://cdn.jsdelivr.net/npm/@ranx729/ducktape-assets-medieval-cutouts@1.0.1/webp/snail-256.webp",
           "path": "webp/snail-256.webp",
           "width": 256,
           "height": 128,
